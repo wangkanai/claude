@@ -24,7 +24,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
     <!-- Assembly Information -->
-    <AssemblyTitle>Claude CLI</AssemblyTitle>
+    <AssemblyTitle>Claude</AssemblyTitle>
     <AssemblyDescription>High-performance .NET reimplementation of Anthropic's Claude Code CLI</AssemblyDescription>
     <AssemblyConfiguration>Release</AssemblyConfiguration>
     <AssemblyCompany>Wangkanai</AssemblyCompany>
@@ -33,6 +33,7 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <InformationalVersion>1.0.0-preview.1</InformationalVersion>
+    <RootNamespace>Claude</RootNamespace>
 
     <!-- Build Configuration -->
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>

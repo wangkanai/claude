@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
 
-namespace Claude.Cli;
+namespace Claude;
 
 /// <summary>
 /// Entry point for the Claude CLI application.
