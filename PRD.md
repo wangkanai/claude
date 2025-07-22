@@ -1,17 +1,19 @@
-# Claude.NET - Product Requirements Document (PRD)
+# claude dotnet - Product Requirements Document (PRD)
 
 **Version**: 1.0  
-**Created**: 2025-07-23  
-**Author**: Wangkanai Development Team  
+**Created**: 2025-07-22  
+**Author**: Sarin Na Wangkanai  
 **Project**: High-Performance .NET 9.0 Reimplementation of Claude Code CLI
+**Repository**: https://github.com/wangkanai/claude
 
 ---
 
-## 📋 Executive Summary
+## 📋 Project Summary
 
-Claude.NET is a complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0. This project aims to deliver superior performance, enhanced type safety, and better integration with the .NET ecosystem while maintaining full feature parity with the original Node.js implementation.
+**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0, distributed as a .NET Global Tool. This project aims to deliver superior performance, enhanced type safety, and better integration with the .NET ecosystem while maintaining full feature parity with the original Node.js implementation.
 
 ### **Key Value Propositions**
+
 - **2-5x Performance Improvement** through compiled .NET code
 - **30-50% Lower Memory Usage** with optimized garbage collection
 - **Enhanced Type Safety** using C# 12's advanced type system
@@ -24,9 +26,11 @@ Claude.NET is a complete reimplementation of Anthropic's Claude Code CLI tool us
 ## 🎯 Product Vision & Goals
 
 ### **Vision Statement**
+
 "To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging the full power of the .NET ecosystem."
 
 ### **Primary Goals**
+
 1. **Performance Excellence**: Deliver significantly faster execution than the Node.js version
 2. **Type Safety**: Eliminate runtime errors through compile-time checking
 3. **Developer Experience**: Provide superior tooling, debugging, and maintainability
@@ -34,6 +38,7 @@ Claude.NET is a complete reimplementation of Anthropic's Claude Code CLI tool us
 5. **Feature Parity**: Match or exceed all capabilities of Claude Code
 
 ### **Success Metrics**
+
 - **Performance**: 2-5x faster command execution
 - **Memory**: 30-50% reduction in memory footprint
 - **Reliability**: 99.9% uptime with robust error handling
@@ -45,6 +50,7 @@ Claude.NET is a complete reimplementation of Anthropic's Claude Code CLI tool us
 ## 🏗️ Technical Architecture
 
 ### **Core Technology Stack**
+
 ```
 Runtime:        .NET 9.0
 Language:       C# 12 with latest language features
@@ -57,9 +63,10 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 ```
 
 ### **High-Level Architecture**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Claude.NET CLI                           │
+│                    claude dotnet CLI                        │
 ├─────────────────────────────────────────────────────────────┤
 │  Command Layer    │ System.CommandLine Integration         │
 │  Tool Layer       │ Strategy Pattern for Operations        │
@@ -71,6 +78,7 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 ```
 
 ### **Key Architectural Patterns**
+
 - **Command Pattern**: Structured command processing pipeline
 - **Strategy Pattern**: Tool-based operation handling
 - **Plugin Architecture**: MEF-based extensibility for MCP servers
@@ -85,22 +93,24 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 ### **1. Command Line Interface (CLI)**
 
 #### **Natural Language Processing**
+
 - **Conversational Interface**: Accept natural language commands and requests
 - **Context Awareness**: Understand project structure and development context
 - **Command History**: Persistent command history and session management
 - **Slash Commands**: Support structured commands (e.g., `/analyze`, `/implement`)
 
 #### **System.CommandLine Integration**
+
 ```csharp
 [Command("analyze")]
 public class AnalyzeCommand : ICommand
 {
     [Option("--scope", Description = "Analysis scope (file|module|project|system)")]
     public string Scope { get; set; } = "project";
-    
+
     [Option("--focus", Description = "Focus area (performance|security|quality|architecture)")]
     public string Focus { get; set; }
-    
+
     public async Task<int> InvokeAsync(InvocationContext context);
 }
 ```
@@ -108,6 +118,7 @@ public class AnalyzeCommand : ICommand
 ### **2. Tool System Architecture**
 
 #### **Core Tools** (Full Implementation Required)
+
 - **File Operations**: `Read`, `Write`, `Edit`, `MultiEdit`
 - **Search & Discovery**: `Grep`, `Glob`, `LS`
 - **Code Execution**: `Bash`, `Task`
@@ -115,6 +126,7 @@ public class AnalyzeCommand : ICommand
 - **Web Integration**: `WebFetch`, `WebSearch`
 
 #### **Tool Interface Design**
+
 ```csharp
 public interface ITool
 {
@@ -130,6 +142,7 @@ public record ErrorResult(string Error, Exception? Exception = null) : ToolResul
 ```
 
 #### **Permission System**
+
 ```csharp
 public class PermissionManager
 {
@@ -148,6 +161,7 @@ public class PermissionSettings
 ### **3. MCP (Model Context Protocol) Integration**
 
 #### **JSON-RPC Implementation**
+
 ```csharp
 public interface IMCPServer
 {
@@ -165,6 +179,7 @@ public class SequentialThinkingServer : IMCPServer
 ```
 
 #### **Plugin Architecture**
+
 - **MEF Integration**: Managed Extensibility Framework for plugin loading
 - **Dynamic Loading**: Runtime discovery and loading of MCP server assemblies
 - **Configuration**: JSON-based MCP server configuration and management
@@ -173,6 +188,7 @@ public class SequentialThinkingServer : IMCPServer
 ### **4. AI Provider Integration**
 
 #### **Multi-Provider Support**
+
 ```csharp
 public interface IAIProvider
 {
@@ -198,6 +214,7 @@ public class VertexProvider : IAIProvider
 ```
 
 #### **Authentication Management**
+
 - **OAuth 2.0 Flows**: Complete OAuth implementation for all providers
 - **API Key Management**: Secure storage using Data Protection APIs
 - **Multi-Provider Auth**: Unified authentication across different AI services
@@ -206,6 +223,7 @@ public class VertexProvider : IAIProvider
 ### **5. File System Operations**
 
 #### **Cross-Platform File Handling**
+
 ```csharp
 public interface IFileSystemService
 {
@@ -224,6 +242,7 @@ public class FileSystemService : IFileSystemService
 ```
 
 #### **File System Monitoring**
+
 - **Real-Time Change Detection**: FileSystemWatcher integration
 - **Intelligent Filtering**: Ignore patterns and smart filtering
 - **Performance Optimization**: Efficient change tracking and batching
@@ -231,8 +250,9 @@ public class FileSystemService : IFileSystemService
 ### **6. Configuration Management**
 
 #### **Multi-Layer Configuration**
+
 ```csharp
-public class ClaudeNetSettings
+public class ClaudeDotNetSettings
 {
     public bool AutoUpdates { get; set; } = true;
     public string PreferredNotifChannel { get; set; } = "terminal";
@@ -246,6 +266,7 @@ public class ClaudeNetSettings
 ```
 
 #### **Configuration Sources**
+
 1. **appsettings.json**: Default application settings
 2. **User Settings**: `~/.claude-dotnet/settings.json`
 3. **Project Settings**: `.claude/settings.json`
@@ -257,6 +278,7 @@ public class ClaudeNetSettings
 ## 🚀 Non-Functional Requirements
 
 ### **Performance Requirements**
+
 - **Cold Start Time**: < 500ms from command invocation to first response
 - **Memory Usage**: < 100MB baseline, < 500MB under heavy load
 - **Response Time**: < 200ms for simple operations, < 2s for complex analysis
@@ -264,6 +286,7 @@ public class ClaudeNetSettings
 - **Scalability**: Support projects with 100k+ files
 
 ### **Reliability Requirements**
+
 - **Uptime**: 99.9% availability for core functionality
 - **Error Recovery**: Graceful degradation and automatic retry mechanisms
 - **Data Integrity**: No data loss during file operations
@@ -271,6 +294,7 @@ public class ClaudeNetSettings
 - **Concurrent Access**: Safe handling of concurrent file modifications
 
 ### **Security Requirements**
+
 - **Credential Security**: Secure storage using OS credential managers
 - **File System Security**: Respect OS permissions and access controls
 - **Network Security**: HTTPS-only communication with certificate validation
@@ -278,6 +302,7 @@ public class ClaudeNetSettings
 - **Audit Trail**: Comprehensive logging of security-relevant operations
 
 ### **Cross-Platform Requirements**
+
 - **Primary Platforms**: Windows 11, macOS 14+, Ubuntu 22.04+
 - **Architecture Support**: x64, ARM64 (Apple Silicon)
 - **Container Support**: Docker containers for CI/CD environments
@@ -288,18 +313,20 @@ public class ClaudeNetSettings
 ## 📦 Deployment & Distribution
 
 ### **Package Distribution**
-- **NuGet Tool Package**: `dotnet tool install -g Claude.NET`
+
+- **NuGet Tool Package**: `dotnet tool install -g claude-dotnet`
 - **Standalone Executables**: Self-contained single-file executables
 - **Docker Images**: Multi-architecture container images
 - **GitHub Releases**: Automated release pipeline with binaries
 
 ### **Installation Methods**
+
 ```bash
 # Global tool installation (recommended)
-dotnet tool install -g Claude.NET
+dotnet tool install -g claude-dotnet
 
 # Standalone download
-curl -sSL https://github.com/wangkanai/claude-dotnet/releases/latest/download/claude-dotnet-linux-x64 -o claude-dotnet
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-dotnet-linux-x64 -o claude-dotnet
 chmod +x claude-dotnet
 
 # Docker usage
@@ -311,6 +338,7 @@ docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 ## 🧪 Testing Strategy
 
 ### **Testing Pyramid**
+
 - **Unit Tests**: 90%+ code coverage with xUnit and FluentAssertions
 - **Integration Tests**: API clients, file operations, MCP protocol
 - **End-to-End Tests**: Complete workflows using Testcontainers
@@ -318,13 +346,14 @@ docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 - **Security Tests**: Static analysis with SonarCloud
 
 ### **Test Infrastructure**
+
 ```csharp
 // Example unit test structure
 public class FileSystemServiceTests
 {
     private readonly IFileSystem _fileSystem;
     private readonly FileSystemService _service;
-    
+
     [Fact]
     public async Task ReadFileAsync_ExistingFile_ReturnsContent()
     {
@@ -348,9 +377,11 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 ## 📈 Development Roadmap
 
 ### **Phase 1: Foundation (Weeks 1-3)**
+
 **Goal**: Establish core infrastructure and basic CLI functionality
 
 **Deliverables**:
+
 - [ ] Project structure and build system
 - [ ] System.CommandLine integration
 - [ ] Configuration management system
@@ -359,15 +390,18 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - [ ] Unit test framework setup
 
 **Success Criteria**:
+
 - Basic CLI accepts commands and responds
 - Configuration system loads settings correctly
 - File operations work cross-platform
 - Test coverage > 80%
 
 ### **Phase 2: Tool System (Weeks 4-7)**
+
 **Goal**: Implement complete tool system with permission management
 
 **Deliverables**:
+
 - [ ] Complete tool interface and registry
 - [ ] All core tools implementation (Bash, Grep, Glob, etc.)
 - [ ] Permission system and access control
@@ -376,15 +410,18 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - [ ] Tool-specific unit and integration tests
 
 **Success Criteria**:
+
 - All tools pass comprehensive test suites
 - Permission system enforces access control
 - Tool chaining works for complex operations
 - Performance meets requirements
 
 ### **Phase 3: AI Integration (Weeks 8-10)**
+
 **Goal**: Full AI provider integration with streaming support
 
 **Deliverables**:
+
 - [ ] Anthropic API client with streaming
 - [ ] Multi-provider architecture (Bedrock, Vertex)
 - [ ] OAuth 2.0 authentication flows
@@ -393,15 +430,18 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - [ ] AI provider integration tests
 
 **Success Criteria**:
+
 - All AI providers authenticate successfully
 - Streaming responses work correctly
 - Rate limiting prevents API abuse
 - Error handling is robust
 
 ### **Phase 4: MCP Protocol (Weeks 11-14)**
+
 **Goal**: Complete MCP implementation with plugin architecture
 
 **Deliverables**:
+
 - [ ] JSON-RPC protocol implementation
 - [ ] MCP server interface and base classes
 - [ ] Plugin loading and discovery system
@@ -410,15 +450,18 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - [ ] Plugin integration tests
 
 **Success Criteria**:
+
 - MCP protocol passes compliance tests
 - Plugin system loads servers dynamically
 - Core servers provide expected functionality
 - Server fallback works correctly
 
 ### **Phase 5: Advanced Features (Weeks 15-17)**
+
 **Goal**: Complete feature parity with original Claude Code
 
 **Deliverables**:
+
 - [ ] Git integration (LibGit2Sharp)
 - [ ] Web search capabilities
 - [ ] Image processing support
@@ -427,15 +470,18 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - [ ] Performance optimizations
 
 **Success Criteria**:
+
 - Feature parity with Claude Code achieved
 - Performance targets met or exceeded
 - All integration tests pass
 - Documentation complete
 
 ### **Phase 6: Release Preparation (Weeks 18-20)**
+
 **Goal**: Production readiness and public release
 
 **Deliverables**:
+
 - [ ] Comprehensive documentation
 - [ ] Performance benchmarking
 - [ ] Security audit and testing
@@ -444,6 +490,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - [ ] Community onboarding materials
 
 **Success Criteria**:
+
 - All quality gates pass
 - Performance benchmarks exceed targets
 - Security review complete
@@ -456,15 +503,17 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 ### **Technical Risks**
 
 #### **High Risk: MCP Protocol Complexity**
+
 - **Risk**: MCP protocol implementation may be more complex than anticipated
 - **Impact**: Delays in plugin system development
-- **Mitigation**: 
+- **Mitigation**:
   - Start with simple JSON-RPC implementation
   - Reference existing MCP implementations
   - Build incrementally with extensive testing
 - **Contingency**: Use HTTP-based plugin system as fallback
 
 #### **Medium Risk: Performance Targets**
+
 - **Risk**: May not achieve 2-5x performance improvement
 - **Impact**: Reduced competitive advantage
 - **Mitigation**:
@@ -474,6 +523,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - **Contingency**: Adjust targets based on realistic benchmarks
 
 #### **Medium Risk: Cross-Platform Compatibility**
+
 - **Risk**: Platform-specific issues may emerge late in development
 - **Impact**: Delayed releases for specific platforms
 - **Mitigation**:
@@ -485,6 +535,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 ### **Business Risks**
 
 #### **Low Risk: Market Competition**
+
 - **Risk**: Original Claude Code may receive major updates
 - **Impact**: Feature parity becomes moving target
 - **Mitigation**:
@@ -498,6 +549,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 ## 🎯 Success Criteria & KPIs
 
 ### **Technical KPIs**
+
 - **Performance**: 2-5x faster than Claude Code (measured via benchmarks)
 - **Memory Usage**: 30-50% lower memory footprint
 - **Test Coverage**: >90% unit test coverage, >80% integration coverage
@@ -505,6 +557,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - **Documentation**: 100% API documentation coverage
 
 ### **Product KPIs**
+
 - **Adoption**: 10k+ downloads within 6 months
 - **Community**: 100+ GitHub stars, 20+ contributors
 - **Reliability**: <1% error rate in production usage
@@ -512,6 +565,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - **Ecosystem**: 5+ community-built MCP servers
 
 ### **Business KPIs**
+
 - **Market Position**: Top 3 AI CLI tools in .NET ecosystem
 - **Community Growth**: 1k+ Discord/GitHub discussions members
 - **Plugin Ecosystem**: 10+ community plugins
@@ -523,6 +577,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 ## 📚 Dependencies & Constraints
 
 ### **Technical Dependencies**
+
 - **.NET 9.0 Runtime**: Latest .NET version for optimal performance
 - **System.CommandLine**: Microsoft's CLI framework (stable release required)
 - **Anthropic API**: Stable API access required
@@ -530,6 +585,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - **Git Integration**: LibGit2Sharp or equivalent
 
 ### **External Constraints**
+
 - **API Rate Limits**: Anthropic API quotas and rate limiting
 - **Platform Support**: Must support Windows, macOS, Linux
 - **Backward Compatibility**: Maintain compatibility with existing Claude Code workflows
@@ -537,6 +593,7 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 - **Resource Constraints**: Development team size and timeline limitations
 
 ### **Assumptions**
+
 - **.NET 9.0** will be stable and production-ready
 - **Anthropic API** remains stable and accessible
 - **MCP Protocol** documentation is sufficient for implementation
@@ -548,18 +605,21 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 ## 🤝 Stakeholders & Communication
 
 ### **Internal Stakeholders**
+
 - **Development Team**: Core implementation team
 - **DevOps Team**: CI/CD pipeline and deployment
 - **QA Team**: Testing and quality assurance
 - **Documentation Team**: Technical writing and user guides
 
 ### **External Stakeholders**
+
 - **.NET Community**: Primary user base and contributors
 - **Enterprise Users**: Corporate adoption and feedback
 - **Plugin Developers**: MCP server and extension developers
 - **AI/ML Community**: Broader AI tooling ecosystem
 
 ### **Communication Plan**
+
 - **Weekly Standups**: Internal team coordination
 - **Monthly Updates**: Community progress reports
 - **Quarterly Reviews**: Stakeholder alignment meetings
@@ -569,12 +629,13 @@ public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixt
 
 ## 📝 Conclusion
 
-Claude.NET represents a significant opportunity to bring high-performance AI-powered development tools to the .NET ecosystem. By leveraging C# 12 and .NET 9.0, we can deliver superior performance, reliability, and developer experience while maintaining full compatibility with the Claude Code ecosystem.
+**claude dotnet** represents a significant opportunity to bring high-performance AI-powered development tools to the .NET ecosystem. By leveraging C# 12 and .NET 9.0, we can deliver superior performance, reliability, and developer experience while maintaining full compatibility with the Claude Code ecosystem.
 
-The phased approach ensures manageable development milestones while building a solid foundation for long-term success. With proper execution, Claude.NET can become the premier AI development tool for .NET developers and establish a strong foothold in the growing AI tooling market.
+The phased approach ensures manageable development milestones while building a solid foundation for long-term success. With proper execution, claude dotnet can become the premier AI development tool for .NET developers and establish a strong foothold in the growing AI tooling market.
 
 ---
 
 **Document Status**: Draft v1.0  
+**Repository**: https://github.com/wangkanai/claude  
 **Next Review**: Phase 1 Kickoff Meeting  
 **Approval Required**: Development Team Lead, Architecture Review Board
