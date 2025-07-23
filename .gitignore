@@ -12,6 +12,7 @@ package-lock.json
 packages.lock.json
 
 # User-specific files
+SESSION-STATE.md
 *.rsuser
 *.suo
 *.user
