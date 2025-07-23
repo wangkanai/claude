@@ -12,19 +12,22 @@
 **claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI as a .NET Global Tool using C# 12 and .NET 9.0, delivering superior performance, enhanced type safety, and seamless .NET ecosystem integration.
 
 ### **Vision Statement**
+
 "To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging the full power of the .NET ecosystem."
 
 ### **Key Value Propositions**
+
 - **2-5x Performance Improvement** through compiled .NET code
-- **30-50% Lower Memory Usage** with optimized garbage collection  
+- **30-50% Lower Memory Usage** with optimized garbage collection
 - **Enhanced Type Safety** using C# 12's advanced type system
 - **Rich .NET Ecosystem** integration and comprehensive tooling
 - **Self-Contained Deployment** without Node.js dependency
 - **Superior Developer Experience** with advanced debugging and profiling
 
 ### **Success Metrics**
+
 - **Performance**: 2-5x faster command execution vs Node.js version
-- **Memory**: 30-50% reduction in memory footprint  
+- **Memory**: 30-50% reduction in memory footprint
 - **Reliability**: 99.9% uptime with robust error handling
 - **Adoption**: Target 10k+ downloads within 6 months
 - **Community**: Active contributor community and plugin ecosystem
@@ -34,32 +37,35 @@
 ## 🏗️ Architecture Overview
 
 ### **Core Technology Stack**
+
 ```yaml
-Runtime:        .NET 9.0
-Language:       C# 12 with latest language features
-CLI Framework:  System.CommandLine
-Hosting:        Microsoft.Extensions.Hosting
-DI Container:   Microsoft.Extensions.DependencyInjection
-Configuration:  Microsoft.Extensions.Configuration
-Logging:        Microsoft.Extensions.Logging (Serilog)
-Testing:        xUnit, FluentAssertions, Testcontainers
+Runtime: .NET 9.0
+Language: C# 12 with latest language features
+CLI Framework: System.CommandLine
+Hosting: Microsoft.Extensions.Hosting
+DI Container: Microsoft.Extensions.DependencyInjection
+Configuration: Microsoft.Extensions.Configuration
+Logging: Microsoft.Extensions.Logging (Serilog)
+Testing: xUnit, FluentAssertions, Testcontainers
 ```
 
 ### **System Architecture**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    claude dotnet CLI                        │
 ├─────────────────────────────────────────────────────────────┤
-│  Command Layer    │ System.CommandLine Integration         │
-│  Tool Layer       │ Strategy Pattern for Operations        │
-│  MCP Layer        │ JSON-RPC Protocol Implementation       │
-│  AI Provider      │ Multi-Provider Support (Anthropic+)    │
-│  Core Services    │ File System, Config, Auth, Logging     │
-│  Infrastructure   │ Cross-Platform, Plugin Architecture    │
+│  Command Layer    │ System.CommandLine Integration          │
+│  Tool Layer       │ Strategy Pattern for Operations         │
+│  MCP Layer        │ JSON-RPC Protocol Implementation        │
+│  AI Provider      │ Multi-Provider Support (Anthropic+)     │
+│  Core Services    │ File System, Config, Auth, Logging      │
+│  Infrastructure   │ Cross-Platform, Plugin Architecture     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ### **Key Architectural Patterns**
+
 - **Command Pattern**: Structured command processing pipeline
 - **Strategy Pattern**: Tool-based operation handling
 - **Plugin Architecture**: MEF-based extensibility for MCP servers
@@ -74,6 +80,7 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 ### **Phase-Based Development Approach**
 
 **Phase 1: Foundation (Weeks 1-3)**
+
 - Project structure and build system
 - System.CommandLine integration
 - Configuration management system
@@ -81,28 +88,33 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 - Logging and error handling infrastructure
 
 **Phase 2: Tool System (Weeks 4-7)**
+
 - Complete tool interface and registry
 - All core tools implementation (Bash, Grep, Glob, etc.)
 - Permission system and access control
 - Tool orchestration and chaining
 
 **Phase 3: AI Integration (Weeks 8-10)**
+
 - Anthropic API client with streaming
 - Multi-provider architecture (Bedrock, Vertex)
 - OAuth 2.0 authentication flows
 - Rate limiting and quota management
 
 **Phase 4: MCP Protocol (Weeks 11-14)**
+
 - JSON-RPC protocol implementation
 - Plugin loading and discovery system
 - Core MCP servers integration
 
 **Phase 5: Advanced Features (Weeks 15-17)**
+
 - Git integration, web search capabilities
 - Session management and persistence
 - Performance optimizations
 
 **Phase 6: Release Preparation (Weeks 18-20)**
+
 - Comprehensive documentation and security audit
 - Package distribution setup and CI/CD pipeline
 
@@ -111,6 +123,7 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 ## 🛡️ Development Guidelines
 
 ### **Code Quality Standards**
+
 - **Test Coverage**: >90% unit test coverage, >80% integration coverage
 - **Performance**: <500ms cold start, <200ms simple operations, <2s complex analysis
 - **Memory**: <100MB baseline, <500MB under heavy load
@@ -118,6 +131,7 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 - **Security**: Secure credential storage, HTTPS-only communication, audit trails
 
 ### **Best Practices**
+
 - **SOLID Principles**: Single responsibility, dependency inversion, interface segregation
 - **Clean Architecture**: Clear separation of concerns with dependency flow inward
 - **Async/Await Pattern**: Comprehensive async programming for I/O operations
@@ -125,6 +139,7 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 - **Cross-Platform**: Support Windows 11, macOS 14+, Ubuntu 22.04+, ARM64 architecture
 
 ### **Testing Strategy**
+
 - **Unit Tests**: 90%+ coverage with xUnit and FluentAssertions
 - **Integration Tests**: API clients, file operations, MCP protocol testing
 - **End-to-End Tests**: Complete workflows using Testcontainers
@@ -136,27 +151,30 @@ Testing:        xUnit, FluentAssertions, Testcontainers
 ## 🔧 Core Features & Components
 
 ### **1. CLI Interface System**
+
 ```csharp
 [Command("analyze")]
 public class AnalyzeCommand : ICommand
 {
     [Option("--scope", Description = "Analysis scope (file|module|project|system)")]
     public string Scope { get; set; } = "project";
-    
+
     [Option("--focus", Description = "Focus area (performance|security|quality|architecture)")]
     public string Focus { get; set; }
-    
+
     public async Task<int> InvokeAsync(InvocationContext context);
 }
 ```
 
 **Features**:
+
 - Natural language processing with conversational interface
 - Context awareness of project structure and development context
 - Persistent command history and session management
 - Structured slash commands support (e.g., `/analyze`, `/implement`)
 
 ### **2. Tool System Architecture**
+
 ```csharp
 public interface ITool
 {
@@ -172,6 +190,7 @@ public record ErrorResult(string Error, Exception? Exception = null) : ToolResul
 ```
 
 **Core Tools Implementation**:
+
 - **File Operations**: `Read`, `Write`, `Edit`, `MultiEdit`
 - **Search & Discovery**: `Grep`, `Glob`, `LS`
 - **Code Execution**: `Bash`, `Task`
@@ -179,6 +198,7 @@ public record ErrorResult(string Error, Exception? Exception = null) : ToolResul
 - **Web Integration**: `WebFetch`, `WebSearch`
 
 ### **3. MCP (Model Context Protocol) Integration**
+
 ```csharp
 public interface IMCPServer
 {
@@ -196,12 +216,14 @@ public class SequentialThinkingServer : IMCPServer
 ```
 
 **MCP Features**:
+
 - JSON-RPC protocol implementation with full compliance
 - MEF-based plugin architecture for dynamic loading
 - Configuration management for MCP server setup
 - Graceful fallback handling when servers unavailable
 
 ### **4. AI Provider Integration**
+
 ```csharp
 public interface IAIProvider
 {
@@ -212,12 +234,14 @@ public interface IAIProvider
 ```
 
 **Supported Providers**:
+
 - **AnthropicProvider**: Claude API integration with streaming support
 - **BedrockProvider**: AWS Bedrock integration
 - **VertexProvider**: Google Vertex AI integration
 - **Authentication**: OAuth 2.0 flows, secure API key management, token refresh
 
 ### **5. File System Operations**
+
 ```csharp
 public interface IFileSystemService
 {
@@ -229,6 +253,7 @@ public interface IFileSystemService
 ```
 
 **Capabilities**:
+
 - Cross-platform file handling using System.IO.Abstractions
 - Real-time change detection with FileSystemWatcher
 - Intelligent filtering and performance optimization
@@ -239,6 +264,7 @@ public interface IFileSystemService
 ## 🔒 Security & Compliance
 
 ### **Security Requirements**
+
 - **Credential Security**: OS credential managers, secure storage via Data Protection APIs
 - **File System Security**: Respect OS permissions, access control enforcement
 - **Network Security**: HTTPS-only communication, certificate validation
@@ -246,6 +272,7 @@ public interface IFileSystemService
 - **Audit Trail**: Comprehensive security-relevant operation logging
 
 ### **Permission System**
+
 ```csharp
 public class PermissionManager
 {
@@ -265,6 +292,7 @@ public class PermissionSettings
 ## 📊 Performance Metrics & Monitoring
 
 ### **Performance Targets**
+
 - **Cold Start Time**: <500ms from command invocation to first response
 - **Memory Usage**: <100MB baseline, <500MB under heavy load
 - **Response Time**: <200ms simple operations, <2s complex analysis
@@ -272,6 +300,7 @@ public class PermissionSettings
 - **Scalability**: Support projects with 100k+ files
 
 ### **Key Performance Indicators**
+
 - **Technical KPIs**: 2-5x performance vs Claude Code, 30-50% memory reduction
 - **Quality KPIs**: >90% test coverage, SonarCloud Quality Gate A rating
 - **Product KPIs**: 10k+ downloads within 6 months, >4.5/5 user satisfaction
@@ -282,12 +311,14 @@ public class PermissionSettings
 ## 🚀 Environment Setup & Development
 
 ### **Prerequisites**
+
 - **.NET 9.0 SDK** (latest version)
 - **Visual Studio 2024** or **JetBrains Rider** (recommended IDEs)
 - **Git** for version control
 - **Docker** for containerized testing (optional)
 
 ### **Installation Methods**
+
 ```bash
 # Global tool installation (recommended)
 dotnet tool install -g claude-dotnet
@@ -301,6 +332,7 @@ docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 ```
 
 ### **Configuration Management**
+
 1. **appsettings.json**: Default application settings
 2. **User Settings**: `~/.claude-dotnet/settings.json`
 3. **Project Settings**: `.claude/settings.json`
@@ -312,12 +344,14 @@ docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 ## 📚 Documentation & Resources
 
 ### **Technical Documentation**
+
 - **API Documentation**: 100% coverage with XML documentation
 - **Architecture Decision Records**: Document key design decisions
 - **User Guides**: Comprehensive usage documentation
 - **Developer Guides**: Contribution and extension development
 
 ### **Community Resources**
+
 - **GitHub Repository**: Main development and issue tracking
 - **NuGet Packages**: Distribution and dependency management
 - **Docker Hub**: Container images for various platforms
@@ -328,18 +362,21 @@ docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 ## 🤝 Collaboration & Contribution
 
 ### **Development Workflow**
+
 - **Version Control**: Git flow with feature branches and pull requests
 - **Code Review**: Mandatory peer review for all changes
 - **Continuous Integration**: Automated testing and quality checks
 - **Release Process**: Semantic versioning with automated releases
 
 ### **Quality Gates**
+
 - **Static Analysis**: SonarCloud integration for code quality
 - **Security Scanning**: Automated vulnerability scanning
 - **Performance Testing**: BenchmarkDotNet for performance regression
 - **Integration Testing**: Testcontainers for isolated testing environments
 
 ### **Community Engagement**
+
 - **Discord/GitHub Discussions**: Community support and collaboration
 - **Plugin Ecosystem**: MCP server development and sharing
 - **Feature Requests**: Community-driven feature prioritization
@@ -350,6 +387,7 @@ docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 ## 🔧 .NET Global Tool Implementation
 
 ### **Global Tool Configuration**
+
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
@@ -364,7 +402,9 @@ docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 ```
 
 ### **Command-Line API Integration**
+
 Built on Microsoft's `System.CommandLine` library for:
+
 - **Command Parsing**: Robust argument and option parsing
 - **Help Generation**: Automatic help text generation
 - **Completion**: Shell tab completion support
@@ -372,6 +412,7 @@ Built on Microsoft's `System.CommandLine` library for:
 - **Error Handling**: Consistent error reporting
 
 ### **Usage Examples**
+
 ```bash
 # Install globally
 dotnet tool install -g claude-dotnet
@@ -380,7 +421,7 @@ dotnet tool install -g claude-dotnet
 claude "Help me analyze this code"
 claude --file Program.cs "Explain this code"
 
-# Interactive mode  
+# Interactive mode
 claude --interactive
 
 # Configuration
@@ -395,6 +436,7 @@ claude config show
 ### Session 1 - Repository Setup & Foundation Implementation (2025-07-22)
 
 **Major Accomplishments**:
+
 - ✅ **Complete repository setup** with simplified "Claude" naming convention (28/28 setup tasks)
 - ✅ **Advanced CLI implementation** with System.CommandLine integration
 - ✅ **Dependency injection** and hosting infrastructure (Microsoft.Extensions.Hosting)
@@ -403,6 +445,7 @@ claude config show
 - ✅ **Multi-command support** (analyze, implement, interactive modes)
 
 **Technical Implementation Details**:
+
 - **CLI Framework**: System.CommandLine v2.0.0-beta4.24324.3 with advanced command parsing
 - **Architecture**: Host builder pattern with dependency injection container
 - **Logging**: Serilog integration with Microsoft.Extensions.Logging
@@ -413,6 +456,7 @@ claude config show
 **Phase 1 Progress**: 8/31 tasks completed (25.8%) - **Ahead of schedule**
 
 **Completed Tasks**:
+
 - [x] P1-1: System.CommandLine NuGet package installation and configuration
 - [x] P1-2: Base command structure with comprehensive root command
 - [x] P1-3: Advanced argument parsing and validation for all commands
@@ -423,6 +467,7 @@ claude config show
 - Additional: Interactive command system implementation
 
 **Project Dependencies Added**:
+
 ```xml
 System.CommandLine (2.0.0-beta4.24324.3)
 Microsoft.Extensions.Hosting (9.0.0)
@@ -434,6 +479,7 @@ System.IO.Abstractions (21.1.7)
 ```
 
 **Current Capabilities**:
+
 ```bash
 # Global Tool ready for installation
 dotnet pack src/Claude/
@@ -448,6 +494,7 @@ claude interactive                 # Interactive mode with REPL
 ```
 
 **Architecture Foundation**:
+
 - **Clean Architecture**: Proper separation of concerns with DI
 - **Async/Await**: Comprehensive async programming patterns
 - **Error Handling**: Global exception handling with Serilog
@@ -456,6 +503,7 @@ claude interactive                 # Interactive mode with REPL
 - **Extensibility**: Service-based architecture ready for MCP integration
 
 **Next Priorities**:
+
 1. **P1-9**: Application lifecycle management and graceful shutdown
 2. **P1-10**: Enhanced error handling and shutdown procedures
 3. **P1-11**: Multi-layer configuration system implementation
@@ -463,6 +511,7 @@ claude interactive                 # Interactive mode with REPL
 5. **P1-17**: File operations (Read tool implementation)
 
 **Session Success Metrics**:
+
 - **Execution Speed**: <100ms cold start achieved
 - **Memory Usage**: <50MB baseline (well under 100MB target)
 - **Code Quality**: Full XML documentation, proper error handling
@@ -470,12 +519,14 @@ claude interactive                 # Interactive mode with REPL
 - **Architecture**: SOLID principles, dependency injection, clean separation
 
 **Files Created/Modified**:
+
 - `src/Claude/Program.cs` - Complete CLI application with advanced features
 - `src/Claude/Claude.csproj` - Global Tool configuration with all dependencies
 - `TASKS.md` - Updated with completed task tracking
 - `CLAUDE.md` - This comprehensive session summary
 
 **Project Status**:
+
 - **Repository**: 100% complete and production-ready
 - **Phase 1**: 25.8% complete (ahead of 3-week timeline)
 - **Architecture**: Solid foundation ready for rapid feature development
@@ -483,6 +534,7 @@ claude interactive                 # Interactive mode with REPL
 - **Next Session**: Configuration system and file operations implementation
 
 **Command Usage Examples**:
+
 ```bash
 # Test current implementation
 cd src/Claude
