@@ -23,6 +23,7 @@ package-lock.json
 # AI local files
 CLAUDE.local.md
 mcp.local.json
+repomix-output.xml
 
 # IDE config files
 .vscode/
