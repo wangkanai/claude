@@ -1,1025 +1,341 @@
 # CLAUDE.md - claude dotnet Project Guide
 
 **Project**: claude dotnet - High-Performance .NET Global Tool
-**PackageId**: claude
-**ToolCommandName**: claude
 **Version**: 2.0 (Enhanced Architecture)
-**Created**: 2025-07-22
-**Updated**: 2025-07-23
 **Technology**: C# 12, .NET 9.0, System.CommandLine, xUnit v3
 
 ---
 
 ## 📋 Project Overview
 
-**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI as a .NET Global Tool using C# 12 and
-.NET 9.0. This enhanced version incorporates comprehensive research of the official Claude Code CLI, automated NPM
-package analysis, and enterprise-grade architecture delivering superior performance, enhanced type safety, and seamless
-.NET ecosystem integration.
+**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI as a .NET Global Tool, incorporating comprehensive research of the official CLI, automated NPM package analysis, and enterprise-grade architecture.
 
-### **Vision Statement**
+### **Vision**
 
-"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development,
-leveraging the full power of the .NET ecosystem while maintaining 100% feature parity with the original Node.js
-implementation."
+Create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging .NET ecosystem while maintaining 100% feature parity with Node.js implementation.
 
-### **Enhanced Key Value Propositions**
+### **Key Value Propositions**
 
-- **2-5x Performance Improvement** through compiled .NET code and optimized architecture
-- **30-50% Lower Memory Usage** with advanced garbage collection and memory optimization
-- **100% Feature Parity** with comprehensive command structure analysis and automated validation
-- **Enhanced Type Safety** using C# 12's advanced type system and nullable reference types
-- **Rich .NET Ecosystem** integration with comprehensive tooling and enterprise support
-- **Self-Contained Deployment** without Node.js dependency, single-file executables
-- **Superior Developer Experience** with advanced debugging, profiling, and contributor workflows
+-   **2-5x Performance** through compiled .NET code
+-   **30-50% Lower Memory** with optimized GC
+-   **100% Feature Parity** verified through NPM analysis
+-   **Enhanced Type Safety** using C# 12 features
+-   **Self-Contained** without Node.js dependency
+-   **Superior DX** with advanced debugging/profiling
 
-### **Enhanced Success Metrics**
+### **Success Metrics**
 
-- **Performance**: 2-5x faster command execution vs Node.js version with <500ms cold start
-- **Memory**: 30-50% reduction in memory footprint with <100MB baseline usage
-- **Feature Parity**: 100% compatibility verified through automated NPM package analysis
-- **Quality**: >80% test coverage with xUnit v3, SonarCloud Quality Gate A rating
-- **Reliability**: 99.9% uptime with comprehensive error handling and graceful degradation
-- **Adoption**: Target 10k+ downloads within 6 months across multiple platforms
-- **Community**: Active contributor community with SESSION-STATE.md workflow integration
+-   Performance: <500ms cold start, <200ms operations
+-   Memory: <100MB baseline, <500MB under load
+-   Quality: >80% test coverage, SonarCloud A rating
+-   Adoption: 10k+ downloads within 6 months
 
 ---
 
-## 🏗️ Enhanced Architecture Overview
+## 🏗️ Architecture Overview
 
-### **Core Technology Stack (Updated)**
+### **Core Technology Stack**
 
 ```yaml
-Runtime:            .NET 9.0
-Language:           C# 12 with latest language features
-CLI Framework:      System.CommandLine v2.0.0-beta4
-Hosting:            Microsoft.Extensions.Hosting
-DI Container:       Microsoft.Extensions.DependencyInjection
-Configuration:      Microsoft.Extensions.Configuration (multi-layer)
-Logging:            Microsoft.Extensions.Logging + Serilog
-Testing:            xUnit v3 with 80%+ coverage target
-Package Management: Directory.Packages.props (centralized)
-Build System:       MSBuild with cross-platform publishing
-NPM Analysis:       Automated @anthropic-ai/claude-code monitoring
+Runtime: .NET 9.0
+Language: C# 12
+CLI Framework: System.CommandLine v2.0.0-beta4
+Hosting: Microsoft.Extensions.Hosting
+Testing: xUnit v3 (80%+ coverage)
+Package Mgmt: Directory.Packages.props
+NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 ```
 
-### **Enhanced System Architecture**
+### **System Architecture**
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           claude dotnet CLI v2.0                            │
-├─────────────────────────────────────────────────────────────────────────────┤
-│  Command Layer      │ System.CommandLine + Official CLI Structure Mapping   │
-│  NPM Analysis       │ Automated Package Decompilation & Feature Detection   │
-│  Tool Layer         │ Strategy Pattern + Complete Tool Implementation       │
-│  MCP Layer          │ JSON-RPC Protocol + Dynamic Server Discovery          │
-│  AI Provider        │ Multi-Provider Support (Anthropic, Bedrock, Vertex)   │
-│  Configuration      │ Multi-Layer Config + Project/User/Environment         │
-│  File System        │ System.IO.Abstractions + Permission Management        │
-│  Testing            │ xUnit v3 + Testcontainers + 80%+ Coverage             │
-│  Packaging          │ Directory.Packages.props + Cross-Platform Publishing  │
-│  Contributors       │ SESSION-STATE.md + Automated Workflow Integration     │
-│  Infrastructure     │ Cross-Platform + Single-File + Installer Generation   │
-└─────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                    claude dotnet CLI v2.0                   │
+├─────────────────────────────────────────────────────────────┤
+│ Command Layer    │ System.CommandLine + CLI Mapping         │
+│ NPM Analysis     │ Automated Package Analysis & Detection   │
+│ Tool Layer       │ Strategy Pattern + Tool Implementation   │
+│ MCP Layer        │ JSON-RPC Protocol + Server Discovery     │
+│ AI Provider      │ Multi-Provider (Anthropic/Bedrock/Vertex)│
+│ Configuration    │ Multi-Layer Config System                │
+│ File System      │ System.IO.Abstractions + Permissions     │
+│ Testing          │ xUnit v3 + Testcontainers                │
+│ Infrastructure   │ Cross-Platform + Single-File Publishing  │
+└─────────────────────────────────────────────────────────────┘
 ```
-
-### **Enhanced Architectural Patterns**
-
-- **Command Pattern**: Structured command processing with official CLI structure mapping
-- **Strategy Pattern**: Tool-based operation handling with dynamic discovery
-- **Plugin Architecture**: MEF-based extensibility for MCP servers with hot-reload
-- **Factory Pattern**: AI provider and tool instantiation with dependency injection
-- **Observer Pattern**: File system change notifications and real-time monitoring
-- **Mediator Pattern**: Complex operation coordination and inter-service communication
-- **Repository Pattern**: Configuration and state management with persistence
-- **Adapter Pattern**: NPM package analysis integration and Node.js compatibility
 
 ---
 
-## 🎯 Enhanced Development Priorities
+## 🎯 Development Phases
 
-### **Revised Phase-Based Development Approach**
+### **Phase 1: Foundation (Weeks 1-4)** - Current
 
-**Phase 1: Enhanced Foundation (Weeks 1-4)**
+-   Directory.Packages.props centralized management
+-   System.CommandLine integration
+-   Multi-layer configuration system
+-   xUnit v3 testing framework
+-   NPM analysis automation setup
+-   SESSION-STATE.md workflow
 
-- Project structure with Directory.Packages.props centralized package management
-- System.CommandLine integration with official CLI command structure mapping
-- Multi-layer configuration management system (appsettings, user, project, environment)
-- xUnit v3 testing framework setup with 80%+ coverage targets
-- NPM package analysis automation setup with GitHub Actions
-- SESSION-STATE.md contributor workflow integration
-- Enhanced logging and error handling infrastructure
+### **Phase 2: NPM Analysis (Weeks 5-7)**
 
-**Phase 2: NPM Analysis & CLI Mapping (Weeks 5-7)**
+-   Automated package decompilation
+-   CLI command structure mapping
+-   Compatibility verification
+-   Performance benchmarking
 
-- Automated @anthropic-ai/claude-code package decompilation and analysis
-- Complete CLI command structure mapping from Node.js to .NET
-- Official documentation integration and validation
-- Command compatibility verification and testing
-- Performance benchmarking against original implementation
+### **Phase 3: Tool System (Weeks 8-11)**
 
-**Phase 3: Enhanced Tool System (Weeks 8-11)**
+-   Complete tool interface and registry
+-   Core tools implementation
+-   Permission system with audit
+-   Cross-platform testing
 
-- Complete tool interface and registry with dynamic discovery
-- All core tools implementation (Read, Write, Edit, MultiEdit, Bash, Grep, Glob, etc.)
-- Advanced permission system and access control with audit trails
-- Tool orchestration and chaining with performance optimization
-- Cross-platform compatibility testing and validation
+### **Phase 4: AI Integration (Weeks 12-15)**
 
-**Phase 4: AI Integration & MCP Protocol (Weeks 12-15)**
+-   Anthropic API client with streaming
+-   Multi-provider architecture
+-   OAuth 2.0 authentication
+-   JSON-RPC protocol implementation
 
-- Anthropic API client with streaming support and rate limiting
-- Multi-provider architecture (Bedrock, Vertex) with failover
-- OAuth 2.0 authentication flows and secure credential management
-- JSON-RPC protocol implementation with full MCP compliance
-- Plugin loading and discovery system with hot-reload capabilities
-- Core MCP servers integration and testing
+### **Phase 5: Advanced Features (Weeks 16-18)**
 
-**Phase 5: Advanced Features & Performance (Weeks 16-18)**
+-   Git integration
+-   Web search capabilities
+-   Session management
+-   Performance optimizations
 
-- Git integration with comprehensive version control operations
-- Web search capabilities and external service integration
-- Session management and persistence with state recovery
-- Performance optimizations and memory usage improvements
-- Advanced debugging and profiling integration
+### **Phase 6: Publishing (Weeks 19-22)**
 
-**Phase 6: Cross-Platform Publishing & Release (Weeks 19-22)**
-
-- Cross-platform publishing with single-file executables
-- Installer generation for multiple platforms and formats
-- Comprehensive documentation and security audit
-- Package distribution setup and automated CI/CD pipeline
-- Community engagement and contributor onboarding
+-   Cross-platform executables
+-   Installer generation
+-   Security audit
+-   Community engagement
 
 ---
 
-## 🛡️ Enhanced Development Guidelines
+## 🛡️ Development Guidelines
 
-### **Enhanced Code Quality Standards**
+### **Code Quality Standards**
 
-- **Test Coverage**: >80% unit test coverage with xUnit v3, >70% integration coverage
-- **Performance**: <500ms cold start, <200ms simple operations, <2s complex analysis
-- **Memory**: <100MB baseline, <500MB under heavy load, optimized GC pressure
-- **Compatibility**: 100% feature parity with NPM package verified through automation
-- **Error Handling**: Graceful degradation with comprehensive error recovery and logging
-- **Security**: Secure credential storage, HTTPS-only communication, comprehensive audit trails
-- **Documentation**: 100% XML documentation coverage, comprehensive ADRs
+-   Test Coverage: >80% unit, >70% integration
+-   Performance: <500ms cold start, <2s complex ops
+-   Memory: <100MB baseline, <500MB heavy load
+-   Compatibility: 100% NPM feature parity
+-   Security: Secure storage, HTTPS-only, audit trails
 
-### **Enhanced Best Practices**
+### **Best Practices**
 
-- **SOLID Principles**: Single responsibility, dependency inversion, interface segregation
-- **Clean Architecture**: Clear separation of concerns with dependency flow inward
-- **Async/Await Pattern**: Comprehensive async programming for all I/O operations
-- **Configuration**: Multi-layer config (appsettings, user, project, environment, CLI)
-- **Cross-Platform**: Support Windows 11, macOS 14+, Ubuntu 22.04+, ARM64 architecture
-- **Package Management**: Centralized with Directory.Packages.props for consistency
-- **Contributor Workflow**: SESSION-STATE.md integration for seamless collaboration
-
-### **Enhanced Testing Strategy**
-
-- **Unit Tests**: 80%+ coverage with xUnit v3 and FluentAssertions
-- **Integration Tests**: API clients, file operations, MCP protocol, NPM compatibility
-- **End-to-End Tests**: Complete workflows using Testcontainers and Docker
-- **Performance Tests**: Benchmarks using BenchmarkDotNet with regression detection
-- **Security Tests**: Static analysis with SonarCloud and automated vulnerability scanning
-- **Compatibility Tests**: Automated NPM package analysis and feature parity validation
+-   SOLID Principles & Clean Architecture
+-   Async/Await for all I/O operations
+-   Multi-layer configuration
+-   Cross-platform support (Windows/macOS/Linux)
+-   Centralized package management
+-   SESSION-STATE.md contributor workflow
 
 ---
 
 ## 🖼️ Image Processing Configuration
 
-### **Optimized Image Handling for Claude Performance**
+Optimized for Claude's efficiency:
 
-To ensure optimal performance and cost-effectiveness, the claude dotnet CLI implements intelligent image filtering:
-
-**Supported Image Types (Efficient)**:
-
-- **SVG**: Vector graphics with text content - highly efficient for Claude processing
-- **Text-based formats**: Any image containing readable text or code snippets
-
-**Excluded Image Types (Performance Optimization)**:
-
-- **PNG/JPG/JPEG**: Raster images with high processing overhead
-- **GIF**: Animated or static raster images
-- **WEBP**: Modern raster format but still computationally expensive
-- **BMP/TIFF**: Large uncompressed formats
-- **ICO**: Icon files without significant content value
-
-**Configuration**:
-
-```json
-{
-	"imageProcessing": {
-		"enabledFormats": [
-			"svg"
-		],
-		"excludedFormats": [
-			"png",
-			"jpg",
-			"jpeg",
-			"gif",
-			"webp",
-			"bmp",
-			"tiff",
-			"ico"
-		],
-		"performanceOptimization": true,
-		"costOptimization": true,
-		"textBasedOnly": true
-	}
-}
-```
-
-**Rationale**: This configuration prioritizes Claude's computational efficiency by avoiding resource-intensive raster
-image processing while preserving support for SVG files which contain structured, text-based content that Claude can
-efficiently analyze.
+-   **Supported**: SVG (vector graphics with text)
+-   **Excluded**: PNG/JPG/JPEG/GIF/WEBP/BMP/TIFF/ICO (raster formats)
+-   **Rationale**: Prioritize computational efficiency
 
 ---
 
-## 🔧 Enhanced Core Features & Components
+## 🔧 Core Features
 
-### **1. Enhanced CLI Interface System**
+### **1. CLI Interface**
 
 ```csharp
 [Command("analyze")]
 public class AnalyzeCommand : ICommand
 {
-    [Option("--scope", Description = "Analysis scope (file|module|project|system)")]
-    public string Scope { get; set; } = "project";
-
-    [Option("--focus", Description = "Focus area (performance|security|quality|architecture)")]
-    public string Focus { get; set; }
-
-    [Option("--think", Description = "Enable deep analysis mode")]
-    public bool EnableDeepAnalysis { get; set; }
-
-    public async Task<int> InvokeAsync(InvocationContext context, CancellationToken cancellationToken);
+    [Option("--scope")] public string Scope { get; set; } = "project";
+    [Option("--focus")] public string Focus { get; set; }
+    [Option("--think")] public bool EnableDeepAnalysis { get; set; }
 }
 ```
 
-**Enhanced Features**:
+Features: Natural language processing, context awareness, slash commands support, NPM compatibility verification.
 
-- Natural language processing with conversational interface
-- Context awareness of project structure and development context
-- Persistent command history and session management with state recovery
-- Complete slash commands support (e.g., `/analyze`, `/implement`, `/improve`)
-- NPM package compatibility verification and automated testing
-- Real-time command validation against official CLI structure
-
-### **2. Enhanced Tool System Architecture**
+### **2. Tool System**
 
 ```csharp
 public interface ITool
 {
     string Name { get; }
-    string Description { get; }
-    string[] Aliases { get; }
-    ToolPermissions RequiredPermissions { get; }
-    Task<ToolResult> ExecuteAsync(ToolRequest request, CancellationToken cancellationToken);
-    Task<bool> CanExecuteAsync(ToolRequest request, CancellationToken cancellationToken);
-    Task<ToolValidationResult> ValidateAsync(ToolRequest request);
-}
-
-public abstract record ToolResult;
-public record SuccessResult(string Output, Dictionary<string, object>? Metadata = null) : ToolResult;
-public record ErrorResult(string Error, Exception? Exception = null, string? ErrorCode = null) : ToolResult;
-public record ValidationResult(bool IsValid, string[]? Errors = null) : ToolResult;
-```
-
-**Enhanced Core Tools Implementation**:
-
-- **File Operations**: `Read`, `Write`, `Edit`, `MultiEdit` with permission validation
-- **Search & Discovery**: `Grep`, `Glob`, `LS` with performance optimization
-- **Code Execution**: `Bash`, `Task` with sandboxed execution
-- **Project Management**: `TodoWrite`, `NotebookRead`, `NotebookEdit` with persistence
-- **Web Integration**: `WebFetch`, `WebSearch` with rate limiting and caching
-- **NPM Analysis**: `NpmAnalyze`, `CompatibilityCheck` for automated validation
-
-### **3. Enhanced MCP (Model Context Protocol) Integration**
-
-```csharp
-public interface IMCPServer
-{
-    string Name { get; }
-    string Version { get; }
-    ServerCapabilities Capabilities { get; }
-    Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken cancellationToken);
-    Task<bool> IsAvailableAsync(CancellationToken cancellationToken);
-    Task InitializeAsync(ServerConfiguration configuration, CancellationToken cancellationToken);
-    Task ShutdownAsync(CancellationToken cancellationToken);
-}
-
-[MCPServer("sequential-thinking")]
-public class SequentialThinkingServer : IMCPServer
-{
-    [MCPMethod("sequentialthinking")]
-    public Task<ThinkingResult> ProcessThinkingAsync(ThinkingRequest request, CancellationToken cancellationToken);
+    Task<ToolResult> ExecuteAsync(ToolRequest request, CancellationToken ct);
 }
 ```
 
-**Enhanced MCP Features**:
+Core Tools: Read, Write, Edit, MultiEdit, Bash, Grep, Glob, TodoWrite, WebFetch, NpmAnalyze.
 
-- JSON-RPC protocol implementation with full v1.0 compliance
-- MEF-based plugin architecture for dynamic loading with hot-reload
-- Configuration management for MCP server setup with validation
-- Graceful fallback handling when servers unavailable with retry logic
-- Server capability discovery and negotiation
-- Performance monitoring and health checks
+### **3. MCP Integration**
 
-### **4. Enhanced AI Provider Integration**
+JSON-RPC protocol, MEF-based plugins, dynamic server discovery, graceful fallback handling.
 
-```csharp
-public interface IAIProvider
-{
-    string Name { get; }
-    string Version { get; }
-    ProviderCapabilities Capabilities { get; }
-    Task<AIResponse> SendMessageAsync(AIRequest request, CancellationToken cancellationToken);
-    IAsyncEnumerable<StreamingResponse> StreamAsync(AIRequest request, CancellationToken cancellationToken);
-    Task<bool> ValidateCredentialsAsync(CancellationToken cancellationToken);
-    Task<UsageStatistics> GetUsageAsync(CancellationToken cancellationToken);
-}
-```
+### **4. AI Providers**
 
-**Enhanced Supported Providers**:
+Multi-provider support (Anthropic, Bedrock, Vertex), OAuth 2.0, rate limiting, usage tracking.
 
-- **AnthropicProvider**: Claude API integration with streaming support and rate limiting
-- **BedrockProvider**: AWS Bedrock integration with credential management
-- **VertexProvider**: Google Vertex AI integration with service account support
-- **Authentication**: OAuth 2.0 flows, secure API key management, token refresh, and audit trails
-- **Rate Limiting**: Intelligent rate limiting with backoff strategies and quota management
-- **Monitoring**: Usage tracking, performance metrics, and cost optimization
+### **5. File System**
 
-### **5. Enhanced File System Operations**
-
-```csharp
-public interface IFileSystemService
-{
-    Task<string> ReadFileAsync(string path, CancellationToken cancellationToken);
-    Task WriteFileAsync(string path, string content, CancellationToken cancellationToken);
-    Task<FileInfo> GetFileInfoAsync(string path, CancellationToken cancellationToken);
-    IAsyncEnumerable<FileSystemEntry> EnumerateAsync(string path, string pattern, CancellationToken cancellationToken);
-    Task<bool> HasPermissionAsync(string path, FileSystemPermission permission);
-    Task<FileSystemWatcher> WatchAsync(string path, string pattern);
-}
-```
-
-**Enhanced Capabilities**:
-
-- Cross-platform file handling using System.IO.Abstractions with full compatibility
-- Real-time change detection with FileSystemWatcher and event aggregation
-- Intelligent filtering and performance optimization with caching
-- Safe concurrent access and data integrity protection with locking
-- Permission validation and access control with audit logging
-- Symbolic link handling and junction point resolution
+Cross-platform handling, real-time change detection, permission validation, symbolic link support.
 
 ---
 
-## 🛠️ Optimized Local MCP Workflow Integration
+## 🛠️ MCP Workflow Integration
 
-### **Priority MCP Server Stack for claude dotnet Development**
+### **Essential MCP Servers**
 
-**Tier 1 - Essential Operations (Daily Use)**:
+**Tier 1 - Daily Use**:
 
-- **Context7**: .NET library documentation and patterns (`mcp__context7__resolve-library-id`,
-  `mcp__context7__get-library-docs`)
-- **Sequential**: Architectural analysis and complex reasoning (`mcp__sequential-thinking__sequentialthinking`)
-- **Memory**: Architecture decision tracking (`mcp__memory__create_entities`, `mcp__memory__create_relations`)
-- **Repomix**: Codebase analysis and NPM comparison (`mcp__repomix__pack_codebase`,
-  `mcp__repomix__pack_remote_repository`)
+-   **JetBrains**: IDE integration
 
-**Tier 2 - Development Operations (Feature Development)**:
+-   **Sequential**: Architectural analysis
+-   **Memory**: Decision tracking
+-   **Repomix**: Codebase analysis
 
-- **Magic**: Blazor component generation for CLI UI (`mcp__magic__21st_magic_component_builder`)
-- **DevOps Enhanced**: Azure DevOps integration (`mcp__devops-enhanced-mcp__create-work-item`)
-- **JetBrains**: Rider IDE integration (`mcp__jetbrains__create_new_file_with_text`)
+**Tier 2 - Feature Development**:
 
-**Tier 3 - Testing & Validation (Release Cycles)**:
+-   **Magic**: UI component generation
+-   **Context7**: .NET library documentation
 
-- **Playwright**: E2E testing and automation (`mcp__playwright__browser_navigate`)
-- **BrowserLoop**: Visual testing and screenshots (`mcp__browserloop__take_screenshot`)
-- **Fetch**: External documentation access (`mcp__fetch__fetch`)
+**Tier 3 - Testing**:
 
-### **Optimized Development Workflows**
+-   **Playwright**: E2E testing
+-   **BrowserLoop**: Visual testing
+-   **Fetch**: External docs
 
-**Phase 1 Foundation Workflow** (Current Priority):
+### **Quick Commands**
 
 ```bash
-# 1. Research System.CommandLine patterns
+# Research patterns
 mcp__context7__resolve-library-id --query "System.CommandLine"
-mcp__context7__get-library-docs --library-id "system-commandline" --topic "command parsing"
+mcp__context7__get-library-docs --library-id "system-commandline"
 
-# 2. Analyze NPM claude-code structure
-mcp__repomix__pack_remote_repository \
-  --repositoryUrl "https://github.com/anthropics/claude-code" \
-  --outputId "claude-code-npm-analysis"
-
-# 3. Architectural decision analysis
-mcp__sequential-thinking__sequentialthinking \
-  --thought "Mapping Node.js CLI commands to .NET System.CommandLine architecture" \
-  --thoughtNumber 1 --totalThoughts 5 --nextThoughtNeeded true
-
-# 4. Document architecture decisions
-mcp__memory__create_entities --entities '[{
-  "name": "SystemCommandLineArchitecture",
-  "entityType": "ArchitectureDecision",
-  "observations": ["System.CommandLine for CLI parsing", "Command pattern implementation"]
-}]'
-```
-
-**NPM Analysis & CLI Mapping Workflow** (Phase 2 Priority):
-
-```bash
-# 1. Deep codebase analysis
-mcp__repomix__pack_codebase --directory "/Users/wangkanai/Sources/claude" --compress true --outputId "claude-dotnet"
-mcp__repomix__grep_repomix_output --outputId "claude-dotnet" --pattern "TODO:|FIXME:|HACK:" --contextLines 3
-
-# 2. Compare implementations
-mcp__sequential-thinking__sequentialthinking \
-  --thought "Feature parity analysis between NPM and .NET implementations" \
-  --thoughtNumber 1 --totalThoughts 7 --nextThoughtNeeded true
-
-# 3. Track compatibility matrix
-mcp__memory__create_relations --relations '[{
-  "from": "NPMClaudeCode", "to": "DotNetClaude", "relationType": "feature_parity"
-}]'
-```
-
-**Tool System Development Workflow** (Phase 3 Priority):
-
-```bash
-# 1. Research .NET tool patterns
-mcp__context7__get-library-docs --library-id "dotnet-core" --topic "dependency injection"
-mcp__context7__get-library-docs --library-id "dotnet-core" --topic "file system abstractions"
-
-# 2. Generate tool interfaces
-mcp__jetbrains__create_new_file_with_text \
-  --path "src/Tools/ITool.cs" \
-  --content "// Tool interface definition"
-
-# 3. Document tool architecture
-mcp__memory__create_entities --entities '[{
-  "name": "ToolSystemArchitecture",
-  "entityType": "SystemDesign",
-  "observations": ["Strategy pattern for tool implementations"]
-}]'
-```
-
-### **MCP Performance Optimization Strategy**
-
-**Caching Strategy**:
-
-- Context7: 15-minute documentation cache - leverage for repeated .NET library lookups
-- Memory: Persistent knowledge graph - maintain architectural decisions across sessions
-- Repomix: Cache analysis outputs - reuse codebase analysis results
-
-**Parallel Execution Patterns**:
-
-- Research + Analysis: Run Context7 library lookups parallel with Sequential thinking
-- Multi-codebase Analysis: Parallel Repomix operations on NPM vs .NET codebases
-- Documentation + Implementation: Context7 pattern research concurrent with JetBrains file creation
-
-**Priority Command Shortcuts**:
-
-```bash
-# Essential daily commands (create aliases)
-alias mcp-resolve="mcp__context7__resolve-library-id"
-alias mcp-docs="mcp__context7__get-library-docs"
-alias mcp-think="mcp__sequential-thinking__sequentialthinking"
-alias mcp-entity="mcp__memory__create_entities"
-alias mcp-pack="mcp__repomix__pack_codebase"
-alias mcp-npm="mcp__repomix__pack_remote_repository"
-```
-
-### **Integration with Development Phases**
-
-**Phase 1 (Foundation)**: Context7 + Sequential + Memory (architecture decisions)
-**Phase 2 (NPM Analysis)**: Repomix + Sequential + Memory (compatibility tracking)
-**Phase 3 (Tool System)**: Context7 + JetBrains + Memory (implementation patterns)
-**Phase 4 (AI Integration)**: Context7 + Sequential + DevOps (API patterns)
-**Phase 5 (Advanced Features)**: All servers (comprehensive development)
-**Phase 6 (Cross-Platform)**: Playwright + BrowserLoop (testing validation)
-
-For complete MCP server reference with all commands and examples, see **[CLAUDE.local.md](CLAUDE.local.md)**.
-
----
-
-## 🔒 Enhanced Security & Compliance
-
-### **Enhanced Security Requirements**
-
-- **Credential Security**: OS credential managers, secure storage via Data Protection APIs
-- **File System Security**: Respect OS permissions, access control enforcement, audit trails
-- **Network Security**: HTTPS-only communication, certificate validation, TLS 1.3+
-- **Code Execution**: Sandboxed execution for untrusted code with resource limits
-- **Audit Trail**: Comprehensive security-relevant operation logging with tamper protection
-- **NPM Security**: Automated vulnerability scanning of analyzed packages
-- **Data Privacy**: GDPR compliance, data minimization, user consent management
-
-### **Enhanced Permission System**
-
-```csharp
-public class PermissionManager
-{
-    public Task<bool> IsAllowedAsync(string toolName, ToolRequest request, CancellationToken cancellationToken);
-    public Task<bool> IsDeniedAsync(string toolName, ToolRequest request, CancellationToken cancellationToken);
-    public Task<PermissionAuditResult> AuditAsync(string toolName, ToolRequest request);
-    public Task<PermissionPolicy> GetPolicyAsync(string toolName);
-}
-
-public class PermissionSettings
-{
-    public List<string> Allow { get; set; } = new();
-    public List<string> Deny { get; set; } = new();
-    public Dictionary<string, ToolPermissionPolicy> ToolPolicies { get; set; } = new();
-    public bool AuditingEnabled { get; set; } = true;
-}
-```
-
----
-
-## 📊 Enhanced Performance Metrics & Monitoring
-
-### **Enhanced Performance Targets**
-
-- **Cold Start Time**: <500ms from command invocation to first response
-- **Memory Usage**: <100MB baseline, <500MB under heavy load, optimized GC pressure
-- **Response Time**: <200ms simple operations, <2s complex analysis, <5s NPM analysis
-- **Throughput**: 100+ concurrent file operations, 10+ concurrent AI requests
-- **Scalability**: Support projects with 100k+ files, 1GB+ codebases
-- **NPM Compatibility**: 100% feature parity with <24h detection of new features
-
-### **Enhanced Key Performance Indicators**
-
-- **Technical KPIs**: 2-5x performance vs Claude Code, 30-50% memory reduction, 100% feature parity
-- **Quality KPIs**: >80% test coverage with xUnit v3, SonarCloud Quality Gate A rating
-- **Product KPIs**: 10k+ downloads within 6 months, >4.5/5 user satisfaction, cross-platform adoption
-- **Business KPIs**: Top 3 AI CLI tools in .NET ecosystem, 5+ enterprise customers, community growth
-- **Security KPIs**: Zero critical vulnerabilities, comprehensive audit compliance, secure credential management
-
----
-
-## 🚀 Enhanced Environment Setup & Development
-
-### **Enhanced Prerequisites**
-
-- **.NET 9.0 SDK** (latest version with C# 12 support)
-- **Visual Studio 2024** or **JetBrains Rider 2024.3+** (recommended IDEs)
-- **Git** for version control with GitHub integration
-- **Docker** for containerized testing and cross-platform validation
-- **Node.js 18+** for NPM package analysis and compatibility testing
-- **PowerShell 7+** for cross-platform scripting and automation
-
-### **Enhanced Installation Methods**
-
-```bash
-# Global tool installation (recommended)
-dotnet tool install -g claude
-
-# Platform-specific installers
-# Windows
-winget install wangkanai.claude
-choco install claude
-
-# macOS
-brew install claude
-
-# Linux
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-linux-x64 -o claude
-chmod +x claude
-
-# Docker usage with volume mounting
-docker run --rm -it -v $(pwd):/workspace wangkanai/claude
-
-# Single-file executable (no .NET runtime required)
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-standalone-linux-x64 -o claude
-chmod +x claude
-```
-
-### **Enhanced Configuration Management**
-
-1. **appsettings.json**: Default application settings and service configuration
-2. **User Settings**: `~/.claude/settings.json` with credential management
-3. **Project Settings**: `.claude/settings.json` with team configuration
-4. **Environment Variables**: Runtime overrides and CI/CD integration
-5. **Command Line Arguments**: Temporary overrides and session-specific settings
-6. **NPM Compatibility**: `.claude/npm-compatibility.json` for feature mapping
-
----
-
-## 📚 Enhanced Documentation & Resources
-
-### **Enhanced Technical Documentation**
-
-- **API Documentation**: 100% coverage with XML documentation and interactive examples
-- **Architecture Decision Records**: Complete design decisions with rationale and alternatives
-- **User Guides**: Comprehensive usage documentation with tutorials and examples
-- **Developer Guides**: Contribution and extension development with SESSION-STATE.md workflow
-- **NPM Analysis Reports**: Automated compatibility reports and feature mapping
-- **Performance Benchmarks**: Detailed performance analysis and optimization guides
-
-### **Enhanced Community Resources**
-
-- **GitHub Repository**: Main development and issue tracking with automated workflows
-- **NuGet Packages**: Distribution and dependency management with automated publishing
-- **Docker Hub**: Container images for various platforms with multi-architecture support
-- **Documentation Site**: User and developer documentation with interactive examples
-- **Discord/GitHub Discussions**: Community support and collaboration with contributor workflows
-- **Plugin Ecosystem**: MCP server development and sharing with automated validation
-
----
-
-## 🤝 Enhanced Collaboration & Contribution
-
-### **Enhanced Development Workflow**
-
-- **Version Control**: Git flow with feature branches, pull requests, and automated testing
-- **Code Review**: Mandatory peer review with automated quality checks and security scanning
-- **Continuous Integration**: Automated testing, NPM compatibility validation, and quality gates
-- **Release Process**: Semantic versioning with automated releases and cross-platform publishing
-- **SESSION-STATE.md**: Contributor context tracking and seamless collaboration workflow
-
-### **Enhanced Quality Gates**
-
-- **Static Analysis**: SonarCloud integration with custom rules and security scanning
-- **Security Scanning**: Automated vulnerability scanning with dependency updates
-- **Performance Testing**: BenchmarkDotNet integration with regression detection
-- **Integration Testing**: Testcontainers for isolated testing with database and service mocking
-- **NPM Compatibility**: Automated feature parity validation and compatibility testing
-- **Cross-Platform Testing**: Multi-OS testing with GitHub Actions matrix builds
-
-### **Enhanced Community Engagement**
-
-- **Discord/GitHub Discussions**: Community support with contributor recognition and mentorship
-- **Plugin Ecosystem**: MCP server development with automated validation and publishing
-- **Feature Requests**: Community-driven prioritization with voting and feedback systems
-- **Bug Reports**: Structured reporting with automated triage and assignment
-- **Documentation**: Community-driven documentation with automated validation and publishing
-- **Mentorship**: New contributor onboarding with SESSION-STATE.md workflow integration
-
----
-
-## 🔧 Enhanced .NET Global Tool Implementation
-
-### **Enhanced Global Tool Configuration**
-
-```xml
-
-<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net9.0</TargetFramework>
-		<PackAsTool>true</PackAsTool>
-		<ToolCommandName>claude</ToolCommandName>
-		<PackageId>claude</PackageId>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PublishSingleFile>true</PublishSingleFile>
-		<SelfContained>true</SelfContained>
-		<RuntimeIdentifier>$(NETCoreSimilarity)</RuntimeIdentifier>
-		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-		<Nullable>enable</Nullable>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-	</PropertyGroup>
-</Project>
-```
-
-### **Enhanced Command-Line API Integration**
-
-Built on Microsoft's `System.CommandLine` library with enhanced features:
-
-- **Command Parsing**: Robust argument and option parsing with validation
-- **Help Generation**: Automatic help text generation with examples and usage patterns
-- **Completion**: Shell tab completion support for bash, zsh, and PowerShell
-- **Validation**: Built-in parameter validation with custom validators
-- **Error Handling**: Consistent error reporting with structured error codes
-- **NPM Compatibility**: Command structure mapping and compatibility validation
-
-### **Enhanced Usage Examples**
-
-```bash
-# Install globally with auto-update
-dotnet tool install -g claude --prerelease
-
-# Basic usage with natural language
-claude "Help me analyze this code for performance issues"
-claude --file Program.cs "Explain this code and suggest improvements"
-
-# Advanced usage with specific options
-claude analyze --scope project --focus performance --think
-claude implement "Add user authentication with JWT tokens" --framework dotnet
-
-# Interactive mode with session management
-claude --interactive --session-name "my-project"
-
-# Configuration and credential management
-claude config set api-key "your-key-here" --provider anthropic
-claude config show --include-credentials false
-claude config validate
-
-# NPM compatibility testing
-claude npm-analyze --package @anthropic-ai/claude-code --output compatibility-report.json
-claude compatibility-check --baseline npm-baseline.json
-
-# Cross-platform installation verification
-claude doctor --full-check --include-dependencies
-```
-
----
-
-## 📅 Enhanced Development Sessions
-
-### Session 1 - Repository Setup & Foundation Implementation (2025-07-22)
-
-**Major Accomplishments**:
-
-- ✅ **Complete repository setup** with simplified "Claude" naming convention (28/28 setup tasks)
-- ✅ **Advanced CLI implementation** with System.CommandLine integration
-- ✅ **Dependency injection** and hosting infrastructure (Microsoft.Extensions.Hosting)
-- ✅ **Service architecture** with interfaces and implementations
-- ✅ **Comprehensive project structure** with proper .NET Global Tool configuration
-- ✅ **Multi-command support** (analyze, implement, interactive modes)
-
-**Technical Implementation Details**:
-
-- **CLI Framework**: System.CommandLine v2.0.0-beta4.24324.3 with advanced command parsing
-- **Architecture**: Host builder pattern with dependency injection container
-- **Logging**: Serilog integration with Microsoft.Extensions.Logging
-- **Commands Implemented**: Root command, analyze, implement, interactive modes
-- **Global Tool**: Properly configured as `claude` package with `claude` command
-- **Services**: IFileSystemService, IConfigurationService with placeholder implementations
-
-### Session 2 - Enhanced Architecture & NPM Analysis (2025-07-23)
-
-**Major Accomplishments**:
-
-- ✅ **Comprehensive official documentation research** with CLI reference creation
-- ✅ **NPM package analysis automation design** with GitHub Actions integration
-- ✅ **Enhanced PRD requirements** with cross-platform publishing and xUnit v3
-- ✅ **Architecture revision** with Directory.Packages.props and SESSION-STATE.md workflow
-- ✅ **CLAUDE.md enhancement** with detailed development plan and contributor integration
-- ✅ **Project file refactoring** with duplicate property cleanup and Directory.Build.props optimization
-- ✅ **PackageReference standardization** with short format enforcement via .editorconfig
-
-**Enhanced Architecture Implementation**:
-
-- **NPM Analysis**: Automated @anthropic-ai/claude-code package monitoring and feature detection
-- **Testing Framework**: xUnit v3 integration with 80%+ coverage targets and comprehensive test strategy
-- **Package Management**: Directory.Packages.props centralized dependency management
-- **Cross-Platform**: Single-file executables with installer generation for multiple platforms
-- **Contributor Workflow**: SESSION-STATE.md integration for seamless collaboration and context tracking
-- **Performance Monitoring**: Enhanced benchmarking with NPM compatibility validation
-
-**Project Structure Refactoring**:
-
-- **Property Deduplication**: Removed duplicate properties from all .csproj files that are already defined in
-  Directory.Build.props
-	- `TargetFramework`, `ImplicitUsings`, `Nullable` removed from 4 project files
-	- Global properties like `Authors`, `Description`, `Copyright` centralized in Directory.Build.props
-- **PackageReference Standardization**: Converted verbose multi-line PackageReference syntax to concise single-line
-  format
-	- Before: `<PackageReference Include="pkg"><PrivateAssets>all</PrivateAssets></PackageReference>`
-	- After: `<PackageReference Include="pkg" PrivateAssets="all" />`
-- **EditorConfig Enhancement**: Added XML formatting rules to enforce short PackageReference format consistently
-
-### Session 3 - Documentation & Testing Infrastructure (2025-07-23)
-
-**Major Accomplishments**:
-
-- ✅ **Claude Code CLI documentation research** with comprehensive reference creation
-- ✅ **xUnit v3 testing framework setup** with 80%+ coverage targets
-- ✅ **Directory.Packages.props configuration** for centralized package management
-- ✅ **SESSION-STATE.md template creation** for contributor workflow
-- ✅ **Documentation consolidation** updating all files to v2.0 Enhanced Architecture
-
-**Documentation & Infrastructure Updates**:
-
-- **Claude Code CLI Reference**: Created comprehensive documentation of official CLI commands
-- **Testing Strategy**: Configured xUnit v3 with coverage reporting and test helpers
-- **Package Management**: Implemented centralized dependency management via Directory.Packages.props
-- **Contributor Workflow**: Established SESSION-STATE.md for seamless collaboration
-- **Documentation Sync**: Updated PLANNING.md, TASKS.md, CLAUDE.md, and PRD.md to v2.0
-
-**Phase 1 Enhanced Progress**: 16/45 tasks completed (36.4%) - **On Track**
-
-**Next Priorities (Updated)**:
-
-1. **NPM Analysis Setup**: GitHub Actions automation for @anthropic-ai/claude-code monitoring
-2. **Tool System Foundation**: Implement ITool interface and registry
-3. **Core File Operations**: Read/Write/Edit tool implementations
-4. **Configuration System**: Multi-layer configuration with hosting
-5. **Logging Infrastructure**: Serilog setup with structured logging
-
-**Enhanced Session Success Metrics**:</search>
-</search_and_replace>
-
-Now I'll enhance the MCP Integration section to include inline examples and remove the dependency on CLAUDE.local.md:
-
-<search_and_replace>
-<path>CLAUDE.md</path>
-<search>## 🛠️ Optimized Local MCP Workflow Integration
-
-### **Priority MCP Server Stack for claude dotnet Development**
-
-**Tier 1 - Essential Operations (Daily Use)**:
-
-- **Context7**: .NET library documentation and patterns (`mcp__context7__resolve-library-id`,
-  `mcp__context7__get-library-docs`)
-- **Sequential**: Architectural analysis and complex reasoning (`mcp__sequential-thinking__sequentialthinking`)
-- **Memory**: Architecture decision tracking (`mcp__memory__create_entities`, `mcp__memory__create_relations`)
-- **Repomix**: Codebase analysis and NPM comparison (`mcp__repomix__pack_codebase`,
-  `mcp__repomix__pack_remote_repository`)
-
-**Tier 2 - Development Operations (Feature Development)**:
-
-- **Magic**: Blazor component generation for CLI UI (`mcp__magic__21st_magic_component_builder`)
-- **DevOps Enhanced**: Azure DevOps integration (`mcp__devops-enhanced-mcp__create-work-item`)
-- **JetBrains**: Rider IDE integration (`mcp__jetbrains__create_new_file_with_text`)
-
-**Tier 3 - Testing & Validation (Release Cycles)**:
-
-- **Playwright**: E2E testing and automation (`mcp__playwright__browser_navigate`)
-- **BrowserLoop**: Visual testing and screenshots (`mcp__browserloop__take_screenshot`)
-- **Fetch**: External documentation access (`mcp__fetch__fetch`)</search>
-<replace>## 🛠️ Optimized Local MCP Workflow Integration
-
-### **Priority MCP Server Stack for claude dotnet Development**
-
-**Tier 1 - Essential Operations (Daily Use)**:
-
-- **Context7**: .NET library documentation and patterns
-  ```bash
-  mcp__context7__resolve-library-id --query "System.CommandLine"
-  mcp__context7__get-library-docs --library-id "system-commandline" --topic "command parsing"
-  ```
-
-- **Sequential**: Architectural analysis and complex reasoning
-  ```bash
-  mcp__sequential-thinking__sequentialthinking \
-    --thought "Analyzing CLI architecture patterns" \
-    --thoughtNumber 1 --totalThoughts 5 --nextThoughtNeeded true
-  ```
-
-- **Memory**: Architecture decision tracking
-  ```bash
-  mcp__memory__create_entities --entities '[{"name": "CliArchitecture", "entityType": "Decision"}]'
-  mcp__memory__create_relations --relations '[{"from": "CLI", "to": "Tools", "relationType": "uses"}]'
-  ```
-
-- **Repomix**: Codebase analysis and NPM comparison
-  ```bash
-  mcp__repomix__pack_codebase --directory "/path/to/claude" --compress true
-  mcp__repomix__pack_remote_repository --repositoryUrl "https://github.com/anthropics/claude-code"
-  ```
-
-**Tier 2 - Development Operations (Feature Development)**:
-
-- **Magic**: Blazor component generation for CLI UI
-  ```bash
-  mcp__magic__21st_magic_component_builder \
-    --message "Create CLI output component" --searchQuery "terminal output"
-  ```
-
-- **DevOps Enhanced**: Azure DevOps integration
-  ```bash
-  mcp__devops-enhanced-mcp__create-work-item --type "Task" --title "Implement feature"
-  ```
-
-- **JetBrains**: Rider IDE integration
-  ```bash
-  mcp__jetbrains__create_new_file_with_text --path "src/NewFile.cs" --content "// Code"
-  ```
-
-**Tier 3 - Testing & Validation (Release Cycles)**:
-
-- **Playwright**: E2E testing and automation
-  ```bash
-  mcp__playwright__browser_navigate --url "https://localhost:5001"
-  mcp__playwright__browser_take_screenshot --filename "test-result.png"
-  ```
-
-- **BrowserLoop**: Visual testing and screenshots
-  ```bash
-  mcp__browserloop__take_screenshot --url "https://localhost:5001"
-  ```
-
-- **Fetch**: External documentation access
-  ```bash
-  mcp__fetch__fetch --url "https://docs.microsoft.com/api/endpoint"
-  ```</search>
-</search_and_replace>
-
-<search_and_replace>
-<path>CLAUDE.md</path>
-<search>### **Integration with Development Phases**
-
-**Phase 1 (Foundation)**: Context7 + Sequential + Memory (architecture decisions)
-**Phase 2 (NPM Analysis)**: Repomix + Sequential + Memory (compatibility tracking)
-**Phase 3 (Tool System)**: Context7 + JetBrains + Memory (implementation patterns)
-**Phase 4 (AI Integration)**: Context7 + Sequential + DevOps (API patterns)
-**Phase 5 (Advanced Features)**: All servers (comprehensive development)
-**Phase 6 (Cross-Platform)**: Playwright + BrowserLoop (testing validation)
-
-For complete MCP server reference with all commands and examples, see **[CLAUDE.local.md](CLAUDE.local.md)**.</search>
-<replace>### **Integration with Development Phases**
-
-**Phase 1 (Foundation)**: Context7 + Sequential + Memory (architecture decisions)
-**Phase 2 (NPM Analysis)**: Repomix + Sequential + Memory (compatibility tracking)
-**Phase 3 (Tool System)**: Context7 + JetBrains + Memory (implementation patterns)
-**Phase 4 (AI Integration)**: Context7 + Sequential + DevOps (API patterns)
-**Phase 5 (Advanced Features)**: All servers (comprehensive development)
-**Phase 6 (Cross-Platform)**: Playwright + BrowserLoop (testing validation)
-
-### **Quick MCP Command Reference**
-
-```bash
-# Research .NET patterns
-mcp__context7__resolve-library-id --query "dotnet core"
-mcp__context7__get-library-docs --library-id "dotnet-core" --topic "dependency injection"
-
-# Analyze complex problems
-mcp__sequential-thinking__sequentialthinking \
-  --thought "Your analysis here" --totalThoughts 5
+# Analyze problems
+mcp__sequential-thinking__sequentialthinking --thought "Analysis" --totalThoughts 5
 
 # Track decisions
-mcp__memory__create_entities --entities '[{"name": "Decision", "entityType": "Architecture"}]'
+mcp__memory__create_entities --entities '[{"name": "Decision"}]'
 
-# Analyze codebases
+# Analyze code
 mcp__repomix__pack_codebase --directory "." --compress true
-mcp__repomix__grep_repomix_output --pattern "TODO:|FIXME:" --contextLines 3
-
-# Create work items
-mcp__devops-enhanced-mcp__create-work-item --type "Task" --title "New feature"
-
-# Run tests
-mcp__playwright__browser_navigate --url "http://localhost"
-mcp__playwright__browser_take_screenshot --filename "test.png"
-```</search>
-</search_and_replace>
-
-Now let me update the last part to show the correct progress:
-
-<search_and_replace>
-<path>CLAUDE.md</path>
-<search>**Document Version**: 2.0 (Enhanced Architecture)
-**Last Updated**: 2025-07-23
-**Status**: Active Development (Enhanced Phase 1: 26.7% Complete)
-**Repository**: https://github.com/wangkanai/claude
-**Current Phase**: Enhanced Phase 1 - Foundation with NPM Analysis Integration
-**Next Review**: NPM Analysis Automation & Directory.Packages.props Setup
-**Next Session Focus**: GitHub Actions setup, centralized package management, xUnit v3 integration
-**NPM Analysis Status**: Automated monitoring pipeline design complete
-**Testing Framework**: xUnit v3 integration planned with 80%+ coverage targets</search>
-<replace>**Document Version**: 2.0 (Enhanced Architecture)
-**Last Updated**: 2025-07-23
-**Status**: Active Development (Enhanced Phase 1: 36.4% Complete)
-**Repository**: https://github.com/wangkanai/claude
-**Current Phase**: Enhanced Phase 1 - Foundation with NPM Analysis Integration
-**Next Review**: NPM Analysis Automation & Core Tool Implementation
-**Next Session Focus**: GitHub Actions setup, tool system foundation, file operations
-**NPM Analysis Status**: Automated monitoring pipeline design complete
-**Testing Framework**: xUnit v3 configured with 80%+ coverage targets
-
-- **Architecture Enhancement**: 100% comprehensive revision with NPM analysis integration
-- **Documentation Coverage**: Complete CLI reference with official documentation mapping
-- **Testing Strategy**: xUnit v3 framework integration with 80%+ coverage targets
-- **Cross-Platform Support**: Single-file executable and installer generation planning
-- **Contributor Experience**: SESSION-STATE.md workflow integration for seamless collaboration
-- **Performance Targets**: Enhanced benchmarking with NPM compatibility validation
-
----
-
-## 🔄 Enhanced NPM Package Analysis Integration
-
-### **Automated NPM Analysis Pipeline**
-
-```yaml
-NPM Analysis Automation:
-	Package:        "@anthropic-ai/claude-code"
-	Frequency:      "Daily monitoring with immediate alerts"
-	Analysis Depth: "Complete decompilation and feature extraction"
-	Validation:     "Automated compatibility testing and feature parity verification"
-	Reporting:      "Structured analysis reports with actionable insights"
-	Integration:    "CI/CD pipeline integration with automated PR generation"
 ```
 
-### **NPM Compatibility Matrix**
+---
 
-- **Command Structure**: 100% mapping of all CLI commands and options
-- **Feature Detection**: Automated identification of new features and capabilities
-- **API Compatibility**: Complete API surface analysis and compatibility verification
-- **Performance Benchmarking**: Comparative performance analysis and optimization opportunities
-- **Security Analysis**: Vulnerability scanning and security best practices validation
+## 🔒 Security & Performance
+
+### **Security**
+
+-   OS credential managers
+-   HTTPS-only communication
+-   Sandboxed code execution
+-   Comprehensive audit trails
+-   GDPR compliance
+
+### **Performance Targets**
+
+-   Cold Start: <500ms
+-   Memory: <100MB baseline
+-   Response: <200ms simple ops
+-   Throughput: 100+ concurrent files
+-   Scalability: 100k+ files, 1GB+ codebases
 
 ---
 
-**Document Version**: 2.0 (Enhanced Architecture)
-**Last Updated**: 2025-07-23
-**Status**: Active Development (Enhanced Phase 1: 26.7% Complete)
-**Repository**: https://github.com/wangkanai/claude
-**Current Phase**: Enhanced Phase 1 - Foundation with NPM Analysis Integration
-**Next Review**: NPM Analysis Automation & Directory.Packages.props Setup
-**Next Session Focus**: GitHub Actions setup, centralized package management, xUnit v3 integration
-**NPM Analysis Status**: Automated monitoring pipeline design complete
-**Testing Framework**: xUnit v3 integration planned with 80%+ coverage targets
+## 🚀 Installation & Usage
+
+### **Installation**
+
+```bash
+# Global tool
+dotnet tool install -g claude
+
+# Platform-specific
+winget install wangkanai.claude  # Windows
+brew install claude               # macOS
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-linux-x64 -o claude
+```
+
+### **Usage**
+
+```bash
+# Natural language
+claude "Analyze this code for performance issues"
+
+# Commands
+claude analyze --scope project --focus performance
+claude implement "Add JWT authentication" --framework dotnet
+
+# Configuration
+claude config set api-key "key" --provider anthropic
+```
+
+---
+
+## 📅 Development Progress
+
+### **Current Status**: Phase 1 - 36.4% Complete (16/45 tasks)
+
+**Completed**:
+
+-   ✅ Repository setup with .NET Global Tool config
+-   ✅ System.CommandLine integration
+-   ✅ Dependency injection infrastructure
+-   ✅ Multi-command support
+-   ✅ NPM analysis design
+-   ✅ xUnit v3 setup
+-   ✅ Directory.Packages.props
+-   ✅ SESSION-STATE.md workflow
+
+**Next Priorities**:
+
+1. NPM Analysis GitHub Actions
+2. ITool interface implementation
+3. Core file operations
+4. Multi-layer configuration
+5. Serilog logging
+
+---
+
+## 📚 Resources
+
+### **Documentation**
+
+-   API Documentation (100% XML coverage)
+-   Architecture Decision Records
+-   User/Developer Guides
+-   NPM Analysis Reports
+-   Performance Benchmarks
+
+### **Community**
+
+-   GitHub Repository & Issues
+-   NuGet Package Distribution
+-   Docker Hub Images
+-   Discord/Discussions
+-   Plugin Ecosystem
+
+---
+
+## 🤝 Contributing
+
+-   Git flow with feature branches
+-   Mandatory code review
+-   Automated testing & quality gates
+-   Semantic versioning
+-   SESSION-STATE.md tracking
+
+---
+
+**Version**: 2.0 | **Updated**: 2025-07-23 | **Status**: Active Development  
+**Repository**: https://github.com/wangkanai/claude  
+**Phase**: Enhanced Phase 1 (36.4% Complete)  
+**Next**: NPM Analysis Automation & Core Tool Implementation
+
