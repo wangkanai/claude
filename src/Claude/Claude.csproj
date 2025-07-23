@@ -11,8 +11,7 @@
     <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>claude</ToolCommandName>
-    <PackageId>claude-dotnet</PackageId>
-    <PackageVersion>1.0.0-preview.1</PackageVersion>
+    <PackageId>claude</PackageId>
     <Authors>Sarin Na Wangkanai</Authors>
     <Description>High-performance .NET reimplementation of Anthropic's Claude Code CLI</Description>
     <Copyright>Copyright © Wangkanai 2025</Copyright>
@@ -23,18 +22,6 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-
-    <!-- Assembly Information -->
-    <AssemblyTitle>Claude</AssemblyTitle>
-    <AssemblyDescription>High-performance .NET reimplementation of Anthropic's Claude Code CLI</AssemblyDescription>
-    <AssemblyConfiguration>Release</AssemblyConfiguration>
-    <AssemblyCompany>Wangkanai</AssemblyCompany>
-    <AssemblyProduct>claude dotnet</AssemblyProduct>
-    <AssemblyCopyright>Copyright © Wangkanai 2025</AssemblyCopyright>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
-    <InformationalVersion>1.0.0-preview.1</InformationalVersion>
-    <RootNamespace>Claude</RootNamespace>
 
     <!-- Build Configuration -->
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
