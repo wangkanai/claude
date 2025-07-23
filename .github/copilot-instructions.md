@@ -49,6 +49,17 @@ tests/
 
 ## 🎨 Code Style Guidelines
 
+### EditorConfig Integration
+
+This project uses `.editorconfig` for automated formatting and style enforcement. When generating or modifying code,
+always respect the formatting rules defined in `.editorconfig`, which includes:
+
+- **Indentation**: Tabs with size 4
+- **Line endings**: CRLF
+- **Encoding**: UTF-8
+- **C# preferences**: var usage, modifier order, brace styles
+- **ReSharper formatting**: Alignment and arrangement preferences
+
 ### Naming Conventions
 
 ```csharp
@@ -539,13 +550,13 @@ public record AIResponse(
 ```xml
 
 <PropertyGroup>
-	<OutputType>Exe</OutputType>
-	<IsPackable>true</IsPackable>
-	<PackAsTool>true</PackAsTool>
-	<ToolCommandName>claude</ToolCommandName>
-	<PackageId>claude</PackageId>
-	<PackageTags>ai;cli;claude;anthropic;dotnet-tool</PackageTags>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <OutputType>Exe</OutputType>
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>claude</ToolCommandName>
+    <PackageId>claude</PackageId>
+    <PackageTags>ai;cli;claude;anthropic;dotnet-tool</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
 </PropertyGroup>
 ```
 
