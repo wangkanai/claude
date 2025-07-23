@@ -2,31 +2,18 @@
 
   <!-- Project Information -->
   <PropertyGroup>
-    <Product>Claude.NET</Product>
-    <Authors>Wangkanai</Authors>
+    <Product>claude dotnet</Product>
+    <Authors>Sarin Na Wangkanai</Authors>
     <Company>Wangkanai</Company>
     <Copyright>Copyright © Wangkanai 2025</Copyright>
     <Description>High-performance .NET CLI tool for AI-powered software development</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/wangkanai/claude-dotnet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/wangkanai/claude-dotnet.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/wangkanai/claude</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/wangkanai/claude.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <!-- <PackageReadmeFile>README.md</PackageReadmeFile> -->
     <!-- <PackageIcon>icon.png</PackageIcon> -->
     <PackageTags>ai;cli;anthropic;claude;development;tools;dotnet</PackageTags>
-  </PropertyGroup>
-
-  <!-- Target Framework and Language Version -->
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <LangVersion>12</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-    <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
   <!-- Assembly Information -->
@@ -34,12 +21,16 @@
     <Version>1.0.0</Version>
   </PropertyGroup>
 
-  <!-- Build Configuration -->
+  <!-- Target Framework and Language Version -->
   <PropertyGroup>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <RestoreLockedMode Condition="'$(CI)' == 'true'">true</RestoreLockedMode>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors>CS1591</WarningsNotAsErrors>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
   <!-- Debug Configuration -->

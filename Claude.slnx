@@ -13,14 +13,15 @@
     <File Path="Directory.Build.targets" />
     <File Path="Directory.Packages.props" />
   </Folder>
-  <Folder Name="/benchmark/" />
+  <Folder Name="/benchmark/">
+    <Project Path="benchmark/Claude.Benchmark.csproj" />
+  </Folder>
   <Folder Name="/docs/">
     <File Path="CLAUDE.md" />
     <File Path="PRD.md" />
     <File Path="README.md" />
   </Folder>
   <Folder Name="/tests/" />
-  <Project Path="benchmark/Claude.Benchmark.csproj" />
   <Project Path="src/Claude/Claude.csproj" />
   <Project Path="tests/IntegrationTests/Claude.IntegrationTests.csproj" />
   <Project Path="tests/UnitTests/Claude.UnitTests.csproj" />
