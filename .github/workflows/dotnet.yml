@@ -74,25 +74,25 @@ jobs:
     - name: Publish application
       if: matrix.os == 'ubuntu-latest'
       run: |
-        dotnet publish src/Claude.Cli/Claude.Cli.csproj \
+        dotnet publish src/Claud/Claude.csproj \
           --configuration Release \
           --runtime linux-x64 \
           --self-contained true \
           --output ./publish/linux-x64/
 
-        dotnet publish src/Claude.Cli/Claude.Cli.csproj \
+        dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime win-x64 \
           --self-contained true \
           --output ./publish/win-x64/
 
-        dotnet publish src/Claude.Cli/Claude.Cli.csproj \
+        dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime osx-x64 \
           --self-contained true \
           --output ./publish/osx-x64/
 
-        dotnet publish src/Claude.Cli/Claude.Cli.csproj \
+        dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime osx-arm64 \
           --self-contained true \
@@ -100,7 +100,7 @@ jobs:
 
     - name: Pack NuGet package
       if: matrix.os == 'ubuntu-latest'
-      run: dotnet pack src/Claude.Cli/Claude.Cli.csproj --configuration Release --no-build --output ./packages
+      run: dotnet pack src/Claude/Claude.csproj --configuration Release --no-build --output ./packages
 
     - name: Upload build artifacts
       if: matrix.os == 'ubuntu-latest'
@@ -280,12 +280,12 @@ jobs:
     - name: Run benchmarks
       run: |
         # Create benchmark project if it doesn't exist
-        if [ ! -d "tests/Claude.Cli.Benchmarks" ]; then
+        if [ ! -d "tests/Claude.Benchmarks" ]; then
           echo "Benchmark project will be created in Phase 6"
           exit 0
         fi
         
-        dotnet run --project tests/Claude.Cli.Benchmarks --configuration Release
+        dotnet run --project tests/Claude.Benchmarks --configuration Release
 
     - name: Upload benchmark results
       if: always()
