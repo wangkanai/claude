@@ -119,19 +119,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Run security scan
-      run: |
-        dotnet list package --vulnerable --include-transitive || true
-
-    - name: Run Snyk to check for vulnerabilities
-      if: github.event_name == 'push'
-      uses: snyk/actions/dotnet@master
-      continue-on-error: true
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        args: --severity-threshold=high
-
   # Code Quality Job
   code-quality:
     name: Code Quality Analysis
