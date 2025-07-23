@@ -1,9 +1,9 @@
 # CLAUDE.md - claude dotnet Project Guide
 
-**Project**: claude dotnet - High-Performance .NET Global Tool  
-**Version**: 2.0 (Enhanced Architecture)  
-**Created**: 2025-07-22  
-**Updated**: 2025-07-23  
+**Project**: claude dotnet - High-Performance .NET Global Tool
+**Version**: 2.0 (Enhanced Architecture)
+**Created**: 2025-07-22
+**Updated**: 2025-07-23
 **Technology**: C# 12, .NET 9.0, System.CommandLine, xUnit v3
 
 ---
@@ -388,22 +388,22 @@ public class PermissionSettings
 
 ```bash
 # Global tool installation (recommended)
-dotnet tool install -g claude-dotnet
+dotnet tool install -g claude
 
 # Platform-specific installers
 # Windows
-winget install wangkanai.claude-dotnet
+winget install wangkanai.claude
 choco install claude-dotnet
 
 # macOS
 brew install claude
 
 # Linux
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-linux-x64 -o claude-dotnet
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-linux-x64 -o claude
 chmod +x claude
 
 # Docker usage with volume mounting
-docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
+docker run --rm -it -v $(pwd):/workspace wangkanai/claude
 
 # Single-file executable (no .NET runtime required)
 curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-standalone-linux-x64 -o claude
@@ -413,7 +413,7 @@ chmod +x claude
 ### **Enhanced Configuration Management**
 
 1. **appsettings.json**: Default application settings and service configuration
-2. **User Settings**: `~/.claude-dotnet/settings.json` with credential management
+2. **User Settings**: `~/.claude/settings.json` with credential management
 3. **Project Settings**: `.claude/settings.json` with team configuration
 4. **Environment Variables**: Runtime overrides and CI/CD integration
 5. **Command Line Arguments**: Temporary overrides and session-specific settings
@@ -484,7 +484,7 @@ chmod +x claude
     <TargetFramework>net9.0</TargetFramework>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>claude</ToolCommandName>
-    <PackageId>claude-dotnet</PackageId>
+    <PackageId>claude</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
@@ -627,12 +627,12 @@ NPM Analysis Automation:
 
 ---
 
-**Document Version**: 2.0 (Enhanced Architecture)  
-**Last Updated**: 2025-07-23  
-**Status**: Active Development (Enhanced Phase 1: 26.7% Complete)  
-**Repository**: https://github.com/wangkanai/claude  
-**Current Phase**: Enhanced Phase 1 - Foundation with NPM Analysis Integration  
-**Next Review**: NPM Analysis Automation & Directory.Packages.props Setup  
-**Next Session Focus**: GitHub Actions setup, centralized package management, xUnit v3 integration  
-**NPM Analysis Status**: Automated monitoring pipeline design complete  
+**Document Version**: 2.0 (Enhanced Architecture)
+**Last Updated**: 2025-07-23
+**Status**: Active Development (Enhanced Phase 1: 26.7% Complete)
+**Repository**: https://github.com/wangkanai/claude
+**Current Phase**: Enhanced Phase 1 - Foundation with NPM Analysis Integration
+**Next Review**: NPM Analysis Automation & Directory.Packages.props Setup
+**Next Session Focus**: GitHub Actions setup, centralized package management, xUnit v3 integration
+**NPM Analysis Status**: Automated monitoring pipeline design complete
 **Testing Framework**: xUnit v3 integration planned with 80%+ coverage targets
