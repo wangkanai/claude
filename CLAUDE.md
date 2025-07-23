@@ -186,6 +186,40 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 
 ---
 
+## 🖼️ Image Processing Configuration
+
+### **Optimized Image Handling for Claude Performance**
+
+To ensure optimal performance and cost-effectiveness, the claude dotnet CLI implements intelligent image filtering:
+
+**Supported Image Types (Efficient)**:
+- **SVG**: Vector graphics with text content - highly efficient for Claude processing
+- **Text-based formats**: Any image containing readable text or code snippets
+
+**Excluded Image Types (Performance Optimization)**:
+- **PNG/JPG/JPEG**: Raster images with high processing overhead
+- **GIF**: Animated or static raster images  
+- **WEBP**: Modern raster format but still computationally expensive
+- **BMP/TIFF**: Large uncompressed formats
+- **ICO**: Icon files without significant content value
+
+**Configuration**:
+```json
+{
+  "imageProcessing": {
+    "enabledFormats": ["svg"],
+    "excludedFormats": ["png", "jpg", "jpeg", "gif", "webp", "bmp", "tiff", "ico"],
+    "performanceOptimization": true,
+    "costOptimization": true,
+    "textBasedOnly": true
+  }
+}
+```
+
+**Rationale**: This configuration prioritizes Claude's computational efficiency by avoiding resource-intensive raster image processing while preserving support for SVG files which contain structured, text-based content that Claude can efficiently analyze.
+
+---
+
 ## 🔧 Enhanced Core Features & Components
 
 ### **1. Enhanced CLI Interface System**
