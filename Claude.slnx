@@ -23,9 +23,14 @@
     <Project Path="benchmark/Claude.Benchmark.csproj" />
   </Folder>
   <Folder Name="/docs/">
-    <File Path="CLAUDE.md" />
-    <File Path="PRD.md" />
-    <File Path="README.md" />
+    <File Path="docs\claude-code-cli-reference.md" />
+    <File Path="docs\directory-packages-props-configuration.md" />
+    <File Path="docs\xunit-v3-testing-framework.md" />
+    <File Path="docs\planning-timeline.png" />
+  </Folder>
+  <Folder Name="/docs/tasks/">
+    <File Path="docs\tasks\documentation-sync-task.md" />
+    <File Path="docs\tasks\consolidated-documentation-update.todo" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/IntegrationTests/Claude.IntegrationTests.csproj" />
