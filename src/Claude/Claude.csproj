@@ -2,7 +2,6 @@
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<LangVersion>12</LangVersion>
 
 		<!-- Global Tool Configuration -->
 		<IsPackable>true</IsPackable>
