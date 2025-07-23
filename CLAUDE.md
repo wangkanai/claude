@@ -325,6 +325,51 @@ public interface IFileSystemService
 
 ---
 
+## 🛠️ Local Development - MCP Server Integration
+
+### **Available MCP Commands for Development**
+
+For comprehensive local development with Model Context Protocol (MCP) servers, see **[CLAUDE.local.md](CLAUDE.local.md)** which provides:
+
+- **Context7**: Official library documentation and code examples
+- **Sequential Thinking**: Multi-step problem solving and architectural analysis  
+- **Magic**: UI component generation and design system integration
+- **Playwright**: Cross-browser testing and E2E automation
+- **Memory**: Knowledge graph management and entity tracking
+- **Repomix**: Codebase analysis and AI-optimized consolidation
+- **DevOps Enhanced**: Azure DevOps integration with work item management
+- **Fetch**: Secure web content retrieval and documentation access
+- **BrowserLoop**: Automated screenshot capture and visual monitoring
+- **JetBrains**: IDE integration and code manipulation
+
+### **Common Development Workflows**
+
+```bash
+# Research and Documentation
+mcp__context7__resolve-library-id --query "System.CommandLine"
+mcp__context7__get-library-docs --library-id "system-commandline" --topic "command parsing"
+
+# Architecture Analysis
+mcp__sequential-thinking__sequentialthinking \
+  --thought "Mapping Node.js CLI structure to .NET architecture" \
+  --totalThoughts 5
+
+# Codebase Analysis
+mcp__repomix__pack_codebase --directory "/Users/wangkanai/Sources/claude" --compress true
+mcp__repomix__grep_repomix_output --pattern "TODO:|FIXME:" --contextLines 3
+
+# Knowledge Management  
+mcp__memory__create_entities --entities '[{"name": "CommandLineArchitecture", "entityType": "ArchitectureDecision"}]'
+
+# Testing and Validation
+mcp__playwright__browser_navigate --url "https://localhost:5001"
+mcp__playwright__browser_take_screenshot --filename "test-results.png"
+```
+
+**Reference**: See [CLAUDE.local.md](CLAUDE.local.md) for complete command syntax, usage patterns, and development workflows.
+
+---
+
 ## 🔒 Enhanced Security & Compliance
 
 ### **Enhanced Security Requirements**
