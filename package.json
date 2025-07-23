@@ -1,0 +1,36 @@
+{
+  "name": "claude",
+  "version": "1.0.0",
+  "description": "Claude DotNet is complete  reimplementation of Anthropic's Claude Code CLI tool",
+  "keywords": [
+    "claude",
+    "cli",
+    "dotnet",
+    "ai",
+    "agent"
+  ],
+  "homepage": "https://github.com/wangkanai/claude#readme",
+  "bugs": {
+    "url": "https://github.com/wangkanai/claude/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangkanai/claude.git"
+  },
+  "license": "MIT",
+  "author": "Sarin Na Wangkanai",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@anthropic-ai/claude-code": "^1.0.58",
+    "typescript": "^5.8.3",
+    "rimraf": "^5.0.0"
+  }
+}

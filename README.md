@@ -106,17 +106,17 @@ dotnet build
 dotnet test
 
 # Pack as global tool
-dotnet pack src/Claude.Cli/Claude.Cli.csproj -c Release
+dotnet pack src/Claude/Claude.csproj -c Release
 ```
 
 ### Running Locally
 
 ```bash
 # Run from source
-dotnet run --project src/Claude.Cli -- --help
+dotnet run --project src/Claude -- --help
 
 # Install local build as global tool
-dotnet tool install -g --add-source ./src/Claude.Cli/bin/Release claude-dotnet
+dotnet tool install -g --add-source ./src/Claude/bin/Release claude-dotnet
 
 # Run installed tool
 claude --help
@@ -126,8 +126,8 @@ claude --help
 
 The project includes comprehensive testing at multiple levels:
 
-- **Unit Tests**: `tests/Claude.Cli.Tests` - 90%+ code coverage target
-- **Integration Tests**: `tests/Claude.Cli.IntegrationTests` - End-to-end workflow testing
+- **Unit Tests**: `tests/Claude.Tests` - 90%+ code coverage target
+- **Integration Tests**: `tests/Claude.IntegrationTests` - End-to-end workflow testing
 - **Performance Tests**: Benchmarks using BenchmarkDotNet
 - **Security Tests**: Static analysis with SonarCloud
 

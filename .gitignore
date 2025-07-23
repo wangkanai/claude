@@ -3,8 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+prompts/
 debug/
 release/
+
+package-lock.json
 
 # User-specific files
 *.rsuser
