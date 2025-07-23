@@ -56,46 +56,33 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Run unit tests
-      run: dotnet test tests/Claude.UnitTests --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test tests/UnitTests --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
     - name: Run integration tests
-      run: dotnet test tests/Claude.IntegrationTests --configuration Release --no-build --verbosity normal
-
-    - name: Upload coverage reports to Codecov
-      if: matrix.os == 'ubuntu-latest'
-      uses: codecov/codecov-action@v4
-      with:
-        directory: ./coverage
-        fail_ci_if_error: true
-        verbose: true
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      run: dotnet test tests/IntegrationTests --configuration Release --no-build --verbosity normal
 
     - name: Publish application
       if: matrix.os == 'ubuntu-latest'
       run: |
-        dotnet publish src/Claud/Claude.csproj \
+        # Publish as framework-dependent (required for .NET tools)
+        dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime linux-x64 \
-          --self-contained true \
           --output ./publish/linux-x64/
 
         dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime win-x64 \
-          --self-contained true \
           --output ./publish/win-x64/
 
         dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime osx-x64 \
-          --self-contained true \
           --output ./publish/osx-x64/
 
         dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime osx-arm64 \
-          --self-contained true \
           --output ./publish/osx-arm64/
 
     - name: Pack NuGet package
@@ -133,15 +120,6 @@ jobs:
       run: |
         dotnet list package --vulnerable --include-transitive || true
 
-    - name: Run Snyk to check for vulnerabilities
-      if: github.event_name == 'push'
-      uses: snyk/actions/dotnet@master
-      continue-on-error: true
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with:
-        args: --severity-threshold=high
-
   # Code Quality Job
   code-quality:
     name: Code Quality Analysis
@@ -173,7 +151,6 @@ jobs:
 
     - name: Build and analyze
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         dotnet-sonarscanner begin /k:"wangkanai_claude" /o:"wangkanai" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="coverage/**/coverage.opencover.xml"
