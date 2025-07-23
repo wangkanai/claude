@@ -396,17 +396,17 @@ winget install wangkanai.claude-dotnet
 choco install claude-dotnet
 
 # macOS
-brew install claude-dotnet
+brew install claude
 
 # Linux
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-dotnet-linux-x64 -o claude-dotnet
-chmod +x claude-dotnet
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-linux-x64 -o claude-dotnet
+chmod +x claude
 
 # Docker usage with volume mounting
 docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
 
 # Single-file executable (no .NET runtime required)
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-dotnet-standalone-linux-x64 -o claude
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-standalone-linux-x64 -o claude
 chmod +x claude
 ```
 
@@ -513,7 +513,7 @@ Built on Microsoft's `System.CommandLine` library with enhanced features:
 
 ```bash
 # Install globally with auto-update
-dotnet tool install -g claude-dotnet --prerelease
+dotnet tool install -g claude --prerelease
 
 # Basic usage with natural language
 claude "Help me analyze this code for performance issues"
