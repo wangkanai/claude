@@ -5,7 +5,11 @@
     <File Path="PRD.md" />
     <File Path="TASKS.md" />
   </Folder>
-  <Folder Name="/.github/" />
+  <Folder Name="/.github/">
+    <File Path=".github\RELEASE.yml" />
+    <File Path=".github\FUNDING.yml" />
+    <File Path=".github\workflows\dotnet.yml" />
+  </Folder>
   <Folder Name="/.solutions/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
