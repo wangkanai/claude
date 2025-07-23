@@ -359,13 +359,121 @@ public interface IFileSystemService
 
 ---
 
-## 🛠️ Local Development - MCP Server Integration
+## 🛠️ Optimized Local MCP Workflow Integration
 
-### **Available MCP Commands for Development**
+### **Priority MCP Server Stack for claude dotnet Development**
 
-For comprehensive local development with Model Context Protocol (MCP) servers, see **[CLAUDE.local.md](CLAUDE.local.md)** which contains a complete MCP server directory with detailed command references, usage examples, and development workflows.
+**Tier 1 - Essential Operations (Daily Use)**:
+- **Context7**: .NET library documentation and patterns (`mcp__context7__resolve-library-id`, `mcp__context7__get-library-docs`)
+- **Sequential**: Architectural analysis and complex reasoning (`mcp__sequential-thinking__sequentialthinking`)
+- **Memory**: Architecture decision tracking (`mcp__memory__create_entities`, `mcp__memory__create_relations`)
+- **Repomix**: Codebase analysis and NPM comparison (`mcp__repomix__pack_codebase`, `mcp__repomix__pack_remote_repository`)
 
-The local MCP environment includes 10 specialized servers covering documentation research, architectural analysis, UI generation, testing automation, knowledge management, codebase analysis, and development tool integration.
+**Tier 2 - Development Operations (Feature Development)**:
+- **Magic**: Blazor component generation for CLI UI (`mcp__magic__21st_magic_component_builder`)
+- **DevOps Enhanced**: Azure DevOps integration (`mcp__devops-enhanced-mcp__create-work-item`)
+- **JetBrains**: Rider IDE integration (`mcp__jetbrains__create_new_file_with_text`)
+
+**Tier 3 - Testing & Validation (Release Cycles)**:
+- **Playwright**: E2E testing and automation (`mcp__playwright__browser_navigate`)
+- **BrowserLoop**: Visual testing and screenshots (`mcp__browserloop__take_screenshot`)
+- **Fetch**: External documentation access (`mcp__fetch__fetch`)
+
+### **Optimized Development Workflows**
+
+**Phase 1 Foundation Workflow** (Current Priority):
+```bash
+# 1. Research System.CommandLine patterns
+mcp__context7__resolve-library-id --query "System.CommandLine"
+mcp__context7__get-library-docs --library-id "system-commandline" --topic "command parsing"
+
+# 2. Analyze NPM claude-code structure  
+mcp__repomix__pack_remote_repository \
+  --repositoryUrl "https://github.com/anthropics/claude-code" \
+  --outputId "claude-code-npm-analysis"
+
+# 3. Architectural decision analysis
+mcp__sequential-thinking__sequentialthinking \
+  --thought "Mapping Node.js CLI commands to .NET System.CommandLine architecture" \
+  --thoughtNumber 1 --totalThoughts 5 --nextThoughtNeeded true
+
+# 4. Document architecture decisions
+mcp__memory__create_entities --entities '[{
+  "name": "SystemCommandLineArchitecture", 
+  "entityType": "ArchitectureDecision",
+  "observations": ["System.CommandLine for CLI parsing", "Command pattern implementation"]
+}]'
+```
+
+**NPM Analysis & CLI Mapping Workflow** (Phase 2 Priority):
+```bash  
+# 1. Deep codebase analysis
+mcp__repomix__pack_codebase --directory "/Users/wangkanai/Sources/claude" --compress true --outputId "claude-dotnet"
+mcp__repomix__grep_repomix_output --outputId "claude-dotnet" --pattern "TODO:|FIXME:|HACK:" --contextLines 3
+
+# 2. Compare implementations  
+mcp__sequential-thinking__sequentialthinking \
+  --thought "Feature parity analysis between NPM and .NET implementations" \
+  --thoughtNumber 1 --totalThoughts 7 --nextThoughtNeeded true
+
+# 3. Track compatibility matrix
+mcp__memory__create_relations --relations '[{
+  "from": "NPMClaudeCode", "to": "DotNetClaude", "relationType": "feature_parity"
+}]'
+```
+
+**Tool System Development Workflow** (Phase 3 Priority):
+```bash
+# 1. Research .NET tool patterns
+mcp__context7__get-library-docs --library-id "dotnet-core" --topic "dependency injection"
+mcp__context7__get-library-docs --library-id "dotnet-core" --topic "file system abstractions"
+
+# 2. Generate tool interfaces
+mcp__jetbrains__create_new_file_with_text \
+  --path "src/Tools/ITool.cs" \
+  --content "// Tool interface definition"
+
+# 3. Document tool architecture
+mcp__memory__create_entities --entities '[{
+  "name": "ToolSystemArchitecture",
+  "entityType": "SystemDesign", 
+  "observations": ["Strategy pattern for tool implementations"]
+}]'
+```
+
+### **MCP Performance Optimization Strategy**
+
+**Caching Strategy**:
+- Context7: 15-minute documentation cache - leverage for repeated .NET library lookups
+- Memory: Persistent knowledge graph - maintain architectural decisions across sessions
+- Repomix: Cache analysis outputs - reuse codebase analysis results
+
+**Parallel Execution Patterns**:
+- Research + Analysis: Run Context7 library lookups parallel with Sequential thinking
+- Multi-codebase Analysis: Parallel Repomix operations on NPM vs .NET codebases  
+- Documentation + Implementation: Context7 pattern research concurrent with JetBrains file creation
+
+**Priority Command Shortcuts**:
+```bash
+# Essential daily commands (create aliases)
+alias mcp-resolve="mcp__context7__resolve-library-id"
+alias mcp-docs="mcp__context7__get-library-docs" 
+alias mcp-think="mcp__sequential-thinking__sequentialthinking"
+alias mcp-entity="mcp__memory__create_entities"
+alias mcp-pack="mcp__repomix__pack_codebase"
+alias mcp-npm="mcp__repomix__pack_remote_repository"
+```
+
+### **Integration with Development Phases**
+
+**Phase 1 (Foundation)**: Context7 + Sequential + Memory (architecture decisions)
+**Phase 2 (NPM Analysis)**: Repomix + Sequential + Memory (compatibility tracking)  
+**Phase 3 (Tool System)**: Context7 + JetBrains + Memory (implementation patterns)
+**Phase 4 (AI Integration)**: Context7 + Sequential + DevOps (API patterns)
+**Phase 5 (Advanced Features)**: All servers (comprehensive development)
+**Phase 6 (Cross-Platform)**: Playwright + BrowserLoop (testing validation)
+
+For complete MCP server reference with all commands and examples, see **[CLAUDE.local.md](CLAUDE.local.md)**.
 
 ---
 
