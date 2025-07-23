@@ -25,7 +25,7 @@ A complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and 
 Install as a .NET Global Tool (recommended):
 
 ```bash
-dotnet tool install -g claude-dotnet
+dotnet tool install -g claude
 ```
 
 Alternatively, download standalone executables from [releases](https://github.com/wangkanai/claude/releases).
@@ -62,12 +62,12 @@ claude --version
 ┌─────────────────────────────────────────────────────────────┐
 │                    claude dotnet CLI                        │
 ├─────────────────────────────────────────────────────────────┤
-│  Command Layer    │ System.CommandLine Integration         │
-│  Tool Layer       │ Strategy Pattern for Operations        │
-│  MCP Layer        │ JSON-RPC Protocol Implementation       │
-│  AI Provider      │ Multi-Provider Support (Anthropic+)    │
-│  Core Services    │ File System, Config, Auth, Logging     │
-│  Infrastructure   │ Cross-Platform, Plugin Architecture    │
+│  Command Layer    │ System.CommandLine Integration          │
+│  Tool Layer       │ Strategy Pattern for Operations         │
+│  MCP Layer        │ JSON-RPC Protocol Implementation        │
+│  AI Provider      │ Multi-Provider Support (Anthropic+)     │
+│  Core Services    │ File System, Config, Auth, Logging      │
+│  Infrastructure   │ Cross-Platform, Plugin Architecture     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -139,21 +139,21 @@ dotnet test
 dotnet test --collect:"XPlat Code Coverage"
 
 # Run performance benchmarks
-dotnet run --project tests/Claude.Cli.Benchmarks -c Release
+dotnet run --project tests/Claude.Benchmarks -c Release
 ```
 
 ## 📊 Performance
 
 Performance compared to original Claude Code CLI:
 
-| Metric | claude dotnet | Claude Code | Improvement |
-|--------|---------------|-------------|-------------|
-| **Cold Start** | <500ms | ~2s | **4x faster** |
-| **Memory Usage** | <100MB | ~150MB | **33% less** |
-| **Command Execution** | <200ms | ~800ms | **4x faster** |
-| **File Operations** | <50ms | ~200ms | **4x faster** |
+| Metric                | claude dotnet | Claude Code | Improvement   |
+| --------------------- | ------------- | ----------- | ------------- |
+| **Cold Start**        | <500ms        | ~2s         | **4x faster** |
+| **Memory Usage**      | <100MB        | ~150MB      | **33% less**  |
+| **Command Execution** | <200ms        | ~800ms      | **4x faster** |
+| **File Operations**   | <50ms         | ~200ms      | **4x faster** |
 
-*Benchmarks run on: Windows 11, Intel i7-12700K, 32GB RAM, NVMe SSD*
+_Benchmarks run on: Windows 11, Intel i7-12700K, 32GB RAM, NVMe SSD_
 
 ## 🛡️ Security
 
@@ -165,12 +165,12 @@ Performance compared to original Claude Code CLI:
 
 ## 🌐 Platform Support
 
-| Platform | Architecture | Status | Notes |
-|----------|-------------|---------|--------|
-| **Windows 11** | x64, ARM64 | ✅ Supported | Primary development platform |
-| **macOS 14+** | x64, ARM64 | ✅ Supported | Apple Silicon optimized |
-| **Ubuntu 22.04+** | x64, ARM64 | ✅ Supported | Full compatibility |
-| **Docker** | Multi-arch | ✅ Supported | Container images available |
+| Platform          | Architecture | Status       | Notes                        |
+| ----------------- | ------------ | ------------ | ---------------------------- |
+| **Windows 11**    | x64, ARM64   | ✅ Supported | Primary development platform |
+| **macOS 14+**     | x64, ARM64   | ✅ Supported | Apple Silicon optimized      |
+| **Ubuntu 22.04+** | x64, ARM64   | ✅ Supported | Full compatibility           |
+| **Docker**        | Multi-arch   | ✅ Supported | Container images available   |
 
 ## 📦 Distribution
 
@@ -203,6 +203,7 @@ docker pull wangkanai/claude-dotnet:1.0.0-preview.1
 ## 🗺️ Roadmap
 
 ### Phase 1: Foundation (Weeks 1-3) ✅
+
 - [x] Project structure and build system
 - [x] System.CommandLine integration
 - [x] Basic CLI functionality
@@ -210,28 +211,33 @@ docker pull wangkanai/claude-dotnet:1.0.0-preview.1
 - [ ] File operations implementation
 
 ### Phase 2: Tool System (Weeks 4-7)
+
 - [ ] Complete tool interface and registry
 - [ ] Core tools implementation (Bash, Grep, Glob, etc.)
 - [ ] Permission system and access control
 - [ ] Tool orchestration and chaining
 
 ### Phase 3: AI Integration (Weeks 8-10)
+
 - [ ] Anthropic API client with streaming
 - [ ] Multi-provider architecture (Bedrock, Vertex)
 - [ ] OAuth 2.0 authentication flows
 - [ ] Rate limiting and quota management
 
 ### Phase 4: MCP Protocol (Weeks 11-14)
+
 - [ ] JSON-RPC protocol implementation
 - [ ] Plugin loading and discovery system
 - [ ] Core MCP servers integration
 
 ### Phase 5: Advanced Features (Weeks 15-17)
+
 - [ ] Git integration and web search
 - [ ] Session management and persistence
 - [ ] Performance optimizations
 
 ### Phase 6: Release (Weeks 18-20)
+
 - [ ] Comprehensive documentation
 - [ ] Security audit and benchmarking
 - [ ] CI/CD pipeline and distribution
@@ -280,4 +286,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ by the Wangkanai team**
 
-*"Bringing high-performance AI tools to the .NET ecosystem"*
+_"Bringing high-performance AI tools to the .NET ecosystem"_
