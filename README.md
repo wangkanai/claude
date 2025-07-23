@@ -7,7 +7,9 @@
 
 > **High-performance .NET reimplementation of Anthropic's Claude Code CLI**
 
-A complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0, distributed as a .NET Global Tool. This project delivers superior performance, enhanced type safety, and better integration with the .NET ecosystem while maintaining full feature parity with the original Node.js implementation.
+A complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0, distributed as a .NET Global
+Tool. This project delivers superior performance, enhanced type safety, and better integration with the .NET ecosystem
+while maintaining full feature parity with the original Node.js implementation.
 
 ## ✨ Key Features
 
@@ -86,7 +88,8 @@ claude --version
 ### Prerequisites
 
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (latest version)
-- [Visual Studio 2024](https://visualstudio.microsoft.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) (recommended)
+- [Visual Studio 2024](https://visualstudio.microsoft.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) (
+  recommended)
 - [Git](https://git-scm.com/) for version control
 
 ### Building
@@ -147,7 +150,7 @@ dotnet run --project tests/Claude.Benchmarks -c Release
 Performance compared to original Claude Code CLI:
 
 | Metric                | claude dotnet | Claude Code | Improvement   |
-| --------------------- | ------------- | ----------- | ------------- |
+|-----------------------|---------------|-------------|---------------|
 | **Cold Start**        | <500ms        | ~2s         | **4x faster** |
 | **Memory Usage**      | <100MB        | ~150MB      | **33% less**  |
 | **Command Execution** | <200ms        | ~800ms      | **4x faster** |
@@ -165,8 +168,8 @@ _Benchmarks run on: Windows 11, Intel i7-12700K, 32GB RAM, NVMe SSD_
 
 ## 🌐 Platform Support
 
-| Platform          | Architecture | Status       | Notes                        |
-| ----------------- | ------------ | ------------ | ---------------------------- |
+| Platform          | Architecture | Status      | Notes                        |
+|-------------------|--------------|-------------|------------------------------|
 | **Windows 11**    | x64, ARM64   | ✅ Supported | Primary development platform |
 | **macOS 14+**     | x64, ARM64   | ✅ Supported | Apple Silicon optimized      |
 | **Ubuntu 22.04+** | x64, ARM64   | ✅ Supported | Full compatibility           |

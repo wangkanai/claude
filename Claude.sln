@@ -20,7 +20,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solutions", ".solutions", 
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		Directory.Build.targets = Directory.Build.targets
-		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claude.UnitTests", "tests\UnitTests\Claude.UnitTests.csproj", "{9C885F0D-E714-4E56-8B9F-77D4C83E58C1}"
@@ -32,7 +31,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".claude", ".claude", "{67EEB615-3497-4879-A74D-9BACC46E650D}"
 	ProjectSection(SolutionItems) = preProject
 		TASKS.md = TASKS.md
-		README.md = README.md
 		PLANNING.md = PLANNING.md
 		PRD.md = PRD.md
 		CLAUDE.md = CLAUDE.md
