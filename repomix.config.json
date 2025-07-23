@@ -1,7 +1,8 @@
 {
   "$schema": "https://repomix.com/schemas/latest/schema.json",
   "input": {
-    "maxFileSize": 52428800
+    "maxFileSize": 10485760,
+    "includeEmpty": false
   },
   "output": {
     "filePath": "repomix-output.xml",
@@ -13,9 +14,9 @@
     "removeComments": false,
     "removeEmptyLines": false,
     "compress": false,
-    "topFilesLength": 5,
+    "topFilesLength": 10,
     "showLineNumbers": false,
-    "truncateBase64": false,
+    "truncateBase64": true,
     "copyToClipboard": false,
     "git": {
       "sortByChanges": true,
@@ -23,11 +24,67 @@
       "includeDiffs": false
     }
   },
-  "include": [],
+  "include": [
+    "src/**/*.cs",
+    "test/**/*.cs",
+    "*.csproj",
+    "*.sln",
+    "*.slnx",
+    "*.props",
+    "*.targets",
+    "*.json",
+    "*.xml",
+    "*.md",
+    "*.yml",
+    "*.yaml",
+    ".github/**",
+    "docs/**"
+  ],
   "ignore": {
     "useGitignore": true,
     "useDefaultPatterns": true,
-    "customPatterns": []
+    "customPatterns": [
+      "**/*.generated.cs",
+      "**/*.Designer.cs",
+      "**/*.AssemblyInfo.cs",
+      "**/Migrations/**",
+      "**/*.min.js",
+      "**/*.min.css",
+      "**/wwwroot/lib/**",
+      "**/packages/**",
+      "**/.git/**",
+      "**/.vs/**",
+      "**/.idea/**",
+      "**/node_modules/**",
+      "**/bin/**",
+      "**/obj/**",
+      "**/publish/**",
+      "**/TestResults/**",
+      "**/coverage/**",
+      "**/*.user",
+      "**/*.suo",
+      "**/launchSettings.json",
+      "**/appsettings.*.json",
+      "!**/appsettings.json",
+      "!**/appsettings.Development.json.example",
+      "**/*.log",
+      "**/logs/**",
+      "**/temp/**",
+      "**/tmp/**",
+      "**/*.nupkg",
+      "**/*.snupkg",
+      "**/BenchmarkDotNet.Artifacts/**",
+      "repomix-*.xml",
+      "!repomix-output.xml",
+      "SESSION-STATE.md",
+      "*.local.md",
+      "mcp.local.json",
+      ".DS_Store",
+      "Thumbs.db",
+      "*.swp",
+      "*.swo",
+      "*~"
+    ]
   },
   "security": {
     "enableSecurityCheck": true
