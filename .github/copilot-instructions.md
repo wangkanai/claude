@@ -1,12 +1,16 @@
 # GitHub Copilot Instructions for claude dotnet
 
-This file provides comprehensive instructions for GitHub Copilot to perform optimally on the **claude dotnet** project - a high-performance .NET 9.0 reimplementation of Anthropic's Claude Code CLI.
+This file provides comprehensive instructions for GitHub Copilot to perform optimally on the **claude dotnet** project -
+a high-performance .NET 9.0 reimplementation of Anthropic's Claude Code CLI.
 
 ## 🎯 Project Overview
 
-**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI using C# 12 and .NET 9.0, distributed as a .NET Global Tool. The project aims to deliver 2-5x performance improvement while maintaining 100% feature parity with the original Node.js implementation.
+**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI using C# 12 and .NET 9.0, distributed as
+a .NET Global Tool. The project aims to deliver 2-5x performance improvement while maintaining 100% feature parity with
+the original Node.js implementation.
 
 ### Key Technologies
+
 - **Runtime**: .NET 9.0
 - **Language**: C# 12 with nullable reference types
 - **CLI Framework**: System.CommandLine v2.0.0-beta4
@@ -18,6 +22,7 @@ This file provides comprehensive instructions for GitHub Copilot to perform opti
 ## 🏗️ Architecture Patterns
 
 ### Core Architectural Patterns
+
 - **Command Pattern**: System.CommandLine integration with structured command processing
 - **Strategy Pattern**: Tool-based operation handling with dynamic discovery
 - **Plugin Architecture**: MEF-based extensibility for MCP servers
@@ -26,6 +31,7 @@ This file provides comprehensive instructions for GitHub Copilot to perform opti
 - **Repository Pattern**: Configuration and state management
 
 ### Project Structure
+
 ```
 src/Claude/                 # Main CLI application
 ├── Program.cs              # Entry point with DI configuration
@@ -44,6 +50,7 @@ tests/
 ## 🎨 Code Style Guidelines
 
 ### Naming Conventions
+
 ```csharp
 // Interfaces: IPascalCase
 public interface IFileSystemService { }
@@ -65,29 +72,30 @@ private const string DEFAULT_CONFIG_FILE = "config.json";
 ```
 
 ### Code Organization
+
 ```csharp
 public class ExampleService : IExampleService
 {
     // Fields (private readonly first)
     private readonly ILogger<ExampleService> _logger;
     private readonly IConfiguration _configuration;
-    
+
     // Constructor
     public ExampleService(ILogger<ExampleService> logger, IConfiguration configuration)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
     }
-    
+
     // Properties
     public string Name { get; set; } = string.Empty;
-    
+
     // Public methods
     public async Task<Result> ExecuteAsync(CancellationToken cancellationToken = default)
     {
         // Implementation
     }
-    
+
     // Private methods
     private void ValidateInput(string input)
     {
@@ -97,6 +105,7 @@ public class ExampleService : IExampleService
 ```
 
 ### Error Handling Patterns
+
 ```csharp
 // Use Result pattern for operations that can fail
 public record Result<T>(bool IsSuccess, T? Value, string? Error);
@@ -123,6 +132,7 @@ catch (Exception ex)
 ## 🔧 Service Implementation Patterns
 
 ### Service Interface Design
+
 ```csharp
 public interface IFileSystemService
 {
@@ -135,6 +145,7 @@ public interface IFileSystemService
 ```
 
 ### Dependency Injection Registration
+
 ```csharp
 // In Program.cs CreateHostBuilder method
 services.AddSingleton<IFileSystemService, FileSystemService>();
@@ -144,6 +155,7 @@ services.AddScoped<IREPLService, REPLService>();
 ```
 
 ### Configuration Service Pattern
+
 ```csharp
 public interface IConfigurationService
 {
@@ -157,6 +169,7 @@ public interface IConfigurationService
 ## 🛠️ Tool System Implementation
 
 ### Tool Interface Pattern
+
 ```csharp
 public interface ITool
 {
@@ -177,22 +190,23 @@ public record ToolRequest(
 ```
 
 ### Tool Implementation Example
+
 ```csharp
 public class ReadFileTool : ITool
 {
     private readonly IFileSystemService _fileSystem;
     private readonly ILogger<ReadFileTool> _logger;
-    
+
     public string Name => "read_file";
     public string Description => "Read contents of a file";
     public ToolCapabilities Capabilities => ToolCapabilities.FileRead;
-    
+
     public ReadFileTool(IFileSystemService fileSystem, ILogger<ReadFileTool> logger)
     {
         _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
-    
+
     public async Task<ToolResult> ExecuteAsync(ToolRequest request, CancellationToken cancellationToken = default)
     {
         try
@@ -201,10 +215,10 @@ public class ReadFileTool : ITool
             {
                 return new ErrorResult("Missing or invalid 'path' parameter");
             }
-            
+
             var content = await _fileSystem.ReadFileAsync(path, cancellationToken);
             _logger.LogInformation("Successfully read file: {Path}", path);
-            
+
             return new SuccessResult(content, new Dictionary<string, object>
             {
                 ["file_path"] = path,
@@ -223,41 +237,42 @@ public class ReadFileTool : ITool
 ## 🎮 Command Implementation Patterns
 
 ### System.CommandLine Command Pattern
+
 ```csharp
 [Command("analyze")]
 public class AnalyzeCommand : ICommand
 {
     private readonly IFileSystemService _fileSystem;
     private readonly ILogger<AnalyzeCommand> _logger;
-    
+
     [Option("--scope", Description = "Analysis scope (file|module|project|system)")]
     public string Scope { get; set; } = "project";
-    
+
     [Option("--focus", Description = "Focus area (performance|security|quality|architecture)")]
     public string? Focus { get; set; }
-    
+
     [Option("--output", Description = "Output format (text|json|markdown)")]
     public OutputFormat Output { get; set; } = OutputFormat.Text;
-    
+
     [Argument("files", Description = "Files to analyze")]
     public string[] Files { get; set; } = Array.Empty<string>();
-    
+
     public AnalyzeCommand(IFileSystemService fileSystem, ILogger<AnalyzeCommand> logger)
     {
         _fileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
-    
+
     public async Task<int> InvokeAsync(InvocationContext context)
     {
         var cancellationToken = context.GetCancellationToken();
-        
+
         try
         {
             _logger.LogInformation("Starting analysis with scope: {Scope}, focus: {Focus}", Scope, Focus);
-            
+
             // Implementation logic here
-            
+
             return 0; // Success
         }
         catch (OperationCanceledException)
@@ -277,32 +292,33 @@ public class AnalyzeCommand : ICommand
 ## 🧪 Testing Patterns
 
 ### Unit Test Structure
+
 ```csharp
 public class FileSystemServiceTests
 {
     private readonly IFileSystemService _fileSystemService;
     private readonly ILogger<FileSystemService> _logger;
-    
+
     public FileSystemServiceTests()
     {
         _logger = Substitute.For<ILogger<FileSystemService>>();
         _fileSystemService = new FileSystemService(_logger);
     }
-    
+
     [Fact]
     public async Task ReadFileAsync_WithValidPath_ReturnsContent()
     {
         // Arrange
         var path = "test.txt";
         var expectedContent = "Hello, World!";
-        
+
         // Act
         var result = await _fileSystemService.ReadFileAsync(path);
-        
+
         // Assert
         result.Should().Be(expectedContent);
     }
-    
+
     [Theory]
     [InlineData("")]
     [InlineData(null)]
@@ -317,26 +333,27 @@ public class FileSystemServiceTests
 ```
 
 ### Integration Test Pattern
+
 ```csharp
 public class AnalyzeCommandIntegrationTests : IClassFixture<TestWebApplicationFactory>
 {
     private readonly TestWebApplicationFactory _factory;
-    
+
     public AnalyzeCommandIntegrationTests(TestWebApplicationFactory factory)
     {
         _factory = factory;
     }
-    
+
     [Fact]
     public async Task AnalyzeCommand_WithProjectScope_ReturnsAnalysis()
     {
         // Arrange
         using var scope = _factory.Services.CreateScope();
         var command = scope.ServiceProvider.GetRequiredService<AnalyzeCommand>();
-        
+
         // Act
         var result = await command.InvokeAsync(new InvocationContext());
-        
+
         // Assert
         result.Should().Be(0);
     }
@@ -346,6 +363,7 @@ public class AnalyzeCommandIntegrationTests : IClassFixture<TestWebApplicationFa
 ## 🔄 REPL Implementation Patterns
 
 ### REPL Service Interface
+
 ```csharp
 public interface IREPLService
 {
@@ -368,6 +386,7 @@ public record REPLContext(
 ```
 
 ### Session Management Pattern
+
 ```csharp
 public class REPLSession
 {
@@ -384,6 +403,7 @@ public class REPLSession
 ## 🔐 Security and Permissions
 
 ### Permission System Pattern
+
 ```csharp
 public record PermissionSettings(
     HashSet<string> AllowedPaths,
@@ -405,6 +425,7 @@ public interface IPermissionService
 ## 📝 Documentation Standards
 
 ### XML Documentation
+
 ```csharp
 /// <summary>
 /// Provides file system operations with permission validation and logging.
@@ -434,6 +455,7 @@ public class FileSystemService : IFileSystemService
 ## 🚀 Performance Guidelines
 
 ### Async/Await Best Practices
+
 ```csharp
 // Use ConfigureAwait(false) for library code
 var result = await operation.ExecuteAsync().ConfigureAwait(false);
@@ -447,7 +469,7 @@ public async Task<T> ProcessAsync<T>(T input, CancellationToken cancellationToke
 
 // Use IAsyncEnumerable for streaming operations
 public async IAsyncEnumerable<FileInfo> EnumerateFilesAsync(
-    string path, 
+    string path,
     [EnumeratorCancellation] CancellationToken cancellationToken = default)
 {
     await foreach (var file in GetFilesAsync(path).WithCancellation(cancellationToken))
@@ -458,6 +480,7 @@ public async IAsyncEnumerable<FileInfo> EnumerateFilesAsync(
 ```
 
 ### Memory Management
+
 ```csharp
 // Use ArrayPool for large arrays
 private static readonly ArrayPool<byte> s_arrayPool = ArrayPool<byte>.Shared;
@@ -485,13 +508,14 @@ public void ProcessData(ReadOnlySpan<char> data)
 ## 🎯 AI Integration Patterns
 
 ### AI Provider Interface
+
 ```csharp
 public interface IAIProvider
 {
     string Name { get; }
     string Version { get; }
     ProviderCapabilities Capabilities { get; }
-    
+
     Task<AIResponse> SendMessageAsync(AIRequest request, CancellationToken cancellationToken = default);
     IAsyncEnumerable<AIStreamResponse> SendMessageStreamAsync(AIRequest request, CancellationToken cancellationToken = default);
 }
@@ -511,15 +535,17 @@ public record AIResponse(
 ## 📦 Package and Deployment
 
 ### Global Tool Configuration
+
 ```xml
+
 <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <IsPackable>true</IsPackable>
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>claude</ToolCommandName>
-    <PackageId>claude</PackageId>
-    <PackageTags>ai;cli;claude;anthropic;dotnet-tool</PackageTags>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<OutputType>Exe</OutputType>
+	<IsPackable>true</IsPackable>
+	<PackAsTool>true</PackAsTool>
+	<ToolCommandName>claude</ToolCommandName>
+	<PackageId>claude</PackageId>
+	<PackageTags>ai;cli;claude;anthropic;dotnet-tool</PackageTags>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
 </PropertyGroup>
 ```
 
@@ -538,6 +564,7 @@ public record AIResponse(
 When writing git commit messages, be descriptive and comprehensive like Trae AI. Follow these patterns:
 
 ### Commit Message Structure
+
 ```
 <type>(<scope>): <subject>
 
@@ -547,6 +574,7 @@ When writing git commit messages, be descriptive and comprehensive like Trae AI.
 ```
 
 ### Commit Types
+
 - **feat**: New feature implementation
 - **fix**: Bug fix or issue resolution
 - **refactor**: Code refactoring without functional changes
@@ -561,6 +589,7 @@ When writing git commit messages, be descriptive and comprehensive like Trae AI.
 ### Descriptive Examples
 
 **Feature Implementation:**
+
 ```
 feat(tools): implement ReadFileTool with permission validation
 
@@ -577,6 +606,7 @@ Security: Validates file access permissions before reading
 ```
 
 **Bug Fix:**
+
 ```
 fix(repl): resolve session persistence issue in interactive mode
 
@@ -593,6 +623,7 @@ Testing: Added integration tests for session persistence scenarios
 ```
 
 **Refactoring:**
+
 ```
 refactor(services): extract configuration management into dedicated service
 
@@ -611,6 +642,7 @@ Benefits:
 ```
 
 **Performance Improvement:**
+
 ```
 perf(tools): optimize file enumeration with IAsyncEnumerable
 
@@ -660,7 +692,8 @@ Benchmarks:
 - **Testing**: Describe test coverage changes
 - **Documentation**: Reference updated documentation
 
-This approach ensures commit messages are informative, searchable, and provide valuable context for future developers and code reviews.
+This approach ensures commit messages are informative, searchable, and provide valuable context for future developers
+and code reviews.
 
 ## 🔍 Common Patterns to Follow
 
@@ -675,4 +708,5 @@ This approach ensures commit messages are informative, searchable, and provide v
 - Follow SOLID principles
 - Implement proper resource disposal with `using` statements
 
-This instruction set will help GitHub Copilot generate code that aligns with the project's architecture, coding standards, and performance requirements while maintaining consistency with the existing codebase.
+This instruction set will help GitHub Copilot generate code that aligns with the project's architecture, coding
+standards, and performance requirements while maintaining consistency with the existing codebase.
