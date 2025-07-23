@@ -187,45 +187,98 @@ Cross-platform handling, real-time change detection, permission validation, symb
 
 ---
 
-## 🛠️ MCP Workflow Integration
+## 🛠️ MCP Integration & Local Workflows
 
-### **Essential MCP Servers**
+### **MCP Server Stack for claude dotnet**
 
-**Tier 1 - Daily Use**:
+The project leverages MCP (Model Context Protocol) servers for enhanced development capabilities. See **[CLAUDE.local.md](CLAUDE.local.md)** for comprehensive command documentation.
 
--   **JetBrains**: IDE integration
+### **Essential Development Workflows**
 
--   **Sequential**: Architectural analysis
--   **Memory**: Decision tracking
--   **Repomix**: Codebase analysis
-
-**Tier 2 - Feature Development**:
-
--   **Magic**: UI component generation
--   **Context7**: .NET library documentation
-
-**Tier 3 - Testing**:
-
--   **Playwright**: E2E testing
--   **BrowserLoop**: Visual testing
--   **Fetch**: External docs
-
-### **Quick Commands**
-
+#### 1. **NPM Package Analysis Workflow**
 ```bash
-# Research patterns
-mcp__context7__resolve-library-id --query "System.CommandLine"
-mcp__context7__get-library-docs --library-id "system-commandline"
+# Analyze official Claude Code NPM package
+mcp__repomix__pack_remote_repository \
+  --repositoryUrl "https://github.com/anthropics/claude-code" \
+  --outputId "claude-code-npm"
 
-# Analyze problems
-mcp__sequential-thinking__sequentialthinking --thought "Analysis" --totalThoughts 5
+# Extract CLI command patterns
+mcp__repomix__grep_repomix_output \
+  --outputId "claude-code-npm" \
+  --pattern "command|Command|CLI" \
+  --contextLines 5
 
-# Track decisions
-mcp__memory__create_entities --entities '[{"name": "Decision"}]'
-
-# Analyze code
-mcp__repomix__pack_codebase --directory "." --compress true
+# Map to .NET architecture
+mcp__sequential-thinking__sequentialthinking \
+  --thought "Mapping Node.js CLI patterns to System.CommandLine" \
+  --totalThoughts 5
 ```
+
+#### 2. **System.CommandLine Research**
+```bash
+# Get official documentation
+mcp__context7__resolve-library-id --query "System.CommandLine"
+mcp__context7__get-library-docs \
+  --library-id "system-commandline" \
+  --topic "command parsing"
+
+# Analyze current implementation
+mcp__repomix__pack_codebase \
+  --directory "." \
+  --compress true \
+  --outputId "claude-dotnet"
+```
+
+#### 3. **Architecture Decision Tracking**
+```bash
+# Document key decisions
+mcp__memory__create_entities --entities '[
+  {
+    "name": "SystemCommandLineChoice",
+    "entityType": "ArchitectureDecision",
+    "observations": [
+      "Chosen for native .NET CLI support",
+      "Beta4 provides required features",
+      "Compatible with dependency injection"
+    ]
+  }
+]'
+
+# Track relationships
+mcp__memory__create_relations --relations '[
+  {
+    "from": "AnalyzeCommand",
+    "to": "SystemCommandLineChoice",
+    "relationType": "implements"
+  }
+]'
+```
+
+#### 4. **Testing & Validation**
+```bash
+# E2E testing setup
+mcp__playwright__browser_navigate --url "https://localhost:5001"
+mcp__playwright__browser_take_screenshot --filename "cli-test.png"
+
+# Performance analysis
+mcp__sequential-thinking__sequentialthinking \
+  --thought "Analyzing startup performance bottlenecks" \
+  --totalThoughts 4
+```
+
+### **Priority MCP Servers**
+
+1. **Repomix** - Codebase analysis, NPM package inspection
+2. **Context7** - .NET library documentation
+3. **Sequential** - Complex architectural analysis
+4. **Memory** - Decision tracking and knowledge graph
+5. **JetBrains** - IDE integration (if using Rider)
+
+### **Quick Reference**
+
+For comprehensive MCP command documentation, workflows, and best practices, see:
+- **[CLAUDE.local.md](CLAUDE.local.md)** - Full MCP command reference (local file)
+- **[.azure-devops.json](.azure-devops.json)** - Azure DevOps MCP configuration
 
 ---
 
@@ -338,4 +391,3 @@ claude config set api-key "key" --provider anthropic
 **Repository**: https://github.com/wangkanai/claude  
 **Phase**: Enhanced Phase 1 (36.4% Complete)  
 **Next**: NPM Analysis Automation & Core Tool Implementation
-
