@@ -139,6 +139,9 @@ ij_html_do_not_indent_children_of_tags                                =form, ol,
 [*.{csproj, slnx}]
 indent_size                  =2
 ij_xml_space_inside_empty_tag=true
+# Enforce short PackageReference format
+ij_xml_tag_attributes_wrapping=force_if_not_single
+ij_xml_text_wrapping=wrap
 
 [*.{props, targets}]
 indent_size                  =2
