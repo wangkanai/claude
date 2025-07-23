@@ -5,16 +5,23 @@
 **Created**: 2025-07-22
 **Updated**: 2025-07-23
 **Technology**: C# 12, .NET 9.0, System.CommandLine, xUnit v3
+**PackageId**: claude
+**ToolCommandName**: claude
 
 ---
 
 ## 📋 Project Overview
 
-**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI as a .NET Global Tool using C# 12 and .NET 9.0. This enhanced version incorporates comprehensive research of the official Claude Code CLI, automated NPM package analysis, and enterprise-grade architecture delivering superior performance, enhanced type safety, and seamless .NET ecosystem integration.
+**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI as a .NET Global Tool using C# 12 and
+.NET 9.0. This enhanced version incorporates comprehensive research of the official Claude Code CLI, automated NPM
+package analysis, and enterprise-grade architecture delivering superior performance, enhanced type safety, and seamless
+.NET ecosystem integration.
 
 ### **Vision Statement**
 
-"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging the full power of the .NET ecosystem while maintaining 100% feature parity with the original Node.js implementation."
+"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development,
+leveraging the full power of the .NET ecosystem while maintaining 100% feature parity with the original Node.js
+implementation."
 
 ### **Enhanced Key Value Propositions**
 
@@ -478,23 +485,24 @@ chmod +x claude
 ### **Enhanced Global Tool Configuration**
 
 ```xml
+
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>claude</ToolCommandName>
-    <PackageId>claude</PackageId>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
-    <RuntimeIdentifier>$(NETCoreSimilarity)</RuntimeIdentifier>
-    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net9.0</TargetFramework>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>claude</ToolCommandName>
+		<PackageId>claude</PackageId>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+		<RuntimeIdentifier>$(NETCoreSimilarity)</RuntimeIdentifier>
+		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
 </Project>
 ```
 
@@ -609,12 +617,12 @@ claude doctor --full-check --include-dependencies
 
 ```yaml
 NPM Analysis Automation:
-  Package: "@anthropic-ai/claude-code"
-  Frequency: "Daily monitoring with immediate alerts"
-  Analysis Depth: "Complete decompilation and feature extraction"
-  Validation: "Automated compatibility testing and feature parity verification"
-  Reporting: "Structured analysis reports with actionable insights"
-  Integration: "CI/CD pipeline integration with automated PR generation"
+	Package: "@anthropic-ai/claude-code"
+	Frequency: "Daily monitoring with immediate alerts"
+	Analysis Depth: "Complete decompilation and feature extraction"
+	Validation: "Automated compatibility testing and feature parity verification"
+	Reporting: "Structured analysis reports with actionable insights"
+	Integration: "CI/CD pipeline integration with automated PR generation"
 ```
 
 ### **NPM Compatibility Matrix**
