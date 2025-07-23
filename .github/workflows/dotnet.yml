@@ -64,7 +64,7 @@ jobs:
     - name: Publish application
       if: matrix.os == 'ubuntu-latest'
       run: |
-        dotnet publish src/Claud/Claude.csproj \
+        dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime linux-x64 \
           --self-contained true \
@@ -118,6 +118,10 @@ jobs:
 
     - name: Restore dependencies
       run: dotnet restore
+
+    - name: Run security scan
+      run: |
+        dotnet list package --vulnerable --include-transitive || true
 
   # Code Quality Job
   code-quality:
