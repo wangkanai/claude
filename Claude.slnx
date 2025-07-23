@@ -4,6 +4,7 @@
     <File Path="PLANNING.md" />
     <File Path="PRD.md" />
     <File Path="TASKS.md" />
+    <File Path="CLAUDE.local.md" />
   </Folder>
   <Folder Name="/.github/">
     <File Path=".github\RELEASE.yml" />
