@@ -3,6 +3,12 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+prompts/
+debug/
+release/
+
+package-lock.json
+
 # User-specific files
 *.rsuser
 *.suo
@@ -12,6 +18,15 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+
+# AI local files
+CLAUDE.local.md
+mcp.local.json
+
+# IDE config files
+.vscode/
+.kilocode/
+.vercel/
 
 # Mono auto generated files
 mono_crash.*

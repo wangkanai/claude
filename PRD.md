@@ -1,9 +1,10 @@
 # claude dotnet - Product Requirements Document (PRD)
 
-**Version**: 1.0  
+**Version**: 2.0  
 **Created**: 2025-07-22  
+**Updated**: 2025-07-23  
 **Author**: Sarin Na Wangkanai  
-**Project**: High-Performance .NET 9.0 Reimplementation of Claude Code CLI
+**Project**: High-Performance .NET 9.0 Reimplementation of Claude Code CLI  
 **Repository**: https://github.com/wangkanai/claude
 
 ---
@@ -14,12 +15,25 @@
 
 ### **Key Value Propositions**
 
-- **2-5x Performance Improvement** through compiled .NET code
+- **2-5x Performance Improvement** through compiled .NET code vs Node.js
 - **30-50% Lower Memory Usage** with optimized garbage collection
-- **Enhanced Type Safety** using C# 12's advanced type system
-- **Rich .NET Ecosystem** integration and tooling
-- **Self-Contained Deployment** without Node.js dependency
-- **Superior Developer Experience** with advanced debugging and profiling
+- **Enhanced Type Safety** using C# 12's advanced type system and nullable reference types
+- **Rich .NET Ecosystem** integration with extensive tooling and debugging capabilities
+- **Self-Contained Deployment** without Node.js dependency requirement
+- **Superior Developer Experience** with advanced debugging, profiling, and IntelliSense
+- **Automated NPM Monitoring** with continuous feature parity tracking
+- **Enterprise-Grade Testing** with xUnit v3 and 80%+ coverage target
+
+### **Enhanced Requirements (v2.0)**
+
+- **NPM Package Analysis**: Automated monitoring and decompilation of @anthropic-ai/claude-code
+- **REPL Architecture**: Primary conversational interface with session management
+- **Session Persistence**: Resume/continue capabilities with conversation state
+- **Custom Command System**: Markdown-based slash commands with project/user scoping
+- **Advanced Permissions**: Sophisticated tool access control with allowlists/denylists
+- **Cross-Platform Publishing**: Single-file executables for all major platforms
+- **Testing Excellence**: xUnit v3 framework with comprehensive coverage targets
+- **Contributor Context**: SESSION-STATE.md tracking system for development context
 
 ---
 
@@ -27,23 +41,28 @@
 
 ### **Vision Statement**
 
-"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging the full power of the .NET ecosystem."
+"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging the full power of the .NET ecosystem while maintaining perfect feature parity with Claude Code through automated monitoring."
 
 ### **Primary Goals**
 
-1. **Performance Excellence**: Deliver significantly faster execution than the Node.js version
-2. **Type Safety**: Eliminate runtime errors through compile-time checking
-3. **Developer Experience**: Provide superior tooling, debugging, and maintainability
-4. **Ecosystem Integration**: Seamless integration with .NET development workflows
-5. **Feature Parity**: Match or exceed all capabilities of Claude Code
+1. **Performance Excellence**: Deliver 2-5x faster execution than Node.js implementation
+2. **Feature Parity Automation**: Automated NPM package monitoring for continuous parity
+3. **Type Safety**: Eliminate runtime errors through compile-time checking and nullability
+4. **Developer Experience**: Superior tooling, debugging, profiling, and maintainability
+5. **Ecosystem Integration**: Seamless integration with .NET development workflows
+6. **REPL Architecture**: Conversational interface matching Claude Code's primary interaction mode
+7. **Session Management**: Persistent conversations with resume/continue capabilities
+8. **Enterprise Quality**: xUnit v3 testing with 80%+ coverage and comprehensive validation
 
 ### **Success Metrics**
 
-- **Performance**: 2-5x faster command execution
-- **Memory**: 30-50% reduction in memory footprint
-- **Reliability**: 99.9% uptime with robust error handling
-- **Adoption**: Target 10k+ downloads within 6 months
-- **Community**: Active contributor community and plugin ecosystem
+- **Performance**: 2-5x faster command execution (measured via benchmarks)
+- **Memory**: 30-50% reduction in memory footprint vs Node.js version
+- **Feature Parity**: 100% automated parity tracking with @anthropic-ai/claude-code
+- **Test Coverage**: >80% unit/integration coverage with xUnit v3
+- **Reliability**: 99.9% uptime with robust error handling and recovery
+- **Adoption**: Target 10k+ downloads within 6 months of release
+- **Community**: Active contributor community with 100+ GitHub stars
 
 ---
 
@@ -53,55 +72,117 @@
 
 ```
 Runtime:        .NET 9.0
-Language:       C# 12 with latest language features
-CLI Framework:  System.CommandLine
-Hosting:        Microsoft.Extensions.Hosting
+Language:       C# 12 with latest language features and nullable reference types
+CLI Framework:  System.CommandLine with REPL integration
+Hosting:        Microsoft.Extensions.Hosting with lifecycle management
 DI Container:   Microsoft.Extensions.DependencyInjection
-Configuration:  Microsoft.Extensions.Configuration
-Logging:        Microsoft.Extensions.Logging (Serilog)
-Testing:        xUnit, FluentAssertions, Testcontainers
+Configuration:  Microsoft.Extensions.Configuration (multi-layer)
+Logging:        Microsoft.Extensions.Logging with Serilog
+Testing:        xUnit v3, FluentAssertions, Testcontainers
+NPM Analysis:   GitHub Actions with automated decompilation pipeline
 ```
 
-### **High-Level Architecture**
+### **Enhanced Architecture (v2.0)**
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    claude dotnet CLI                        │
-├─────────────────────────────────────────────────────────────┤
-│  Command Layer    │ System.CommandLine Integration         │
-│  Tool Layer       │ Strategy Pattern for Operations        │
-│  MCP Layer        │ JSON-RPC Protocol Implementation       │
-│  AI Provider      │ Multi-Provider Support (Anthropic+)    │
-│  Core Services    │ File System, Config, Auth, Logging     │
-│  Infrastructure   │ Cross-Platform, Plugin Architecture    │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                         claude dotnet CLI                           │
+├─────────────────────────────────────────────────────────────────────┤
+│  REPL Layer       │ Conversational Interface + Session Management   │
+│  Command Layer    │ System.CommandLine + Custom Slash Commands      │
+│  Permission Layer │ Advanced Access Control + Allowlists/Denylists  │
+│  Tool Layer       │ Strategy Pattern + File References (@/!)        │
+│  MCP Layer        │ JSON-RPC Protocol + OAuth Integration           │
+│  AI Provider      │ Multi-Provider Support (Anthropic/Bedrock+)     │
+│  Session Layer    │ Persistent State + Resume/Continue              │
+│  Core Services    │ File System, Config, Auth, Logging, NPM Monitor │
+│  Infrastructure   │ Cross-Platform + Plugin Architecture + Testing  │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ### **Key Architectural Patterns**
 
-- **Command Pattern**: Structured command processing pipeline
-- **Strategy Pattern**: Tool-based operation handling
-- **Plugin Architecture**: MEF-based extensibility for MCP servers
-- **Factory Pattern**: AI provider and tool instantiation
-- **Observer Pattern**: File system change notifications
-- **Mediator Pattern**: Complex operation coordination
+- **REPL Pattern**: Interactive conversational interface as primary interaction mode
+- **Command Pattern**: Structured command processing with custom slash command support
+- **Strategy Pattern**: Tool-based operation handling with permission validation
+- **Plugin Architecture**: MEF-based extensibility for MCP servers and custom commands
+- **Factory Pattern**: AI provider and tool instantiation with dependency injection
+- **Observer Pattern**: File system change notifications and NPM package monitoring
+- **Mediator Pattern**: Complex operation coordination and session state management
+- **State Pattern**: Session management with persistent conversation state
 
 ---
 
 ## 🔧 Core Features & Functional Requirements
 
-### **1. Command Line Interface (CLI)**
+### **1. REPL (Read-Eval-Print Loop) Architecture**
 
-#### **Natural Language Processing**
-
-- **Conversational Interface**: Accept natural language commands and requests
-- **Context Awareness**: Understand project structure and development context
-- **Command History**: Persistent command history and session management
-- **Slash Commands**: Support structured commands (e.g., `/analyze`, `/implement`)
-
-#### **System.CommandLine Integration**
+#### **Primary Interaction Mode**
 
 ```csharp
+public interface IREPLService
+{
+    Task StartAsync(CancellationToken cancellationToken);
+    Task<REPLResponse> ProcessInputAsync(string input, REPLContext context);
+    Task<bool> ResumeSessionAsync(string sessionId);
+    Task SaveSessionAsync(REPLSession session);
+}
+
+public class REPLSession
+{
+    public string Id { get; set; }
+    public DateTime Created { get; set; }
+    public DateTime LastAccessed { get; set; }
+    public List<ConversationTurn> Conversation { get; set; } = new();
+    public Dictionary<string, object> Context { get; set; } = new();
+    public string WorkingDirectory { get; set; }
+    public PermissionSettings Permissions { get; set; } = new();
+}
+```
+
+#### **Conversational Interface Features**
+
+- **Natural Language Processing**: Accept conversational input and commands
+- **Context Awareness**: Maintain conversation context across interactions
+- **Session Persistence**: Save and resume conversations across CLI sessions
+- **Smart Prompting**: Intelligent prompts with project context and history
+- **Multi-Turn Conversations**: Complex interactions spanning multiple exchanges
+
+#### **Session Management System**
+
+```csharp
+public interface ISessionManager
+{
+    Task<REPLSession> CreateSessionAsync(string? workingDirectory = null);
+    Task<REPLSession> GetSessionAsync(string sessionId);
+    Task<List<REPLSession>> ListSessionsAsync();
+    Task SaveSessionAsync(REPLSession session);
+    Task DeleteSessionAsync(string sessionId);
+    Task<bool> ResumeSessionAsync(string sessionId);
+    Task ContinueLastSessionAsync();
+}
+```
+
+### **2. Enhanced Command Line Interface (CLI)**
+
+#### **System.CommandLine Integration with REPL**
+
+```csharp
+[Command("chat")]
+public class ChatCommand : ICommand
+{
+    [Option("--session", Description = "Resume specific session ID")]
+    public string? SessionId { get; set; }
+
+    [Option("--continue", Description = "Continue last session")]
+    public bool Continue { get; set; }
+
+    [Option("--format", Description = "Output format (text|json|stream-json)")]
+    public OutputFormat Format { get; set; } = OutputFormat.Text;
+
+    public async Task<int> InvokeAsync(InvocationContext context);
+}
+
 [Command("analyze")]
 public class AnalyzeCommand : ICommand
 {
@@ -111,21 +192,99 @@ public class AnalyzeCommand : ICommand
     [Option("--focus", Description = "Focus area (performance|security|quality|architecture)")]
     public string Focus { get; set; }
 
+    [Option("--session", Description = "Save analysis to session")]
+    public string? SessionId { get; set; }
+
     public async Task<int> InvokeAsync(InvocationContext context);
 }
 ```
 
-### **2. Tool System Architecture**
+#### **Custom Slash Command System**
 
-#### **Core Tools** (Full Implementation Required)
+```csharp
+public interface ICustomCommandManager
+{
+    Task<CustomCommand?> GetCommandAsync(string name, CommandScope scope);
+    Task RegisterCommandAsync(CustomCommand command, CommandScope scope);
+    Task<List<CustomCommand>> ListCommandsAsync(CommandScope scope);
+    Task DeleteCommandAsync(string name, CommandScope scope);
+}
 
-- **File Operations**: `Read`, `Write`, `Edit`, `MultiEdit`
-- **Search & Discovery**: `Grep`, `Glob`, `LS`
-- **Code Execution**: `Bash`, `Task`
-- **Project Management**: `TodoWrite`, `NotebookRead`, `NotebookEdit`
-- **Web Integration**: `WebFetch`, `WebSearch`
+public class CustomCommand
+{
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string MarkdownContent { get; set; } = string.Empty;
+    public CommandScope Scope { get; set; }
+    public Dictionary<string, string> Parameters { get; set; } = new();
+    public DateTime Created { get; set; }
+    public DateTime Modified { get; set; }
+}
 
-#### **Tool Interface Design**
+public enum CommandScope
+{
+    Global,    // ~/.claude-dotnet/commands/
+    Project,   // .claude/commands/
+    User       // User-specific commands
+}
+```
+
+#### **File Reference System**
+
+```csharp
+public interface IFileReferenceService
+{
+    Task<List<FileInfo>> ResolveFileReferencesAsync(string input);
+    Task<string> ProcessFileReferencesAsync(string input, REPLContext context);
+    Task<bool> ValidateFileAccessAsync(string filePath, PermissionSettings permissions);
+}
+
+// Support for @ file references and ! bash execution
+public class FileReferenceParser
+{
+    // @src/Program.cs -> file content inclusion
+    // !dotnet build -> bash command execution
+    // @*.cs -> glob pattern file matching
+}
+```
+
+### **3. Advanced Permission System**
+
+#### **Sophisticated Access Control**
+
+```csharp
+public class AdvancedPermissionManager : IPermissionManager
+{
+    public Task<bool> IsAllowedAsync(string toolName, ToolRequest request, PermissionContext context);
+    public Task<PermissionResult> ValidateAsync(OperationRequest request);
+    public Task<List<string>> GetAllowedToolsAsync(PermissionContext context);
+    public Task<List<string>> GetDeniedToolsAsync(PermissionContext context);
+}
+
+public class PermissionSettings
+{
+    public List<string> Allow { get; set; } = new();
+    public List<string> Deny { get; set; } = new();
+    public Dictionary<string, ToolPermission> ToolPermissions { get; set; } = new();
+    public bool AllowFileSystemAccess { get; set; } = true;
+    public bool AllowNetworkAccess { get; set; } = true;
+    public bool AllowBashExecution { get; set; } = false;
+    public List<string> AllowedDirectories { get; set; } = new();
+    public List<string> DeniedDirectories { get; set; } = new();
+}
+
+public class ToolPermission
+{
+    public bool Allowed { get; set; }
+    public List<string> AllowedPaths { get; set; } = new();
+    public List<string> DeniedPaths { get; set; } = new();
+    public Dictionary<string, object> Parameters { get; set; } = new();
+}
+```
+
+### **4. Enhanced Tool System Architecture**
+
+#### **Core Tools with File Reference Support**
 
 ```csharp
 public interface ITool
@@ -133,34 +292,144 @@ public interface ITool
     string Name { get; }
     string Description { get; }
     Task<ToolResult> ExecuteAsync(ToolRequest request, CancellationToken cancellationToken);
-    Task<bool> CanExecuteAsync(ToolRequest request);
+    Task<bool> CanExecuteAsync(ToolRequest request, PermissionContext permissions);
+    Task<List<string>> GetRequiredPermissionsAsync(ToolRequest request);
 }
 
-public abstract record ToolResult;
-public record SuccessResult(string Output, Dictionary<string, object>? Metadata = null) : ToolResult;
-public record ErrorResult(string Error, Exception? Exception = null) : ToolResult;
+// Enhanced tool implementations with @ and ! support
+public class EnhancedReadTool : ITool
+{
+    // Support @file.txt references
+    // Validate file access permissions
+    // Handle glob patterns @*.cs
+}
+
+public class BashExecutionTool : ITool
+{
+    // Support !command execution
+    // Sandbox execution environment
+    // Validate bash execution permissions
+}
 ```
 
-#### **Permission System**
+#### **Tool Registry with Permission Integration**
 
 ```csharp
-public class PermissionManager
+public class ToolRegistry : IToolRegistry
 {
-    public Task<bool> IsAllowedAsync(string toolName, ToolRequest request);
-    public Task<bool> IsDeniedAsync(string toolName, ToolRequest request);
-}
+    private readonly IPermissionManager _permissionManager;
+    private readonly Dictionary<string, ITool> _tools = new();
 
-// Configuration Support
-public class PermissionSettings
-{
-    public List<string> Allow { get; set; } = new();
-    public List<string> Deny { get; set; } = new();
+    public async Task<ITool?> GetToolAsync(string name, PermissionContext context)
+    {
+        if (!_tools.TryGetValue(name, out var tool))
+            return null;
+
+        if (!await _permissionManager.IsAllowedAsync(name, new ToolRequest(), context))
+            return null;
+
+        return tool;
+    }
 }
 ```
 
-### **3. MCP (Model Context Protocol) Integration**
+### **5. Output Format System**
 
-#### **JSON-RPC Implementation**
+#### **Multiple Output Formats**
+
+```csharp
+public interface IOutputFormatter
+{
+    Task<string> FormatAsync<T>(T data, OutputFormat format, CancellationToken cancellationToken);
+    Task WriteAsync<T>(T data, OutputFormat format, Stream output, CancellationToken cancellationToken);
+}
+
+public enum OutputFormat
+{
+    Text,       // Human-readable text output
+    Json,       // Structured JSON output
+    StreamJson  // Streaming JSON for real-time processing
+}
+
+public class OutputFormatter : IOutputFormatter
+{
+    public async Task<string> FormatAsync<T>(T data, OutputFormat format, CancellationToken cancellationToken)
+    {
+        return format switch
+        {
+            OutputFormat.Text => FormatAsText(data),
+            OutputFormat.Json => JsonSerializer.Serialize(data, _jsonOptions),
+            OutputFormat.StreamJson => FormatAsStreamJson(data),
+            _ => throw new ArgumentException($"Unsupported format: {format}")
+        };
+    }
+}
+```
+
+### **6. NPM Package Analysis System**
+
+#### **Automated Monitoring Pipeline**
+
+```csharp
+public interface INPMAnalysisService
+{
+    Task<PackageAnalysis> AnalyzePackageAsync(string packageName, string version);
+    Task<List<string>> ExtractCliCommandsAsync(string packagePath);
+    Task<FeatureComparison> CompareWithCurrentAsync(PackageAnalysis analysis);
+    Task<bool> CheckForUpdatesAsync(string packageName, string currentVersion);
+}
+
+public class PackageAnalysis
+{
+    public string PackageName { get; set; } = string.Empty;
+    public string Version { get; set; } = string.Empty;
+    public DateTime AnalyzedAt { get; set; }
+    public List<string> CliCommands { get; set; } = new();
+    public List<string> SlashCommands { get; set; } = new();
+    public Dictionary<string, object> Features { get; set; } = new();
+    public List<string> Dependencies { get; set; } = new();
+    public string PackageStructure { get; set; } = string.Empty;
+}
+```
+
+#### **GitHub Actions Integration**
+
+```yaml
+# .github/workflows/npm-analysis.yml
+name: NPM Package Analysis
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily analysis
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Package
+        run: npm pack @anthropic-ai/claude-code
+      
+      - name: Extract and Analyze
+        run: |
+          tar -xzf anthropic-ai-claude-code-*.tgz
+          dotnet run --project tools/NPMAnalyzer -- package/
+      
+      - name: Generate Report
+        run: dotnet run --project tools/NPMAnalyzer -- --report
+      
+      - name: Update Documentation
+        run: |
+          if [ -f analysis-report.md ]; then
+            cp analysis-report.md docs/npm-analysis-$(date +%Y%m%d).md
+            git add docs/
+            git commit -m "docs: update NPM analysis $(date +%Y-%m-%d)"
+            git push
+          fi
+```
+
+### **7. MCP (Model Context Protocol) Integration**
+
+#### **Enhanced JSON-RPC Implementation**
 
 ```csharp
 public interface IMCPServer
@@ -168,474 +437,763 @@ public interface IMCPServer
     string Name { get; }
     Task<T> InvokeAsync<T>(string method, object parameters, CancellationToken cancellationToken);
     Task<bool> IsAvailableAsync();
+    Task<List<MCPCapability>> GetCapabilitiesAsync();
+    Task AuthenticateAsync(MCPAuthRequest request);
 }
 
-[MCPServer("sequential-thinking")]
-public class SequentialThinkingServer : IMCPServer
+public class MCPServerManager : IMCPServerManager
 {
-    [MCPMethod("sequentialthinking")]
-    public Task<ThinkingResult> ProcessThinkingAsync(ThinkingRequest request);
+    private readonly Dictionary<string, IMCPServer> _servers = new();
+    private readonly IConfiguration _configuration;
+
+    public async Task<IMCPServer?> GetServerAsync(string name)
+    {
+        if (!_servers.TryGetValue(name, out var server))
+            return null;
+
+        if (!await server.IsAvailableAsync())
+            return null;
+
+        return server;
+    }
 }
 ```
 
-#### **Plugin Architecture**
-
-- **MEF Integration**: Managed Extensibility Framework for plugin loading
-- **Dynamic Loading**: Runtime discovery and loading of MCP server assemblies
-- **Configuration**: JSON-based MCP server configuration and management
-- **Fallback Handling**: Graceful degradation when servers are unavailable
-
-### **4. AI Provider Integration**
-
-#### **Multi-Provider Support**
+#### **OAuth Integration for MCP Servers**
 
 ```csharp
-public interface IAIProvider
+public interface IMCPAuthService
 {
-    string Name { get; }
-    Task<AIResponse> SendMessageAsync(AIRequest request, CancellationToken cancellationToken);
-    IAsyncEnumerable<StreamingResponse> StreamAsync(AIRequest request, CancellationToken cancellationToken);
+    Task<OAuthToken> AuthenticateAsync(string serverName, OAuthRequest request);
+    Task<bool> RefreshTokenAsync(string serverName);
+    Task<bool> IsAuthenticatedAsync(string serverName);
+    Task RevokeTokenAsync(string serverName);
 }
 
-public class AnthropicProvider : IAIProvider
+public class MCPOAuthService : IMCPAuthService
 {
-    // Claude API integration
-}
-
-public class BedrockProvider : IAIProvider
-{
-    // AWS Bedrock integration
-}
-
-public class VertexProvider : IAIProvider
-{
-    // Google Vertex AI integration
+    // OAuth 2.0 flows for MCP server authentication
+    // Secure token storage using Data Protection APIs
+    // Automatic token refresh handling
 }
 ```
 
-#### **Authentication Management**
+### **8. Cross-Platform Publishing System**
 
-- **OAuth 2.0 Flows**: Complete OAuth implementation for all providers
-- **API Key Management**: Secure storage using Data Protection APIs
-- **Multi-Provider Auth**: Unified authentication across different AI services
-- **Token Refresh**: Automatic token refresh and expiration handling
+#### **Single-File Executable Configuration**
 
-### **5. File System Operations**
+```xml
+<!-- Enhanced publishing configuration -->
+<PropertyGroup>
+  <PublishSingleFile>true</PublishSingleFile>
+  <SelfContained>true</SelfContained>
+  <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">$(NETCoreSdkRuntimeIdentifier)</RuntimeIdentifier>
+  <PublishTrimmed>true</PublishTrimmed>
+  <TrimMode>link</TrimMode>
+  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+</PropertyGroup>
 
-#### **Cross-Platform File Handling**
-
-```csharp
-public interface IFileSystemService
-{
-    Task<string> ReadFileAsync(string path, CancellationToken cancellationToken);
-    Task WriteFileAsync(string path, string content, CancellationToken cancellationToken);
-    Task<FileInfo> GetFileInfoAsync(string path, CancellationToken cancellationToken);
-    IAsyncEnumerable<FileSystemEntry> EnumerateAsync(string path, string pattern);
-}
-
-// Using System.IO.Abstractions for testability
-public class FileSystemService : IFileSystemService
-{
-    private readonly IFileSystem _fileSystem;
-    // Implementation
-}
+<!-- Platform-specific configurations -->
+<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+  <AssemblyName>claude-dotnet-win-x64</AssemblyName>
+</PropertyGroup>
+<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+  <AssemblyName>claude-dotnet-linux-x64</AssemblyName>
+</PropertyGroup>
+<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+  <AssemblyName>claude-dotnet-macos-x64</AssemblyName>
+</PropertyGroup>
+<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">
+  <AssemblyName>claude-dotnet-macos-arm64</AssemblyName>
+</PropertyGroup>
 ```
 
-#### **File System Monitoring**
+#### **Automated Build Pipeline**
 
-- **Real-Time Change Detection**: FileSystemWatcher integration
-- **Intelligent Filtering**: Ignore patterns and smart filtering
-- **Performance Optimization**: Efficient change tracking and batching
+```yaml
+# .github/workflows/publish.yml
+name: Cross-Platform Publishing
+on:
+  release:
+    types: [published]
 
-### **6. Configuration Management**
-
-#### **Multi-Layer Configuration**
-
-```csharp
-public class ClaudeDotNetSettings
-{
-    public bool AutoUpdates { get; set; } = true;
-    public string PreferredNotifChannel { get; set; } = "terminal";
-    public bool Verbose { get; set; } = false;
-    public int CleanupPeriodDays { get; set; } = 30;
-    public bool IncludeCoAuthoredBy { get; set; } = true;
-    public Dictionary<string, string> Env { get; set; } = new();
-    public Dictionary<string, object> Hooks { get; set; } = new();
-    public PermissionSettings Permissions { get; set; } = new();
-}
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        arch: [x64, arm64]
+        exclude:
+          - os: windows-latest
+            arch: arm64
+          - os: ubuntu-latest
+            arch: arm64
+    
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Publish Single-File Executable
+        run: |
+          dotnet publish src/Claude/Claude.csproj \
+            -c Release \
+            -r ${{ matrix.os }}-${{ matrix.arch }} \
+            -p:PublishSingleFile=true \
+            -p:SelfContained=true \
+            --output dist/${{ matrix.os }}-${{ matrix.arch }}
 ```
-
-#### **Configuration Sources**
-
-1. **appsettings.json**: Default application settings
-2. **User Settings**: `~/.claude-dotnet/settings.json`
-3. **Project Settings**: `.claude/settings.json`
-4. **Environment Variables**: Runtime overrides
-5. **Command Line Arguments**: Temporary overrides
 
 ---
 
-## 🚀 Non-Functional Requirements
+## 🧪 Enhanced Testing Strategy
 
-### **Performance Requirements**
+### **xUnit v3 Testing Framework**
 
-- **Cold Start Time**: < 500ms from command invocation to first response
-- **Memory Usage**: < 100MB baseline, < 500MB under heavy load
-- **Response Time**: < 200ms for simple operations, < 2s for complex analysis
+#### **Test Architecture with 80%+ Coverage Target**
+
+```csharp
+// xUnit v3 test structure
+public class REPLServiceTests
+{
+    private readonly ITestOutputHelper _output;
+    private readonly REPLService _replService;
+    private readonly Mock<ISessionManager> _mockSessionManager;
+
+    public REPLServiceTests(ITestOutputHelper output)
+    {
+        _output = output;
+        _mockSessionManager = new Mock<ISessionManager>();
+        _replService = new REPLService(_mockSessionManager.Object);
+    }
+
+    [Fact]
+    public async Task ProcessInputAsync_WithFileReference_ResolvesFileContent()
+    {
+        // Arrange
+        var input = "Analyze @src/Program.cs for performance issues";
+        var context = new REPLContext { WorkingDirectory = "/test" };
+
+        // Act
+        var result = await _replService.ProcessInputAsync(input, context);
+
+        // Assert
+        result.Should().NotBeNull();
+        result.Success.Should().BeTrue();
+        result.Content.Should().Contain("Program.cs");
+    }
+
+    [Theory]
+    [InlineData("!ls -la", true)]
+    [InlineData("!rm -rf /", false)]
+    public async Task ProcessInputAsync_WithBashCommand_ValidatesPermissions(string command, bool expectedAllowed)
+    {
+        // Permission validation tests for bash execution
+    }
+}
+```
+
+#### **Testing Infrastructure Requirements**
+
+```csharp
+// Comprehensive test categories
+public class TestCategories
+{
+    public const string Unit = "Unit";
+    public const string Integration = "Integration";
+    public const string EndToEnd = "E2E";
+    public const string Performance = "Performance";
+    public const string Security = "Security";
+    public const string REPL = "REPL";
+    public const string Session = "Session";
+    public const string MCP = "MCP";
+    public const string NPM = "NPM";
+    public const string CrossPlatform = "CrossPlatform";
+}
+
+// Test fixtures for complex scenarios
+public class REPLIntegrationTestFixture : IAsyncLifetime
+{
+    public IServiceProvider ServiceProvider { get; private set; } = null!;
+    
+    public async Task InitializeAsync()
+    {
+        var services = new ServiceCollection();
+        services.AddREPLServices();
+        services.AddMockServices();
+        ServiceProvider = services.BuildServiceProvider();
+    }
+
+    public async Task DisposeAsync()
+    {
+        if (ServiceProvider is IAsyncDisposable asyncDisposable)
+            await asyncDisposable.DisposeAsync();
+    }
+}
+```
+
+### **Coverage Targets and Quality Gates**
+
+- **Unit Tests**: >80% code coverage (xUnit v3 with FluentAssertions)
+- **Integration Tests**: >70% critical path coverage (Testcontainers for dependencies)
+- **End-to-End Tests**: 100% core workflow coverage (automated CLI testing)
+- **Performance Tests**: BenchmarkDotNet with regression detection
+- **Security Tests**: Static analysis with SonarCloud integration
+- **REPL Tests**: Conversational interface and session management
+- **MCP Tests**: Protocol compliance and server integration
+- **NPM Analysis Tests**: Package monitoring and feature comparison
+
+---
+
+## 🚀 Enhanced Non-Functional Requirements
+
+### **Performance Requirements (Enhanced)**
+
+- **Cold Start Time**: <500ms from command invocation to first response
+- **REPL Startup**: <200ms for interactive mode initialization
+- **Memory Usage**: <100MB baseline, <500MB under heavy load
+- **Session Loading**: <100ms for session resume/continue operations
+- **Response Time**: <200ms simple operations, <2s complex analysis
+- **NPM Analysis**: <5s for package analysis, <1s for version checking
 - **Throughput**: Handle 100+ concurrent file operations efficiently
-- **Scalability**: Support projects with 100k+ files
+- **Scalability**: Support projects with 100k+ files without performance degradation
 
-### **Reliability Requirements**
+### **Cross-Platform Requirements (Enhanced)**
 
-- **Uptime**: 99.9% availability for core functionality
-- **Error Recovery**: Graceful degradation and automatic retry mechanisms
-- **Data Integrity**: No data loss during file operations
-- **Crash Recovery**: Automatic recovery from unexpected failures
-- **Concurrent Access**: Safe handling of concurrent file modifications
-
-### **Security Requirements**
-
-- **Credential Security**: Secure storage using OS credential managers
-- **File System Security**: Respect OS permissions and access controls
-- **Network Security**: HTTPS-only communication with certificate validation
-- **Code Execution**: Sandboxed execution for untrusted code
-- **Audit Trail**: Comprehensive logging of security-relevant operations
-
-### **Cross-Platform Requirements**
-
-- **Primary Platforms**: Windows 11, macOS 14+, Ubuntu 22.04+
-- **Architecture Support**: x64, ARM64 (Apple Silicon)
-- **Container Support**: Docker containers for CI/CD environments
+- **Primary Platforms**: Windows 11, macOS 14+, Ubuntu 22.04+, Alpine Linux
+- **Architecture Support**: x64, ARM64 (Apple Silicon, ARM-based cloud instances)
+- **Single-File Executables**: Self-contained with specific naming conventions:
+  - `claude-dotnet-win-x64.exe` (Windows x64)
+  - `claude-dotnet-linux-x64` (Linux x64)
+  - `claude-dotnet-macos-x64` (macOS Intel)
+  - `claude-dotnet-macos-arm64` (macOS Apple Silicon)
+- **Container Support**: Docker images for all architectures
 - **WSL Compatibility**: Full Windows Subsystem for Linux support
+- **Cloud Environment**: Support for AWS Lambda, Azure Functions, Google Cloud Functions
+
+### **Quality Requirements (Enhanced)**
+
+- **Test Coverage**: >80% overall, >90% for critical components
+- **Code Quality**: SonarCloud Quality Gate A rating with zero critical issues
+- **Documentation**: 100% API documentation with comprehensive examples
+- **Security**: Zero known vulnerabilities, secure credential storage
+- **NPM Parity**: 100% feature parity validation through automated analysis
+- **Session Reliability**: 99.9% session persistence success rate
+- **REPL Stability**: <0.1% crash rate in conversational interactions
 
 ---
 
-## 📦 Deployment & Distribution
+## 📦 Enhanced Deployment & Distribution
 
-### **Package Distribution**
+### **Multi-Platform Distribution Strategy**
 
-- **NuGet Tool Package**: `dotnet tool install -g claude-dotnet`
-- **Standalone Executables**: Self-contained single-file executables
-- **Docker Images**: Multi-architecture container images
-- **GitHub Releases**: Automated release pipeline with binaries
-
-### **Installation Methods**
+#### **Package Distribution Channels**
 
 ```bash
-# Global tool installation (recommended)
+# .NET Global Tool (primary)
 dotnet tool install -g claude-dotnet
 
-# Standalone download
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-dotnet-linux-x64 -o claude-dotnet
-chmod +x claude-dotnet
+# Platform-specific standalone executables
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-dotnet-linux-x64 -o claude
+chmod +x claude
 
-# Docker usage
-docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
+# Homebrew (macOS)
+brew install wangkanai/tap/claude-dotnet
+
+# Chocolatey (Windows)
+choco install claude-dotnet
+
+# Snap (Linux)
+snap install claude-dotnet
+
+# Docker multi-architecture
+docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet:latest
 ```
 
----
-
-## 🧪 Testing Strategy
-
-### **Testing Pyramid**
-
-- **Unit Tests**: 90%+ code coverage with xUnit and FluentAssertions
-- **Integration Tests**: API clients, file operations, MCP protocol
-- **End-to-End Tests**: Complete workflows using Testcontainers
-- **Performance Tests**: Benchmarks using BenchmarkDotNet
-- **Security Tests**: Static analysis with SonarCloud
-
-### **Test Infrastructure**
+#### **Installer Generation System**
 
 ```csharp
-// Example unit test structure
-public class FileSystemServiceTests
+public interface IInstallerGenerator
 {
-    private readonly IFileSystem _fileSystem;
-    private readonly FileSystemService _service;
-
-    [Fact]
-    public async Task ReadFileAsync_ExistingFile_ReturnsContent()
-    {
-        // Arrange, Act, Assert pattern
-    }
+    Task GenerateWindowsInstallerAsync(string executablePath, InstallerOptions options);
+    Task GenerateMacOSInstallerAsync(string executablePath, InstallerOptions options);
+    Task GenerateLinuxPackagesAsync(string executablePath, InstallerOptions options);
+    Task GenerateDockerImageAsync(string executablePath, DockerOptions options);
 }
 
-// Integration test with Testcontainers
-public class AnthropicProviderIntegrationTests : IClassFixture<TestContainerFixture>
+public class InstallerOptions
 {
-    [Fact]
-    public async Task SendMessage_ValidRequest_ReturnsResponse()
+    public string ProductName { get; set; } = "Claude .NET";
+    public string Version { get; set; } = string.Empty;
+    public string Publisher { get; set; } = "Wangkanai";
+    public string Description { get; set; } = string.Empty;
+    public bool CreateDesktopShortcut { get; set; } = false;
+    public bool AddToPath { get; set; } = true;
+    public List<string> FileAssociations { get; set; } = new();
+}
+```
+
+### **Automated Release Pipeline**
+
+```yaml
+# .github/workflows/release.yml
+name: Automated Release Pipeline
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  build-and-publish:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            runtime: win-x64
+            executable: claude-dotnet-win-x64.exe
+          - os: ubuntu-latest
+            runtime: linux-x64
+            executable: claude-dotnet-linux-x64
+          - os: macos-latest
+            runtime: osx-x64
+            executable: claude-dotnet-macos-x64
+          - os: macos-latest
+            runtime: osx-arm64
+            executable: claude-dotnet-macos-arm64
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+      
+      - name: Publish Single-File Executable
+        run: |
+          dotnet publish src/Claude/Claude.csproj \
+            -c Release \
+            -r ${{ matrix.runtime }} \
+            -p:PublishSingleFile=true \
+            -p:SelfContained=true \
+            -p:AssemblyName=${{ matrix.executable }} \
+            --output dist/
+      
+      - name: Generate Installers
+        run: |
+          dotnet run --project tools/InstallerGenerator -- \
+            --executable dist/${{ matrix.executable }} \
+            --platform ${{ matrix.runtime }} \
+            --output installers/
+      
+      - name: Upload Release Assets
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ needs.create-release.outputs.upload_url }}
+          asset_path: dist/${{ matrix.executable }}
+          asset_name: ${{ matrix.executable }}
+          asset_content_type: application/octet-stream
+```
+
+---
+
+## 🔄 Enhanced Development Roadmap
+
+### **Phase 1: Enhanced Foundation (Weeks 1-4)**
+
+**Goal**: Establish advanced infrastructure with REPL, session management, and NPM analysis
+
+**Enhanced Deliverables**:
+
+- [ ] Project structure with enhanced build system and cross-platform configuration
+- [ ] System.CommandLine integration with REPL support and conversational interface
+- [ ] Multi-layer configuration management system with session persistence
+- [ ] REPL service implementation with conversation state management
+- [ ] Session management system with resume/continue capabilities
+- [ ] NPM package analysis pipeline with automated monitoring setup
+- [ ] Enhanced file operations (Read, Write, Edit) with @ reference support
+- [ ] Advanced logging and error handling infrastructure with session context
+- [ ] xUnit v3 test framework setup with 80%+ coverage targets
+- [ ] Cross-platform publishing configuration with single-file executables
+
+**Success Criteria**:
+
+- REPL interface accepts conversational input and maintains session state
+- Session persistence allows resume/continue across CLI restarts
+- NPM analysis pipeline successfully monitors @anthropic-ai/claude-code package
+- Configuration system loads settings from multiple layers correctly
+- File operations support @ file references and permission validation
+- xUnit v3 test framework operational with initial test coverage >60%
+- Cross-platform publishing generates correct single-file executables
+
+### **Phase 2: Advanced Tool System (Weeks 5-8)**
+
+**Goal**: Implement comprehensive tool system with permissions and custom commands
+
+**Enhanced Deliverables**:
+
+- [ ] Advanced permission manager with allowlists/denylists and fine-grained control
+- [ ] Complete tool interface and registry with permission integration
+- [ ] All core tools implementation with @ and ! reference support
+- [ ] Custom slash command system with Markdown-based definitions
+- [ ] Tool orchestration and chaining with permission validation
+- [ ] File reference system (@file.txt, !command) with security validation
+- [ ] Bash execution tool with sandboxed environment and permission checks
+- [ ] Error recovery and fallback mechanisms with session context preservation
+- [ ] Comprehensive tool testing with security and permission validation
+- [ ] Performance optimization for tool execution and permission checking
+
+**Success Criteria**:
+
+- Permission system enforces sophisticated access control rules
+- All tools support file references (@) and bash execution (!) where appropriate
+- Custom slash commands can be defined, registered, and executed
+- Tool chaining works for complex operations with proper permission validation
+- Security model prevents unauthorized file system and network access
+- Test coverage for tool system >80% with comprehensive security testing
+
+### **Phase 3: Enhanced AI Integration (Weeks 9-12)**
+
+**Goal**: Full AI provider integration with session context and advanced features
+
+**Enhanced Deliverables**:
+
+- [ ] Anthropic API client with streaming support and session context integration
+- [ ] Multi-provider architecture (Bedrock, Vertex) with unified interface
+- [ ] OAuth 2.0 authentication flows with secure token management
+- [ ] Session-aware response handling with conversation context preservation
+- [ ] Rate limiting and quota management with intelligent backoff strategies
+- [ ] Advanced AI provider integration with MCP server coordination
+- [ ] Response formatting system (text, json, stream-json) with session support
+- [ ] AI provider failover and load balancing mechanisms
+- [ ] Comprehensive AI integration testing with session management validation
+- [ ] Performance optimization for AI requests and response processing
+
+**Success Criteria**:
+
+- All AI providers authenticate successfully with OAuth 2.0 flows
+- Streaming responses work correctly with session context preservation
+- Multi-format output (text, json, stream-json) functions properly
+- Rate limiting prevents API abuse while maintaining user experience
+- Session context enhances AI responses and maintains conversation coherence
+- AI provider integration achieves >90% reliability with proper error handling
+
+### **Phase 4: Complete MCP Protocol Implementation (Weeks 13-16)**
+
+**Goal**: Full MCP implementation with OAuth, dynamic discovery, and plugin ecosystem
+
+**Enhanced Deliverables**:
+
+- [ ] JSON-RPC protocol implementation with full MCP specification compliance
+- [ ] MCP server interface and base classes with OAuth authentication support
+- [ ] Plugin loading and discovery system with MEF integration
+- [ ] Dynamic command discovery from MCP servers with permission integration
+- [ ] Core MCP servers (Sequential, Context7, Magic, Playwright) integration
+- [ ] MCP server configuration management with secure credential storage
+- [ ] OAuth authentication system for MCP servers with token management
+- [ ] Advanced MCP features (streaming, notifications, progress tracking)
+- [ ] Comprehensive plugin integration testing with security validation
+- [ ] Performance optimization for MCP protocol operations
+
+**Success Criteria**:
+
+- MCP protocol passes full specification compliance tests
+- Plugin system loads and manages servers dynamically with proper lifecycle
+- OAuth authentication works for all supported MCP servers
+- Dynamic command discovery integrates seamlessly with permission system
+- Core servers provide expected functionality with session context awareness
+- Server fallback and error recovery mechanisms function correctly
+
+### **Phase 5: Feature Excellence & Optimization (Weeks 17-20)**
+
+**Goal**: Complete feature parity, performance optimization, and advanced capabilities
+
+**Enhanced Deliverables**:
+
+- [ ] Complete NPM package analysis with automated feature comparison
+- [ ] Advanced Git integration (LibGit2Sharp) with session context
+- [ ] Web search capabilities with intelligent result processing
+- [ ] Image processing support for multimodal interactions
+- [ ] Advanced session management with export/import capabilities
+- [ ] Performance optimizations achieving 2-5x improvement targets
+- [ ] Advanced CLI features (auto-completion, intelligent prompts)
+- [ ] Cross-platform installer generation for all supported formats
+- [ ] SESSION-STATE.md contributor context tracking system implementation
+- [ ] Comprehensive documentation with interactive examples
+
+**Success Criteria**:
+
+- 100% feature parity with Claude Code verified through automated analysis
+- Performance targets (2-5x improvement) met or exceeded in benchmarks
+- Session management supports complex workflows with full state preservation
+- Cross-platform installers work correctly on all supported platforms
+- SESSION-STATE.md system provides effective contributor context tracking
+- All integration tests pass with >95% reliability across platforms
+
+### **Phase 6: Production Excellence & Release (Weeks 21-24)**
+
+**Goal**: Production readiness, comprehensive validation, and public release
+
+**Enhanced Deliverables**:
+
+- [ ] Comprehensive documentation with interactive tutorials and examples
+- [ ] Performance benchmarking against Claude Code with detailed analysis
+- [ ] Security audit and penetration testing with third-party validation
+- [ ] Package distribution setup for all channels (NuGet, GitHub, package managers)
+- [ ] Complete CI/CD pipeline with automated testing and deployment
+- [ ] Community onboarding materials and contributor documentation
+- [ ] Monitoring and telemetry system for production usage analytics
+- [ ] Advanced error reporting and diagnostic capabilities
+- [ ] Final quality assurance with >95% test coverage validation
+- [ ] Production deployment with monitoring and alerting systems
+
+**Success Criteria**:
+
+- All quality gates pass with comprehensive validation
+- Performance benchmarks demonstrate 2-5x improvement over Node.js version
+- Security review completes with zero critical vulnerabilities
+- Production monitoring systems operational with comprehensive telemetry
+- Community documentation complete with successful onboarding validation
+- Public release achieves target adoption metrics within first month
+
+---
+
+## 🔄 SESSION-STATE.md Contributor Context System
+
+### **Context Tracking Requirements**
+
+```markdown
+# SESSION-STATE.md Template
+
+## Development Session Context
+
+**Date**: {date}
+**Developer**: {developer-name}
+**Session Duration**: {duration}
+**Focus Area**: {focus-area}
+
+### Current Work Status
+
+**Active Task**: {current-task}
+**Progress**: {progress-percentage}
+**Blockers**: {blockers-list}
+**Next Steps**: {next-steps}
+
+### Recent Changes
+
+**Files Modified**:
+- {file-list-with-descriptions}
+
+**Key Decisions**:
+- {decision-list-with-rationale}
+
+### Testing Status
+
+**Test Coverage**: {coverage-percentage}
+**Failing Tests**: {failing-test-list}
+**Test Categories**:
+- Unit: {unit-test-status}
+- Integration: {integration-test-status}
+- E2E: {e2e-test-status}
+
+### Environment Context
+
+**Branch**: {git-branch}
+**NPM Package Version**: @anthropic-ai/claude-code@{version}
+**Last NPM Analysis**: {analysis-date}
+**Feature Parity Status**: {parity-percentage}
+
+### Session Notes
+
+{developer-notes-and-insights}
+
+### Handoff Context
+
+**For Next Developer**:
+- {handoff-instructions}
+- {important-context}
+- {known-issues}
+```
+
+### **Automated Context Generation**
+
+```csharp
+public interface ISessionStateManager
+{
+    Task<SessionState> GenerateCurrentStateAsync();
+    Task SaveSessionStateAsync(SessionState state);
+    Task<SessionState> LoadLastSessionStateAsync();
+    Task<List<SessionState>> GetHistoryAsync(int days = 30);
+}
+
+public class SessionState
+{
+    public DateTime Date { get; set; }
+    public string Developer { get; set; } = string.Empty;
+    public TimeSpan Duration { get; set; }
+    public string FocusArea { get; set; } = string.Empty;
+    public string ActiveTask { get; set; } = string.Empty;
+    public double ProgressPercentage { get; set; }
+    public List<string> Blockers { get; set; } = new();
+    public List<string> NextSteps { get; set; } = new();
+    public List<FileChange> FilesModified { get; set; } = new();
+    public List<KeyDecision> KeyDecisions { get; set; } = new();
+    public TestingStatus TestingStatus { get; set; } = new();
+    public EnvironmentContext Environment { get; set; } = new();
+    public string SessionNotes { get; set; } = string.Empty;
+    public HandoffContext Handoff { get; set; } = new();
+}
+```
+
+---
+
+## 🔍 Enhanced Risk Assessment & Mitigation
+
+### **Technical Risks (Updated)**
+
+#### **High Risk: REPL Architecture Complexity**
+
+- **Risk**: REPL implementation with session management may be more complex than anticipated
+- **Impact**: Delays in core user interface development and session persistence
+- **Mitigation**:
+  - Start with basic REPL and incrementally add session features
+  - Reference existing REPL implementations (PowerShell, Python REPL)
+  - Build session management as separate service with clear interfaces
+- **Contingency**: Implement basic command-line interface first, add REPL in later phase
+
+#### **High Risk: NPM Analysis Automation Reliability**
+
+- **Risk**: NPM package analysis may fail to detect breaking changes or new features
+- **Impact**: Feature parity gaps and delayed updates to match Claude Code
+- **Mitigation**:
+  - Implement comprehensive analysis with multiple detection strategies
+  - Add manual review process for critical updates
+  - Create automated testing for analysis pipeline reliability
+- **Contingency**: Implement manual monitoring process with community feedback
+
+#### **Medium Risk: Session Management Performance**
+
+- **Risk**: Session persistence and resume functionality may impact startup performance
+- **Impact**: Slower REPL startup times and user experience degradation
+- **Mitigation**:
+  - Implement lazy loading for session data
+  - Use efficient serialization formats (MessagePack, protobuf)
+  - Cache frequently accessed session data in memory
+- **Contingency**: Implement session management as optional feature with disable option
+
+#### **Medium Risk: Cross-Platform Single-File Executable Size**
+
+- **Risk**: Single-file executables may be too large for practical distribution
+- **Impact**: Slow downloads and storage concerns for users
+- **Mitigation**:
+  - Implement aggressive trimming and compression strategies
+  - Use ReadyToRun images for performance vs size tradeoffs
+  - Provide both single-file and framework-dependent options
+- **Contingency**: Focus on framework-dependent deployment with global tool as primary
+
+### **Enhanced Mitigation Strategies**
+
+#### **Performance Monitoring Integration**
+
+```csharp
+public interface IPerformanceMonitor
+{
+    Task<PerformanceMetrics> CollectMetricsAsync();
+    Task LogPerformanceEventAsync(string eventName, Dictionary<string, object> properties);
+    Task<bool> CheckPerformanceThresholdsAsync();
+}
+
+// Continuous performance validation during development
+public class PerformanceValidator
+{
+    public async Task<bool> ValidateStartupTimeAsync()
     {
-        // Integration testing against real services
+        var startTime = DateTime.UtcNow;
+        // Initialize REPL service
+        var duration = DateTime.UtcNow - startTime;
+        return duration.TotalMilliseconds < 500; // Target: <500ms
     }
 }
 ```
 
 ---
 
-## 📈 Development Roadmap
+## 🎯 Enhanced Success Criteria & KPIs
 
-### **Phase 1: Foundation (Weeks 1-3)**
+### **Technical KPIs (Enhanced)**
 
-**Goal**: Establish core infrastructure and basic CLI functionality
+- **Performance**: 2-5x faster than Claude Code (measured via automated benchmarks)
+- **Memory Usage**: 30-50% lower memory footprint with session management
+- **Feature Parity**: 100% automated parity tracking with weekly validation
+- **Test Coverage**: >80% overall coverage with xUnit v3 framework
+- **REPL Performance**: <200ms startup time, <100ms session resume time
+- **NPM Analysis**: <24hr detection time for new Claude Code releases
+- **Code Quality**: SonarCloud Quality Gate A rating with zero critical issues
+- **Documentation**: 100% API documentation with comprehensive examples
 
-**Deliverables**:
+### **Product KPIs (Enhanced)**
 
-- [ ] Project structure and build system
-- [ ] System.CommandLine integration
-- [ ] Configuration management system
-- [ ] Basic file operations (Read, Write, Edit)
-- [ ] Logging and error handling infrastructure
-- [ ] Unit test framework setup
+- **Adoption**: 10k+ global tool installations within 6 months
+- **Community**: 100+ GitHub stars, 20+ active contributors
+- **Reliability**: <1% error rate in production usage across all platforms
+- **User Satisfaction**: >4.5/5 average rating in feedback and surveys
+- **Ecosystem**: 5+ community-built MCP servers and custom commands
+- **Session Usage**: >70% of users utilize session management features
+- **Cross-Platform**: Equal functionality across Windows, macOS, and Linux
 
-**Success Criteria**:
+### **Business KPIs (Enhanced)**
 
-- Basic CLI accepts commands and responds
-- Configuration system loads settings correctly
-- File operations work cross-platform
-- Test coverage > 80%
-
-### **Phase 2: Tool System (Weeks 4-7)**
-
-**Goal**: Implement complete tool system with permission management
-
-**Deliverables**:
-
-- [ ] Complete tool interface and registry
-- [ ] All core tools implementation (Bash, Grep, Glob, etc.)
-- [ ] Permission system and access control
-- [ ] Tool orchestration and chaining
-- [ ] Error recovery and fallback mechanisms
-- [ ] Tool-specific unit and integration tests
-
-**Success Criteria**:
-
-- All tools pass comprehensive test suites
-- Permission system enforces access control
-- Tool chaining works for complex operations
-- Performance meets requirements
-
-### **Phase 3: AI Integration (Weeks 8-10)**
-
-**Goal**: Full AI provider integration with streaming support
-
-**Deliverables**:
-
-- [ ] Anthropic API client with streaming
-- [ ] Multi-provider architecture (Bedrock, Vertex)
-- [ ] OAuth 2.0 authentication flows
-- [ ] Response handling and error management
-- [ ] Rate limiting and quota management
-- [ ] AI provider integration tests
-
-**Success Criteria**:
-
-- All AI providers authenticate successfully
-- Streaming responses work correctly
-- Rate limiting prevents API abuse
-- Error handling is robust
-
-### **Phase 4: MCP Protocol (Weeks 11-14)**
-
-**Goal**: Complete MCP implementation with plugin architecture
-
-**Deliverables**:
-
-- [ ] JSON-RPC protocol implementation
-- [ ] MCP server interface and base classes
-- [ ] Plugin loading and discovery system
-- [ ] Core MCP servers (Sequential, Context7, Magic, Playwright)
-- [ ] MCP server configuration management
-- [ ] Plugin integration tests
-
-**Success Criteria**:
-
-- MCP protocol passes compliance tests
-- Plugin system loads servers dynamically
-- Core servers provide expected functionality
-- Server fallback works correctly
-
-### **Phase 5: Advanced Features (Weeks 15-17)**
-
-**Goal**: Complete feature parity with original Claude Code
-
-**Deliverables**:
-
-- [ ] Git integration (LibGit2Sharp)
-- [ ] Web search capabilities
-- [ ] Image processing support
-- [ ] Session management and persistence
-- [ ] Advanced CLI features (auto-completion, etc.)
-- [ ] Performance optimizations
-
-**Success Criteria**:
-
-- Feature parity with Claude Code achieved
-- Performance targets met or exceeded
-- All integration tests pass
-- Documentation complete
-
-### **Phase 6: Release Preparation (Weeks 18-20)**
-
-**Goal**: Production readiness and public release
-
-**Deliverables**:
-
-- [ ] Comprehensive documentation
-- [ ] Performance benchmarking
-- [ ] Security audit and testing
-- [ ] Package distribution setup
-- [ ] CI/CD pipeline implementation
-- [ ] Community onboarding materials
-
-**Success Criteria**:
-
-- All quality gates pass
-- Performance benchmarks exceed targets
-- Security review complete
-- Ready for public release
-
----
-
-## 🔍 Risk Assessment & Mitigation
-
-### **Technical Risks**
-
-#### **High Risk: MCP Protocol Complexity**
-
-- **Risk**: MCP protocol implementation may be more complex than anticipated
-- **Impact**: Delays in plugin system development
-- **Mitigation**:
-  - Start with simple JSON-RPC implementation
-  - Reference existing MCP implementations
-  - Build incrementally with extensive testing
-- **Contingency**: Use HTTP-based plugin system as fallback
-
-#### **Medium Risk: Performance Targets**
-
-- **Risk**: May not achieve 2-5x performance improvement
-- **Impact**: Reduced competitive advantage
-- **Mitigation**:
-  - Profile early and often
-  - Use BenchmarkDotNet for continuous performance monitoring
-  - Optimize hot paths with ReadOnlySpan<T> and Memory<T>
-- **Contingency**: Adjust targets based on realistic benchmarks
-
-#### **Medium Risk: Cross-Platform Compatibility**
-
-- **Risk**: Platform-specific issues may emerge late in development
-- **Impact**: Delayed releases for specific platforms
-- **Mitigation**:
-  - Test on all target platforms from early phases
-  - Use cross-platform CI/CD pipeline
-  - Leverage .NET's platform abstraction APIs
-- **Contingency**: Staged release with primary platform first
-
-### **Business Risks**
-
-#### **Low Risk: Market Competition**
-
-- **Risk**: Original Claude Code may receive major updates
-- **Impact**: Feature parity becomes moving target
-- **Mitigation**:
-  - Focus on .NET-specific advantages
-  - Build unique features beyond parity
-  - Engage with .NET developer community
-- **Contingency**: Position as complementary tool for .NET developers
-
----
-
-## 🎯 Success Criteria & KPIs
-
-### **Technical KPIs**
-
-- **Performance**: 2-5x faster than Claude Code (measured via benchmarks)
-- **Memory Usage**: 30-50% lower memory footprint
-- **Test Coverage**: >90% unit test coverage, >80% integration coverage
-- **Code Quality**: SonarCloud Quality Gate A rating
-- **Documentation**: 100% API documentation coverage
-
-### **Product KPIs**
-
-- **Adoption**: 10k+ downloads within 6 months
-- **Community**: 100+ GitHub stars, 20+ contributors
-- **Reliability**: <1% error rate in production usage
-- **User Satisfaction**: >4.5/5 average rating in feedback
-- **Ecosystem**: 5+ community-built MCP servers
-
-### **Business KPIs**
-
-- **Market Position**: Top 3 AI CLI tools in .NET ecosystem
+- **Market Position**: Top 3 AI CLI tools in .NET ecosystem within 12 months
 - **Community Growth**: 1k+ Discord/GitHub discussions members
-- **Plugin Ecosystem**: 10+ community plugins
-- **Enterprise Adoption**: 5+ enterprise customers
-- **Maintenance**: <10% of development time on bug fixes
+- **Plugin Ecosystem**: 10+ community plugins and MCP server integrations
+- **Enterprise Adoption**: 5+ enterprise customers using claude dotnet
+- **Maintenance Efficiency**: <10% of development time spent on bug fixes
+- **NPM Parity**: 100% feature parity maintained within 48 hours of Claude Code updates
 
 ---
 
-## 📚 Dependencies & Constraints
+## 🤝 Enhanced Stakeholders & Communication
 
-### **Technical Dependencies**
+### **Development Team Structure (Enhanced)**
 
-- **.NET 9.0 Runtime**: Latest .NET version for optimal performance
-- **System.CommandLine**: Microsoft's CLI framework (stable release required)
-- **Anthropic API**: Stable API access required
-- **JSON-RPC Libraries**: StreamJsonRpc or equivalent
-- **Git Integration**: LibGit2Sharp or equivalent
+- **Core Development Team**: Lead developer, senior developers (2-3)
+- **DevOps Engineer**: CI/CD pipeline, cross-platform publishing, NPM analysis automation
+- **QA Engineer**: xUnit v3 testing, automated testing, cross-platform validation
+- **Technical Writer**: Comprehensive documentation, tutorials, contributor guides
+- **Community Manager**: Developer relations, feedback collection, plugin ecosystem
 
-### **External Constraints**
+### **Communication Plan (Enhanced)**
 
-- **API Rate Limits**: Anthropic API quotas and rate limiting
-- **Platform Support**: Must support Windows, macOS, Linux
-- **Backward Compatibility**: Maintain compatibility with existing Claude Code workflows
-- **Open Source**: Must be open source with permissive license
-- **Resource Constraints**: Development team size and timeline limitations
-
-### **Assumptions**
-
-- **.NET 9.0** will be stable and production-ready
-- **Anthropic API** remains stable and accessible
-- **MCP Protocol** documentation is sufficient for implementation
-- **Community Interest** exists for .NET-based AI tools
-- **Performance Gains** are achievable through compiled .NET code
+- **Daily Standups**: Core team coordination with focus on blockers and dependencies
+- **Weekly Progress Reports**: Stakeholder updates with metrics and milestone progress
+- **Bi-weekly NPM Analysis Reviews**: Feature parity validation and roadmap updates
+- **Monthly Community Updates**: Public progress reports and roadmap adjustments
+- **Quarterly Architecture Reviews**: Technical debt assessment and performance optimization
+- **Release Communications**: Public announcements, changelogs, and migration guides
 
 ---
 
-## 🤝 Stakeholders & Communication
+## 📝 Enhanced Conclusion
 
-### **Internal Stakeholders**
+**claude dotnet v2.0** represents a comprehensive reimplementation of Claude Code CLI with significant enhancements beyond simple language translation. The addition of automated NPM package monitoring, advanced REPL architecture, sophisticated session management, and comprehensive testing frameworks positions this project as a superior alternative to the original Node.js implementation.
 
-- **Development Team**: Core implementation team
-- **DevOps Team**: CI/CD pipeline and deployment
-- **QA Team**: Testing and quality assurance
-- **Documentation Team**: Technical writing and user guides
+Key differentiators include:
 
-### **External Stakeholders**
+1. **Automated Feature Parity**: NPM analysis pipeline ensures continuous compatibility
+2. **Superior Architecture**: REPL-based conversational interface with session persistence  
+3. **Advanced Permissions**: Sophisticated access control with fine-grained security
+4. **Performance Excellence**: 2-5x improvement through compiled .NET code optimization
+5. **Enterprise Quality**: xUnit v3 testing with 80%+ coverage and comprehensive validation
+6. **Cross-Platform Excellence**: Single-file executables with professional installer generation
+7. **Developer Experience**: SESSION-STATE.md context tracking and contributor-friendly workflows
 
-- **.NET Community**: Primary user base and contributors
-- **Enterprise Users**: Corporate adoption and feedback
-- **Plugin Developers**: MCP server and extension developers
-- **AI/ML Community**: Broader AI tooling ecosystem
+The enhanced 6-phase development approach ensures systematic implementation of advanced features while maintaining focus on performance, reliability, and user experience. With proper execution, claude dotnet will establish itself as the premier AI development tool for .NET developers and set new standards for AI CLI tool quality and performance.
 
-### **Communication Plan**
-
-- **Weekly Standups**: Internal team coordination
-- **Monthly Updates**: Community progress reports
-- **Quarterly Reviews**: Stakeholder alignment meetings
-- **Release Communications**: Public announcements and changelogs
+The automated NPM monitoring system ensures that feature parity is maintained automatically, reducing the risk of falling behind the rapidly evolving Claude Code ecosystem while adding .NET-specific advantages that provide clear value proposition for the target developer community.
 
 ---
 
-## 📝 Conclusion
-
-**claude dotnet** represents a significant opportunity to bring high-performance AI-powered development tools to the .NET ecosystem. By leveraging C# 12 and .NET 9.0, we can deliver superior performance, reliability, and developer experience while maintaining full compatibility with the Claude Code ecosystem.
-
-The phased approach ensures manageable development milestones while building a solid foundation for long-term success. With proper execution, claude dotnet can become the premier AI development tool for .NET developers and establish a strong foothold in the growing AI tooling market.
-
----
-
-**Document Status**: Draft v1.0  
+**Document Status**: Enhanced PRD v2.0  
 **Repository**: https://github.com/wangkanai/claude  
-**Next Review**: Phase 1 Kickoff Meeting  
-**Approval Required**: Development Team Lead, Architecture Review Board
+**Next Review**: Enhanced Architecture Review Meeting  
+**Approval Required**: Development Team Lead, Architecture Review Board, DevOps Lead  
+**NPM Analysis Status**: Automated monitoring pipeline design complete  
+**Testing Framework**: xUnit v3 integration planned with 80%+ coverage targets

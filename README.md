@@ -7,7 +7,9 @@
 
 > **High-performance .NET reimplementation of Anthropic's Claude Code CLI**
 
-A complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0, distributed as a .NET Global Tool. This project delivers superior performance, enhanced type safety, and better integration with the .NET ecosystem while maintaining full feature parity with the original Node.js implementation.
+A complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0, distributed as a .NET Global
+Tool. This project delivers superior performance, enhanced type safety, and better integration with the .NET ecosystem
+while maintaining full feature parity with the original Node.js implementation.
 
 ## ✨ Key Features
 
@@ -25,7 +27,7 @@ A complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and 
 Install as a .NET Global Tool (recommended):
 
 ```bash
-dotnet tool install -g claude-dotnet
+dotnet tool install -g claude
 ```
 
 Alternatively, download standalone executables from [releases](https://github.com/wangkanai/claude/releases).
@@ -62,12 +64,12 @@ claude --version
 ┌─────────────────────────────────────────────────────────────┐
 │                    claude dotnet CLI                        │
 ├─────────────────────────────────────────────────────────────┤
-│  Command Layer    │ System.CommandLine Integration         │
-│  Tool Layer       │ Strategy Pattern for Operations        │
-│  MCP Layer        │ JSON-RPC Protocol Implementation       │
-│  AI Provider      │ Multi-Provider Support (Anthropic+)    │
-│  Core Services    │ File System, Config, Auth, Logging     │
-│  Infrastructure   │ Cross-Platform, Plugin Architecture    │
+│  Command Layer    │ System.CommandLine Integration          │
+│  Tool Layer       │ Strategy Pattern for Operations         │
+│  MCP Layer        │ JSON-RPC Protocol Implementation        │
+│  AI Provider      │ Multi-Provider Support (Anthropic+)     │
+│  Core Services    │ File System, Config, Auth, Logging      │
+│  Infrastructure   │ Cross-Platform, Plugin Architecture     │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -86,7 +88,8 @@ claude --version
 ### Prerequisites
 
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) (latest version)
-- [Visual Studio 2024](https://visualstudio.microsoft.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) (recommended)
+- [Visual Studio 2024](https://visualstudio.microsoft.com/) or [JetBrains Rider](https://www.jetbrains.com/rider/) (
+  recommended)
 - [Git](https://git-scm.com/) for version control
 
 ### Building
@@ -106,17 +109,17 @@ dotnet build
 dotnet test
 
 # Pack as global tool
-dotnet pack src/Claude.Cli/Claude.Cli.csproj -c Release
+dotnet pack src/Claude/Claude.csproj -c Release
 ```
 
 ### Running Locally
 
 ```bash
 # Run from source
-dotnet run --project src/Claude.Cli -- --help
+dotnet run --project src/Claude -- --help
 
 # Install local build as global tool
-dotnet tool install -g --add-source ./src/Claude.Cli/bin/Release claude-dotnet
+dotnet tool install -g --add-source ./src/Claude/bin/Release claude-dotnet
 
 # Run installed tool
 claude --help
@@ -126,8 +129,8 @@ claude --help
 
 The project includes comprehensive testing at multiple levels:
 
-- **Unit Tests**: `tests/Claude.Cli.Tests` - 90%+ code coverage target
-- **Integration Tests**: `tests/Claude.Cli.IntegrationTests` - End-to-end workflow testing
+- **Unit Tests**: `tests/Claude.Tests` - 90%+ code coverage target
+- **Integration Tests**: `tests/Claude.IntegrationTests` - End-to-end workflow testing
 - **Performance Tests**: Benchmarks using BenchmarkDotNet
 - **Security Tests**: Static analysis with SonarCloud
 
@@ -139,21 +142,21 @@ dotnet test
 dotnet test --collect:"XPlat Code Coverage"
 
 # Run performance benchmarks
-dotnet run --project tests/Claude.Cli.Benchmarks -c Release
+dotnet run --project tests/Claude.Benchmarks -c Release
 ```
 
 ## 📊 Performance
 
 Performance compared to original Claude Code CLI:
 
-| Metric | claude dotnet | Claude Code | Improvement |
-|--------|---------------|-------------|-------------|
-| **Cold Start** | <500ms | ~2s | **4x faster** |
-| **Memory Usage** | <100MB | ~150MB | **33% less** |
-| **Command Execution** | <200ms | ~800ms | **4x faster** |
-| **File Operations** | <50ms | ~200ms | **4x faster** |
+| Metric                | claude dotnet | Claude Code | Improvement   |
+|-----------------------|---------------|-------------|---------------|
+| **Cold Start**        | <500ms        | ~2s         | **4x faster** |
+| **Memory Usage**      | <100MB        | ~150MB      | **33% less**  |
+| **Command Execution** | <200ms        | ~800ms      | **4x faster** |
+| **File Operations**   | <50ms         | ~200ms      | **4x faster** |
 
-*Benchmarks run on: Windows 11, Intel i7-12700K, 32GB RAM, NVMe SSD*
+_Benchmarks run on: Windows 11, Intel i7-12700K, 32GB RAM, NVMe SSD_
 
 ## 🛡️ Security
 
@@ -165,12 +168,12 @@ Performance compared to original Claude Code CLI:
 
 ## 🌐 Platform Support
 
-| Platform | Architecture | Status | Notes |
-|----------|-------------|---------|--------|
-| **Windows 11** | x64, ARM64 | ✅ Supported | Primary development platform |
-| **macOS 14+** | x64, ARM64 | ✅ Supported | Apple Silicon optimized |
-| **Ubuntu 22.04+** | x64, ARM64 | ✅ Supported | Full compatibility |
-| **Docker** | Multi-arch | ✅ Supported | Container images available |
+| Platform          | Architecture | Status      | Notes                        |
+|-------------------|--------------|-------------|------------------------------|
+| **Windows 11**    | x64, ARM64   | ✅ Supported | Primary development platform |
+| **macOS 14+**     | x64, ARM64   | ✅ Supported | Apple Silicon optimized      |
+| **Ubuntu 22.04+** | x64, ARM64   | ✅ Supported | Full compatibility           |
+| **Docker**        | Multi-arch   | ✅ Supported | Container images available   |
 
 ## 📦 Distribution
 
@@ -203,6 +206,7 @@ docker pull wangkanai/claude-dotnet:1.0.0-preview.1
 ## 🗺️ Roadmap
 
 ### Phase 1: Foundation (Weeks 1-3) ✅
+
 - [x] Project structure and build system
 - [x] System.CommandLine integration
 - [x] Basic CLI functionality
@@ -210,28 +214,33 @@ docker pull wangkanai/claude-dotnet:1.0.0-preview.1
 - [ ] File operations implementation
 
 ### Phase 2: Tool System (Weeks 4-7)
+
 - [ ] Complete tool interface and registry
 - [ ] Core tools implementation (Bash, Grep, Glob, etc.)
 - [ ] Permission system and access control
 - [ ] Tool orchestration and chaining
 
 ### Phase 3: AI Integration (Weeks 8-10)
+
 - [ ] Anthropic API client with streaming
 - [ ] Multi-provider architecture (Bedrock, Vertex)
 - [ ] OAuth 2.0 authentication flows
 - [ ] Rate limiting and quota management
 
 ### Phase 4: MCP Protocol (Weeks 11-14)
+
 - [ ] JSON-RPC protocol implementation
 - [ ] Plugin loading and discovery system
 - [ ] Core MCP servers integration
 
 ### Phase 5: Advanced Features (Weeks 15-17)
+
 - [ ] Git integration and web search
 - [ ] Session management and persistence
 - [ ] Performance optimizations
 
 ### Phase 6: Release (Weeks 18-20)
+
 - [ ] Comprehensive documentation
 - [ ] Security audit and benchmarking
 - [ ] CI/CD pipeline and distribution
@@ -280,4 +289,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ by the Wangkanai team**
 
-*"Bringing high-performance AI tools to the .NET ecosystem"*
+_"Bringing high-performance AI tools to the .NET ecosystem"_
