@@ -9,6 +9,7 @@ release/
 mcp/
 
 package-lock.json
+packages.lock.json
 
 # User-specific files
 *.rsuser
