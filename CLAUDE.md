@@ -1,12 +1,12 @@
 # CLAUDE.md - claude dotnet Project Guide
 
 **Project**: claude dotnet - High-Performance .NET Global Tool
+**PackageId**: claude
+**ToolCommandName**: claude
 **Version**: 2.0 (Enhanced Architecture)
 **Created**: 2025-07-22
 **Updated**: 2025-07-23
 **Technology**: C# 12, .NET 9.0, System.CommandLine, xUnit v3
-**PackageId**: claude
-**ToolCommandName**: claude
 
 ---
 
@@ -400,7 +400,7 @@ dotnet tool install -g claude
 # Platform-specific installers
 # Windows
 winget install wangkanai.claude
-choco install claude-dotnet
+choco install claude
 
 # macOS
 brew install claude
@@ -568,7 +568,7 @@ claude doctor --full-check --include-dependencies
 - **Architecture**: Host builder pattern with dependency injection container
 - **Logging**: Serilog integration with Microsoft.Extensions.Logging
 - **Commands Implemented**: Root command, analyze, implement, interactive modes
-- **Global Tool**: Properly configured as `claude-dotnet` package with `claude` command
+- **Global Tool**: Properly configured as `claude` package with `claude` command
 - **Services**: IFileSystemService, IConfigurationService with placeholder implementations
 
 ### Session 2 - Enhanced Architecture & NPM Analysis (2025-07-23)
