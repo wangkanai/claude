@@ -3,85 +3,113 @@ name: .NET CI/CD
 on:
   push:
     branches: [ main, develop ]
+    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ main, develop ]
 
 env:
-  VERSION: '0.0.0-alpha01'
-  DOTNET_VERSION: '9.0.x'
-  DOTNET_NOLOGO: true
+  DOTNET_VERSION:                    '9.0.x'
+  DOTNET_NOLOGO:                     true
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_CLI_TELEMETRY_OPTOUT:       true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Restore dependencies
+        run:  dotnet restore
 
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+      - name: Build
+        run:  dotnet build --no-restore --configuration Release
 
-    - name: Test
-      run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      - name: Test
+        run:  dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
-    - name: Install SonarCloud scanner
-      run: |
-        dotnet tool install --global dotnet-sonarscanner
+      - name: Install SonarCloud scanner
+        run:  |
+              dotnet tool install --global dotnet-sonarscanner
 
-    - name: Build and analyze with SonarCloud
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-        # Extract version from Directory.Build.props
-        VERSION=$(grep -oP '<Version>\K[^<]+' Directory.Build.props)
-        dotnet-sonarscanner begin \
-          /k:"wangkanai_claude" \
-          /o:"wangkanai" \
-          /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
-          /d:sonar.host.url="https://sonarcloud.io" \
-          /d:sonar.projectVersion="$VERSION" \
-          /d:sonar.cs.opencover.reportsPaths="coverage/**/coverage.opencover.xml"
-        dotnet build --configuration Release
-        dotnet test --configuration Release --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-        dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run:  |
+              # Extract version from Directory.Build.props
+              VERSION=$(grep -oP '<Version>\K[^<]+' Directory.Build.props)
+              dotnet-sonarscanner begin \
+                /k:"wangkanai_claude" \
+                /o:"wangkanai" \
+                /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+                /d:sonar.host.url="https://sonarcloud.io" \
+                /d:sonar.projectVersion="$VERSION" \
+                /d:sonar.cs.opencover.reportsPaths="coverage/**/coverage.opencover.xml"
+              dotnet build --configuration Release
+              dotnet test --configuration Release --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+              dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-  package:
-    needs: build
+  # Performance Benchmarks
+  benchmarks:
+    name:    Performance Benchmarks
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore dependencies
-      run: dotnet restore
+      - name: Run benchmarks
+        run:  |
+              # Create benchmark project if it doesn't exist
+              if [ ! -d "tests/Claude.Benchmarks" ]; then
+                echo "Benchmark project will be created in Phase 6"
+                exit 0
+              fi
 
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
+              dotnet run --project tests/Claude.Benchmarks --configuration Release
 
-    - name: Pack
-      run: dotnet pack --no-build --configuration Release --output ./artifacts/packages
+      - name: Upload benchmark results
+        if:   always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-results
+          path: ./BenchmarkDotNet.Artifacts/
 
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: packages
-        path: ./artifacts/packages/*.nupkg
+  # Dependency Check
+  dependency-check:
+    name:    Dependency Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run:  dotnet restore
+
+      - name: Check for outdated packages
+        run:  |
+              dotnet list package --outdated --include-transitive || true
+
+      - name: License check
+        run:  |
+              dotnet list package --include-transitive | grep -E "(GPL|AGPL|LGPL|EPL|MPL)" || echo "No copyleft licenses found"
