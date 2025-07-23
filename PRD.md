@@ -1,17 +1,19 @@
 # claude dotnet - Product Requirements Document (PRD)
 
-**Version**: 2.0  
-**Created**: 2025-07-22  
-**Updated**: 2025-07-23  
-**Author**: Sarin Na Wangkanai  
-**Project**: High-Performance .NET 9.0 Reimplementation of Claude Code CLI  
+**Version**: 2.0
+**Created**: 2025-07-22
+**Updated**: 2025-07-23
+**Author**: Sarin Na Wangkanai
+**Project**: High-Performance .NET 9.0 Reimplementation of Claude Code CLI
 **Repository**: https://github.com/wangkanai/claude
 
 ---
 
 ## 📋 Project Summary
 
-**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0, distributed as a .NET Global Tool. This project aims to deliver superior performance, enhanced type safety, and better integration with the .NET ecosystem while maintaining full feature parity with the original Node.js implementation.
+**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI tool using C# 12 and .NET 9.0,
+distributed as a .NET Global Tool. This project aims to deliver superior performance, enhanced type safety, and better
+integration with the .NET ecosystem while maintaining full feature parity with the original Node.js implementation.
 
 ### **Key Value Propositions**
 
@@ -41,7 +43,9 @@
 
 ### **Vision Statement**
 
-"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging the full power of the .NET ecosystem while maintaining perfect feature parity with Claude Code through automated monitoring."
+"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development,
+leveraging the full power of the .NET ecosystem while maintaining perfect feature parity with Claude Code through
+automated monitoring."
 
 ### **Primary Goals**
 
@@ -398,33 +402,33 @@ public class PackageAnalysis
 # .github/workflows/npm-analysis.yml
 name: NPM Package Analysis
 on:
-  schedule:
-    - cron: '0 0 * * *'  # Daily analysis
-  workflow_dispatch:
+	schedule:
+		-   cron: '0 0 * * *'  # Daily analysis
+	workflow_dispatch:
 
 jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Package
-        run: npm pack @anthropic-ai/claude-code
-      
-      - name: Extract and Analyze
-        run: |
-          tar -xzf anthropic-ai-claude-code-*.tgz
-          dotnet run --project tools/NPMAnalyzer -- package/
-      
-      - name: Generate Report
-        run: dotnet run --project tools/NPMAnalyzer -- --report
-      
-      - name: Update Documentation
-        run: |
-          if [ -f analysis-report.md ]; then
-            cp analysis-report.md docs/npm-analysis-$(date +%Y%m%d).md
-            git add docs/
-            git commit -m "docs: update NPM analysis $(date +%Y-%m-%d)"
-            git push
-          fi
+	analyze:
+		runs-on: ubuntu-latest
+		steps:
+			-   name: Download Package
+				run:  npm pack @anthropic-ai/claude-code
+
+			-   name: Extract and Analyze
+				run:  |
+					  tar -xzf anthropic-ai-claude-code-*.tgz
+					  dotnet run --project tools/NPMAnalyzer -- package/
+
+			-   name: Generate Report
+				run:  dotnet run --project tools/NPMAnalyzer -- --report
+
+			-   name: Update Documentation
+				run:  |
+					  if [ -f analysis-report.md ]; then
+					    cp analysis-report.md docs/npm-analysis-$(date +%Y%m%d).md
+					    git add docs/
+					    git commit -m "docs: update NPM analysis $(date +%Y-%m-%d)"
+					    git push
+					  fi
 ```
 
 ### **7. MCP (Model Context Protocol) Integration**
@@ -485,27 +489,27 @@ public class MCPOAuthService : IMCPAuthService
 ```xml
 <!-- Enhanced publishing configuration -->
 <PropertyGroup>
-  <PublishSingleFile>true</PublishSingleFile>
-  <SelfContained>true</SelfContained>
-  <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">$(NETCoreSdkRuntimeIdentifier)</RuntimeIdentifier>
-  <PublishTrimmed>true</PublishTrimmed>
-  <TrimMode>link</TrimMode>
-  <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-  <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+	<PublishSingleFile>true</PublishSingleFile>
+	<SelfContained>true</SelfContained>
+	<RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">$(NETCoreSdkRuntimeIdentifier)</RuntimeIdentifier>
+	<PublishTrimmed>true</PublishTrimmed>
+	<TrimMode>link</TrimMode>
+	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+	<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
 </PropertyGroup>
 
-<!-- Platform-specific configurations -->
+	<!-- Platform-specific configurations -->
 <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
-  <AssemblyName>claude-dotnet-win-x64</AssemblyName>
+<AssemblyName>claude-dotnet-win-x64</AssemblyName>
 </PropertyGroup>
 <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
-  <AssemblyName>claude-dotnet-linux-x64</AssemblyName>
+<AssemblyName>claude-dotnet-linux-x64</AssemblyName>
 </PropertyGroup>
 <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
-  <AssemblyName>claude-dotnet-macos-x64</AssemblyName>
+<AssemblyName>claude-dotnet-macos-x64</AssemblyName>
 </PropertyGroup>
 <PropertyGroup Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">
-  <AssemblyName>claude-dotnet-macos-arm64</AssemblyName>
+<AssemblyName>claude-dotnet-macos-arm64</AssemblyName>
 </PropertyGroup>
 ```
 
@@ -515,31 +519,31 @@ public class MCPOAuthService : IMCPAuthService
 # .github/workflows/publish.yml
 name: Cross-Platform Publishing
 on:
-  release:
-    types: [published]
+	release:
+		types: [ published ]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-        arch: [x64, arm64]
-        exclude:
-          - os: windows-latest
-            arch: arm64
-          - os: ubuntu-latest
-            arch: arm64
-    
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Publish Single-File Executable
-        run: |
-          dotnet publish src/Claude/Claude.csproj \
-            -c Release \
-            -r ${{ matrix.os }}-${{ matrix.arch }} \
-            -p:PublishSingleFile=true \
-            -p:SelfContained=true \
-            --output dist/${{ matrix.os }}-${{ matrix.arch }}
+	build:
+		strategy:
+			matrix:
+				os: [ windows-latest, ubuntu-latest, macos-latest ]
+				arch: [ x64, arm64 ]
+				exclude:
+					-   os:   windows-latest
+						arch: arm64
+					-   os:   ubuntu-latest
+						arch: arm64
+
+		runs-on: ${{ matrix.os }}
+		steps:
+			-   name: Publish Single-File Executable
+				run:  |
+					  dotnet publish src/Claude/Claude.csproj \
+					    -c Release \
+					    -r ${{ matrix.os }}-${{ matrix.arch }} \
+					    -p:PublishSingleFile=true \
+					    -p:SelfContained=true \
+					    --output dist/${{ matrix.os }}-${{ matrix.arch }}
 ```
 
 ---
@@ -613,7 +617,7 @@ public class TestCategories
 public class REPLIntegrationTestFixture : IAsyncLifetime
 {
     public IServiceProvider ServiceProvider { get; private set; } = null!;
-    
+
     public async Task InitializeAsync()
     {
         var services = new ServiceCollection();
@@ -661,10 +665,10 @@ public class REPLIntegrationTestFixture : IAsyncLifetime
 - **Primary Platforms**: Windows 11, macOS 14+, Ubuntu 22.04+, Alpine Linux
 - **Architecture Support**: x64, ARM64 (Apple Silicon, ARM-based cloud instances)
 - **Single-File Executables**: Self-contained with specific naming conventions:
-  - `claude-dotnet-win-x64.exe` (Windows x64)
-  - `claude-dotnet-linux-x64` (Linux x64)
-  - `claude-dotnet-macos-x64` (macOS Intel)
-  - `claude-dotnet-macos-arm64` (macOS Apple Silicon)
+	- `claude-dotnet-win-x64.exe` (Windows x64)
+	- `claude-dotnet-linux-x64` (Linux x64)
+	- `claude-dotnet-macos-x64` (macOS Intel)
+	- `claude-dotnet-macos-arm64` (macOS Apple Silicon)
 - **Container Support**: Docker images for all architectures
 - **WSL Compatibility**: Full Windows Subsystem for Linux support
 - **Cloud Environment**: Support for AWS Lambda, Azure Functions, Google Cloud Functions
@@ -737,60 +741,60 @@ public class InstallerOptions
 # .github/workflows/release.yml
 name: Automated Release Pipeline
 on:
-  push:
-    tags: ['v*']
+	push:
+		tags: [ 'v*' ]
 
 jobs:
-  build-and-publish:
-    strategy:
-      matrix:
-        include:
-          - os: windows-latest
-            runtime: win-x64
-            executable: claude-dotnet-win-x64.exe
-          - os: ubuntu-latest
-            runtime: linux-x64
-            executable: claude-dotnet-linux-x64
-          - os: macos-latest
-            runtime: osx-x64
-            executable: claude-dotnet-macos-x64
-          - os: macos-latest
-            runtime: osx-arm64
-            executable: claude-dotnet-macos-arm64
+	build-and-publish:
+		strategy:
+			matrix:
+				include:
+					-   os:         windows-latest
+						runtime:    win-x64
+						executable: claude-dotnet-win-x64.exe
+					-   os:         ubuntu-latest
+						runtime:    linux-x64
+						executable: claude-dotnet-linux-x64
+					-   os:         macos-latest
+						runtime:    osx-x64
+						executable: claude-dotnet-macos-x64
+					-   os:         macos-latest
+						runtime:    osx-arm64
+						executable: claude-dotnet-macos-arm64
 
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
-      
-      - name: Publish Single-File Executable
-        run: |
-          dotnet publish src/Claude/Claude.csproj \
-            -c Release \
-            -r ${{ matrix.runtime }} \
-            -p:PublishSingleFile=true \
-            -p:SelfContained=true \
-            -p:AssemblyName=${{ matrix.executable }} \
-            --output dist/
-      
-      - name: Generate Installers
-        run: |
-          dotnet run --project tools/InstallerGenerator -- \
-            --executable dist/${{ matrix.executable }} \
-            --platform ${{ matrix.runtime }} \
-            --output installers/
-      
-      - name: Upload Release Assets
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ needs.create-release.outputs.upload_url }}
-          asset_path: dist/${{ matrix.executable }}
-          asset_name: ${{ matrix.executable }}
-          asset_content_type: application/octet-stream
+		runs-on: ${{ matrix.os }}
+		steps:
+			-   uses: actions/checkout@v4
+
+			-   name: Setup .NET
+				uses: actions/setup-dotnet@v4
+				with:
+					dotnet-version: '9.0.x'
+
+			-   name: Publish Single-File Executable
+				run:  |
+					  dotnet publish src/Claude/Claude.csproj \
+					    -c Release \
+					    -r ${{ matrix.runtime }} \
+					    -p:PublishSingleFile=true \
+					    -p:SelfContained=true \
+					    -p:AssemblyName=${{ matrix.executable }} \
+					    --output dist/
+
+			-   name: Generate Installers
+				run:  |
+					  dotnet run --project tools/InstallerGenerator -- \
+					    --executable dist/${{ matrix.executable }} \
+					    --platform ${{ matrix.runtime }} \
+					    --output installers/
+
+			-   name: Upload Release Assets
+				uses: actions/upload-release-asset@v1
+				with:
+					upload_url:         ${{ needs.create-release.outputs.upload_url }}
+					asset_path:         dist/${{ matrix.executable }}
+					asset_name:         ${{ matrix.executable }}
+					asset_content_type: application/octet-stream
 ```
 
 ---
@@ -980,9 +984,11 @@ jobs:
 ### Recent Changes
 
 **Files Modified**:
+
 - {file-list-with-descriptions}
 
 **Key Decisions**:
+
 - {decision-list-with-rationale}
 
 ### Testing Status
@@ -990,6 +996,7 @@ jobs:
 **Test Coverage**: {coverage-percentage}
 **Failing Tests**: {failing-test-list}
 **Test Categories**:
+
 - Unit: {unit-test-status}
 - Integration: {integration-test-status}
 - E2E: {e2e-test-status}
@@ -1008,6 +1015,7 @@ jobs:
 ### Handoff Context
 
 **For Next Developer**:
+
 - {handoff-instructions}
 - {important-context}
 - {known-issues}
@@ -1054,9 +1062,9 @@ public class SessionState
 - **Risk**: REPL implementation with session management may be more complex than anticipated
 - **Impact**: Delays in core user interface development and session persistence
 - **Mitigation**:
-  - Start with basic REPL and incrementally add session features
-  - Reference existing REPL implementations (PowerShell, Python REPL)
-  - Build session management as separate service with clear interfaces
+	- Start with basic REPL and incrementally add session features
+	- Reference existing REPL implementations (PowerShell, Python REPL)
+	- Build session management as separate service with clear interfaces
 - **Contingency**: Implement basic command-line interface first, add REPL in later phase
 
 #### **High Risk: NPM Analysis Automation Reliability**
@@ -1064,9 +1072,9 @@ public class SessionState
 - **Risk**: NPM package analysis may fail to detect breaking changes or new features
 - **Impact**: Feature parity gaps and delayed updates to match Claude Code
 - **Mitigation**:
-  - Implement comprehensive analysis with multiple detection strategies
-  - Add manual review process for critical updates
-  - Create automated testing for analysis pipeline reliability
+	- Implement comprehensive analysis with multiple detection strategies
+	- Add manual review process for critical updates
+	- Create automated testing for analysis pipeline reliability
 - **Contingency**: Implement manual monitoring process with community feedback
 
 #### **Medium Risk: Session Management Performance**
@@ -1074,9 +1082,9 @@ public class SessionState
 - **Risk**: Session persistence and resume functionality may impact startup performance
 - **Impact**: Slower REPL startup times and user experience degradation
 - **Mitigation**:
-  - Implement lazy loading for session data
-  - Use efficient serialization formats (MessagePack, protobuf)
-  - Cache frequently accessed session data in memory
+	- Implement lazy loading for session data
+	- Use efficient serialization formats (MessagePack, protobuf)
+	- Cache frequently accessed session data in memory
 - **Contingency**: Implement session management as optional feature with disable option
 
 #### **Medium Risk: Cross-Platform Single-File Executable Size**
@@ -1084,9 +1092,9 @@ public class SessionState
 - **Risk**: Single-file executables may be too large for practical distribution
 - **Impact**: Slow downloads and storage concerns for users
 - **Mitigation**:
-  - Implement aggressive trimming and compression strategies
-  - Use ReadyToRun images for performance vs size tradeoffs
-  - Provide both single-file and framework-dependent options
+	- Implement aggressive trimming and compression strategies
+	- Use ReadyToRun images for performance vs size tradeoffs
+	- Provide both single-file and framework-dependent options
 - **Contingency**: Focus on framework-dependent deployment with global tool as primary
 
 ### **Enhanced Mitigation Strategies**
@@ -1173,27 +1181,34 @@ public class PerformanceValidator
 
 ## 📝 Enhanced Conclusion
 
-**claude dotnet v2.0** represents a comprehensive reimplementation of Claude Code CLI with significant enhancements beyond simple language translation. The addition of automated NPM package monitoring, advanced REPL architecture, sophisticated session management, and comprehensive testing frameworks positions this project as a superior alternative to the original Node.js implementation.
+**claude dotnet v2.0** represents a comprehensive reimplementation of Claude Code CLI with significant enhancements
+beyond simple language translation. The addition of automated NPM package monitoring, advanced REPL architecture,
+sophisticated session management, and comprehensive testing frameworks positions this project as a superior alternative
+to the original Node.js implementation.
 
 Key differentiators include:
 
 1. **Automated Feature Parity**: NPM analysis pipeline ensures continuous compatibility
-2. **Superior Architecture**: REPL-based conversational interface with session persistence  
+2. **Superior Architecture**: REPL-based conversational interface with session persistence
 3. **Advanced Permissions**: Sophisticated access control with fine-grained security
 4. **Performance Excellence**: 2-5x improvement through compiled .NET code optimization
 5. **Enterprise Quality**: xUnit v3 testing with 80%+ coverage and comprehensive validation
 6. **Cross-Platform Excellence**: Single-file executables with professional installer generation
 7. **Developer Experience**: SESSION-STATE.md context tracking and contributor-friendly workflows
 
-The enhanced 6-phase development approach ensures systematic implementation of advanced features while maintaining focus on performance, reliability, and user experience. With proper execution, claude dotnet will establish itself as the premier AI development tool for .NET developers and set new standards for AI CLI tool quality and performance.
+The enhanced 6-phase development approach ensures systematic implementation of advanced features while maintaining focus
+on performance, reliability, and user experience. With proper execution, claude dotnet will establish itself as the
+premier AI development tool for .NET developers and set new standards for AI CLI tool quality and performance.
 
-The automated NPM monitoring system ensures that feature parity is maintained automatically, reducing the risk of falling behind the rapidly evolving Claude Code ecosystem while adding .NET-specific advantages that provide clear value proposition for the target developer community.
+The automated NPM monitoring system ensures that feature parity is maintained automatically, reducing the risk of
+falling behind the rapidly evolving Claude Code ecosystem while adding .NET-specific advantages that provide clear value
+proposition for the target developer community.
 
 ---
 
-**Document Status**: Enhanced PRD v2.0  
-**Repository**: https://github.com/wangkanai/claude  
-**Next Review**: Enhanced Architecture Review Meeting  
-**Approval Required**: Development Team Lead, Architecture Review Board, DevOps Lead  
-**NPM Analysis Status**: Automated monitoring pipeline design complete  
+**Document Status**: Enhanced PRD v2.0
+**Repository**: https://github.com/wangkanai/claude
+**Next Review**: Enhanced Architecture Review Meeting
+**Approval Required**: Development Team Lead, Architecture Review Board, DevOps Lead
+**NPM Analysis Status**: Automated monitoring pipeline design complete
 **Testing Framework**: xUnit v3 integration planned with 80%+ coverage targets
