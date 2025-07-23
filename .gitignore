@@ -6,6 +6,7 @@
 prompts/
 debug/
 release/
+mcp/
 
 package-lock.json
 
