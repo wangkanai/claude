@@ -64,28 +64,25 @@ jobs:
     - name: Publish application
       if: matrix.os == 'ubuntu-latest'
       run: |
+        # Publish as framework-dependent (required for .NET tools)
         dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime linux-x64 \
-          --self-contained true \
           --output ./publish/linux-x64/
 
         dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime win-x64 \
-          --self-contained true \
           --output ./publish/win-x64/
 
         dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime osx-x64 \
-          --self-contained true \
           --output ./publish/osx-x64/
 
         dotnet publish src/Claude/Claude.csproj \
           --configuration Release \
           --runtime osx-arm64 \
-          --self-contained true \
           --output ./publish/osx-arm64/
 
     - name: Pack NuGet package
