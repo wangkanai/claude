@@ -1,0 +1,86 @@
+# Consolidated Documentation Update Task
+
+## Overview
+Update all 4 documentation files (PRD.md, CLAUDE.md, PLANNING.md, TASKS.md) to reflect current v2.0 enhanced architecture and 36.4% progress (16/45 completed Phase 1 tasks).
+
+## Task Breakdown
+
+### [ ] 1. Update PLANNING.md (Highest Priority - Most Outdated)
+- [ ] Change version from 1.0 to 2.0 (Enhanced Architecture)
+- [ ] Update Technology Stack section:
+  - [ ] Add: xUnit v3 with 80%+ coverage target
+  - [ ] Add: Directory.Packages.props (centralized)
+  - [ ] Add: NPM Analysis: Automated @anthropic-ai/claude-code monitoring
+- [ ] Revise Development Phases (6 phases, 22 weeks total):
+  - [ ] Phase 1: Enhanced Foundation (Weeks 1-4) - CURRENT
+  - [ ] Phase 2: NPM Analysis & CLI Mapping (Weeks 5-7)
+  - [ ] Phase 3: Enhanced Tool System (Weeks 8-11)
+  - [ ] Phase 4: AI Integration & MCP Protocol (Weeks 12-15)
+  - [ ] Phase 5: Advanced Features & Performance (Weeks 16-18)
+  - [ ] Phase 6: Cross-Platform Publishing & Release (Weeks 19-22)
+- [ ] Update Current Status to show Enhanced Phase 1 (36.4% complete)
+- [ ] Add Key Architectural Decisions:
+  - [ ] NPM package analysis automation
+  - [ ] SESSION-STATE.md contributor workflow
+  - [ ] MCP server integration
+  - [ ] Cross-platform publishing with installers
+
+### [ ] 2. Update TASKS.md (Second Priority - Wrong Task Structure)
+- [ ] Replace current Phase 1 tasks (31) with Enhanced Phase 1 (45 tasks)
+- [ ] Mark completed tasks (16 total):
+  - [x] Repository setup (5 tasks)
+  - [x] CLI implementation foundation (3 tasks)
+  - [x] xUnit v3 testing framework setup (1 task)
+  - [x] Directory.Packages.props configuration (1 task)
+  - [x] SESSION-STATE.md template creation (1 task)
+  - [x] Claude Code CLI documentation (1 task)
+  - [x] Additional Session 1-2 tasks (4 tasks)
+- [ ] Add new task categories:
+  - [ ] NPM Package Analysis & Automation
+  - [ ] Testing Framework & Coverage
+  - [ ] Package Management & Dependencies
+  - [ ] Cross-Platform Build System
+  - [ ] Documentation & Architecture
+- [ ] Update statistics:
+  - [ ] Overall Progress: 16/45 (35.6%)
+  - [ ] Enhanced Phase 1: 36.4% complete
+  - [ ] Remaining Phase 1: 29 tasks
+- [ ] Update Next Session Focus with current priorities
+
+### [ ] 3. Update CLAUDE.md (Third Priority - Minor Updates)
+- [ ] Update Phase 1 progress: 26.7% → 36.4%
+- [ ] Add Session 3 section (2025-07-23):
+  - [ ] Claude Code CLI documentation research
+  - [ ] xUnit v3 testing framework setup
+  - [ ] Directory.Packages.props configuration  
+  - [ ] SESSION-STATE.md template creation
+  - [ ] Documentation consolidation
+- [ ] Enhance MCP Integration section (lines 362-370):
+  - [ ] Add inline MCP workflow examples
+  - [ ] Include priority server stack (Context7, Sequential, Memory, Repomix)
+  - [ ] Add quick reference commands
+  - [ ] Remove dependency on CLAUDE.local.md reference
+- [ ] Update Next Priorities section
+- [ ] Fix Session Success Metrics
+
+### [ ] 4. Update PRD.md (Lowest Priority - Mostly Current)
+- [ ] Update Development Timeline to match enhanced 6-phase approach
+- [ ] Add Session 3 progress in Development Sessions section
+- [ ] Enhance MCP Protocol section with server priorities
+- [ ] Ensure phase descriptions match other documents
+- [ ] Update progress indicators
+
+## Execution Order
+1. PLANNING.md (most critical - wrong version)
+2. TASKS.md (wrong task structure)  
+3. CLAUDE.md (minor updates)
+4. PRD.md (alignment only)
+
+## Validation Checklist
+- [ ] All files show v2.0 Enhanced Architecture
+- [ ] All files show 36.4% progress (16/45 tasks)
+- [ ] Technology stack consistent across all files
+- [ ] 6 phases over 22 weeks in all files
+- [ ] MCP integration properly documented
+- [ ] Session 3 progress included everywhere
+- [ ] Cross-references remain valid
