@@ -26,6 +26,7 @@ mcp.local.json
 # IDE config files
 .vscode/
 .kilocode/
+.vercel/
 
 # Mono auto generated files
 mono_crash.*
