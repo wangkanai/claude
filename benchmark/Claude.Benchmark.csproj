@@ -5,6 +5,21 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <!-- Disable strict localization rules for benchmark projects -->
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet />
   </PropertyGroup>
+
+  <!-- Disable specific analyzer rules that are too strict for benchmark code -->
+  <PropertyGroup>
+    <WarningsNotAsErrors>CA1303</WarningsNotAsErrors>
+    <NoWarn>CA1303</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" />
+  </ItemGroup>
 
 </Project>

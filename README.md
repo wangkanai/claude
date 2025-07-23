@@ -119,7 +119,7 @@ dotnet pack src/Claude/Claude.csproj -c Release
 dotnet run --project src/Claude -- --help
 
 # Install local build as global tool
-dotnet tool install -g --add-source ./src/Claude/bin/Release claude-dotnet
+dotnet tool install -g --add-source ./src/Claude/bin/Release claude
 
 # Run installed tool
 claude --help
@@ -129,7 +129,7 @@ claude --help
 
 The project includes comprehensive testing at multiple levels:
 
-- **Unit Tests**: `tests/Claude.Tests` - 90%+ code coverage target
+- **Unit Tests**: `tests/Claude.UnitTests` - 80%+ code coverage target
 - **Integration Tests**: `tests/Claude.IntegrationTests` - End-to-end workflow testing
 - **Performance Tests**: Benchmarks using BenchmarkDotNet
 - **Security Tests**: Static analysis with SonarCloud
@@ -180,30 +180,21 @@ _Benchmarks run on: Windows 11, Intel i7-12700K, 32GB RAM, NVMe SSD_
 ### NuGet Global Tool
 
 ```bash
-dotnet tool install -g claude-dotnet
+dotnet tool install -g claude
 ```
 
 ### Standalone Executables
 
 Download platform-specific executables from [GitHub Releases](https://github.com/wangkanai/claude/releases):
 
-- `claude-dotnet-win-x64.exe` - Windows x64
-- `claude-dotnet-linux-x64` - Linux x64
-- `claude-dotnet-osx-x64` - macOS x64
-- `claude-dotnet-osx-arm64` - macOS ARM64 (Apple Silicon)
-
-### Docker Images
-
-```bash
-# Run with Docker
-docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
-
-# Available tags
-docker pull wangkanai/claude-dotnet:latest
-docker pull wangkanai/claude-dotnet:1.0.0-preview.1
-```
+- `claude-win-x64.exe` - Windows x64
+- `claude-linux-x64` - Linux x64
+- `claude-osx-x64` - macOS x64
+- `claude-osx-arm64` - macOS ARM64 (Apple Silicon)
 
 ## 🗺️ Roadmap
+
+![Development Timeline](docs/planning-timeline.png)
 
 ### Phase 1: Foundation (Weeks 1-3) ✅
 

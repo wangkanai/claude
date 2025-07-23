@@ -1,20 +1,27 @@
 # CLAUDE.md - claude dotnet Project Guide
 
-**Project**: claude dotnet - High-Performance .NET Global Tool  
-**Version**: 2.0 (Enhanced Architecture)  
-**Created**: 2025-07-22  
-**Updated**: 2025-07-23  
-**Technology**: C# 12, .NET 9.0, System.CommandLine, xUnit v3  
+**Project**: claude dotnet - High-Performance .NET Global Tool
+**PackageId**: claude
+**ToolCommandName**: claude
+**Version**: 2.0 (Enhanced Architecture)
+**Created**: 2025-07-22
+**Updated**: 2025-07-23
+**Technology**: C# 12, .NET 9.0, System.CommandLine, xUnit v3
 
 ---
 
 ## 📋 Project Overview
 
-**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI as a .NET Global Tool using C# 12 and .NET 9.0. This enhanced version incorporates comprehensive research of the official Claude Code CLI, automated NPM package analysis, and enterprise-grade architecture delivering superior performance, enhanced type safety, and seamless .NET ecosystem integration.
+**claude dotnet** is a complete reimplementation of Anthropic's Claude Code CLI as a .NET Global Tool using C# 12 and
+.NET 9.0. This enhanced version incorporates comprehensive research of the official Claude Code CLI, automated NPM
+package analysis, and enterprise-grade architecture delivering superior performance, enhanced type safety, and seamless
+.NET ecosystem integration.
 
 ### **Vision Statement**
 
-"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development, leveraging the full power of the .NET ecosystem while maintaining 100% feature parity with the original Node.js implementation."
+"To create the most performant, reliable, and developer-friendly AI-powered CLI tool for software development,
+leveraging the full power of the .NET ecosystem while maintaining 100% feature parity with the original Node.js
+implementation."
 
 ### **Enhanced Key Value Propositions**
 
@@ -65,14 +72,14 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 │  Command Layer      │ System.CommandLine + Official CLI Structure Mapping   │
 │  NPM Analysis       │ Automated Package Decompilation & Feature Detection   │
 │  Tool Layer         │ Strategy Pattern + Complete Tool Implementation       │
-│  MCP Layer          │ JSON-RPC Protocol + Dynamic Server Discovery         │
-│  AI Provider        │ Multi-Provider Support (Anthropic, Bedrock, Vertex)  │
-│  Configuration      │ Multi-Layer Config + Project/User/Environment        │
-│  File System        │ System.IO.Abstractions + Permission Management       │
-│  Testing            │ xUnit v3 + Testcontainers + 80%+ Coverage            │
-│  Packaging          │ Directory.Packages.props + Cross-Platform Publishing │
-│  Contributors       │ SESSION-STATE.md + Automated Workflow Integration    │
-│  Infrastructure     │ Cross-Platform + Single-File + Installer Generation  │
+│  MCP Layer          │ JSON-RPC Protocol + Dynamic Server Discovery          │
+│  AI Provider        │ Multi-Provider Support (Anthropic, Bedrock, Vertex)   │
+│  Configuration      │ Multi-Layer Config + Project/User/Environment         │
+│  File System        │ System.IO.Abstractions + Permission Management        │
+│  Testing            │ xUnit v3 + Testcontainers + 80%+ Coverage             │
+│  Packaging          │ Directory.Packages.props + Cross-Platform Publishing  │
+│  Contributors       │ SESSION-STATE.md + Automated Workflow Integration     │
+│  Infrastructure     │ Cross-Platform + Single-File + Installer Generation   │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -94,6 +101,7 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 ### **Revised Phase-Based Development Approach**
 
 **Phase 1: Enhanced Foundation (Weeks 1-4)**
+
 - Project structure with Directory.Packages.props centralized package management
 - System.CommandLine integration with official CLI command structure mapping
 - Multi-layer configuration management system (appsettings, user, project, environment)
@@ -103,6 +111,7 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 - Enhanced logging and error handling infrastructure
 
 **Phase 2: NPM Analysis & CLI Mapping (Weeks 5-7)**
+
 - Automated @anthropic-ai/claude-code package decompilation and analysis
 - Complete CLI command structure mapping from Node.js to .NET
 - Official documentation integration and validation
@@ -110,6 +119,7 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 - Performance benchmarking against original implementation
 
 **Phase 3: Enhanced Tool System (Weeks 8-11)**
+
 - Complete tool interface and registry with dynamic discovery
 - All core tools implementation (Read, Write, Edit, MultiEdit, Bash, Grep, Glob, etc.)
 - Advanced permission system and access control with audit trails
@@ -117,6 +127,7 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 - Cross-platform compatibility testing and validation
 
 **Phase 4: AI Integration & MCP Protocol (Weeks 12-15)**
+
 - Anthropic API client with streaming support and rate limiting
 - Multi-provider architecture (Bedrock, Vertex) with failover
 - OAuth 2.0 authentication flows and secure credential management
@@ -125,6 +136,7 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 - Core MCP servers integration and testing
 
 **Phase 5: Advanced Features & Performance (Weeks 16-18)**
+
 - Git integration with comprehensive version control operations
 - Web search capabilities and external service integration
 - Session management and persistence with state recovery
@@ -132,6 +144,7 @@ NPM Analysis: Automated @anthropic-ai/claude-code monitoring
 - Advanced debugging and profiling integration
 
 **Phase 6: Cross-Platform Publishing & Release (Weeks 19-22)**
+
 - Cross-platform publishing with single-file executables
 - Installer generation for multiple platforms and formats
 - Comprehensive documentation and security audit
@@ -195,6 +208,7 @@ public class AnalyzeCommand : ICommand
 ```
 
 **Enhanced Features**:
+
 - Natural language processing with conversational interface
 - Context awareness of project structure and development context
 - Persistent command history and session management with state recovery
@@ -223,6 +237,7 @@ public record ValidationResult(bool IsValid, string[]? Errors = null) : ToolResu
 ```
 
 **Enhanced Core Tools Implementation**:
+
 - **File Operations**: `Read`, `Write`, `Edit`, `MultiEdit` with permission validation
 - **Search & Discovery**: `Grep`, `Glob`, `LS` with performance optimization
 - **Code Execution**: `Bash`, `Task` with sandboxed execution
@@ -253,6 +268,7 @@ public class SequentialThinkingServer : IMCPServer
 ```
 
 **Enhanced MCP Features**:
+
 - JSON-RPC protocol implementation with full v1.0 compliance
 - MEF-based plugin architecture for dynamic loading with hot-reload
 - Configuration management for MCP server setup with validation
@@ -276,6 +292,7 @@ public interface IAIProvider
 ```
 
 **Enhanced Supported Providers**:
+
 - **AnthropicProvider**: Claude API integration with streaming support and rate limiting
 - **BedrockProvider**: AWS Bedrock integration with credential management
 - **VertexProvider**: Google Vertex AI integration with service account support
@@ -298,6 +315,7 @@ public interface IFileSystemService
 ```
 
 **Enhanced Capabilities**:
+
 - Cross-platform file handling using System.IO.Abstractions with full compatibility
 - Real-time change detection with FileSystemWatcher and event aggregation
 - Intelligent filtering and performance optimization with caching
@@ -377,32 +395,32 @@ public class PermissionSettings
 
 ```bash
 # Global tool installation (recommended)
-dotnet tool install -g claude-dotnet
+dotnet tool install -g claude
 
 # Platform-specific installers
 # Windows
-winget install wangkanai.claude-dotnet
-choco install claude-dotnet
+winget install wangkanai.claude
+choco install claude
 
 # macOS
-brew install claude-dotnet
+brew install claude
 
 # Linux
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-dotnet-linux-x64 -o claude-dotnet
-chmod +x claude-dotnet
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-linux-x64 -o claude
+chmod +x claude
 
 # Docker usage with volume mounting
-docker run --rm -it -v $(pwd):/workspace wangkanai/claude-dotnet
+docker run --rm -it -v $(pwd):/workspace wangkanai/claude
 
 # Single-file executable (no .NET runtime required)
-curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-dotnet-standalone-linux-x64 -o claude
+curl -sSL https://github.com/wangkanai/claude/releases/latest/download/claude-standalone-linux-x64 -o claude
 chmod +x claude
 ```
 
 ### **Enhanced Configuration Management**
 
 1. **appsettings.json**: Default application settings and service configuration
-2. **User Settings**: `~/.claude-dotnet/settings.json` with credential management
+2. **User Settings**: `~/.claude/settings.json` with credential management
 3. **Project Settings**: `.claude/settings.json` with team configuration
 4. **Environment Variables**: Runtime overrides and CI/CD integration
 5. **Command Line Arguments**: Temporary overrides and session-specific settings
@@ -467,23 +485,24 @@ chmod +x claude
 ### **Enhanced Global Tool Configuration**
 
 ```xml
+
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net9.0</TargetFramework>
-    <PackAsTool>true</PackAsTool>
-    <ToolCommandName>claude</ToolCommandName>
-    <PackageId>claude-dotnet</PackageId>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained>true</SelfContained>
-    <RuntimeIdentifier>$(NETCoreSimilarity)</RuntimeIdentifier>
-    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
-    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net9.0</TargetFramework>
+		<PackAsTool>true</PackAsTool>
+		<ToolCommandName>claude</ToolCommandName>
+		<PackageId>claude</PackageId>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PublishSingleFile>true</PublishSingleFile>
+		<SelfContained>true</SelfContained>
+		<RuntimeIdentifier>$(NETCoreSimilarity)</RuntimeIdentifier>
+		<EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+	</PropertyGroup>
 </Project>
 ```
 
@@ -502,7 +521,7 @@ Built on Microsoft's `System.CommandLine` library with enhanced features:
 
 ```bash
 # Install globally with auto-update
-dotnet tool install -g claude-dotnet --prerelease
+dotnet tool install -g claude --prerelease
 
 # Basic usage with natural language
 claude "Help me analyze this code for performance issues"
@@ -549,7 +568,7 @@ claude doctor --full-check --include-dependencies
 - **Architecture**: Host builder pattern with dependency injection container
 - **Logging**: Serilog integration with Microsoft.Extensions.Logging
 - **Commands Implemented**: Root command, analyze, implement, interactive modes
-- **Global Tool**: Properly configured as `claude-dotnet` package with `claude` command
+- **Global Tool**: Properly configured as `claude` package with `claude` command
 - **Services**: IFileSystemService, IConfigurationService with placeholder implementations
 
 ### Session 2 - Enhanced Architecture & NPM Analysis (2025-07-23)
@@ -574,6 +593,7 @@ claude doctor --full-check --include-dependencies
 **Phase 1 Enhanced Progress**: 12/45 tasks completed (26.7%) - **On Track**
 
 **Next Priorities (Updated)**:
+
 1. **NPM Analysis Setup**: GitHub Actions automation for package decompilation
 2. **Directory.Packages.props**: Centralized package management configuration
 3. **xUnit v3 Integration**: Testing framework setup with coverage targets
@@ -597,12 +617,12 @@ claude doctor --full-check --include-dependencies
 
 ```yaml
 NPM Analysis Automation:
-  Package: "@anthropic-ai/claude-code"
-  Frequency: "Daily monitoring with immediate alerts"
-  Analysis Depth: "Complete decompilation and feature extraction"
-  Validation: "Automated compatibility testing and feature parity verification"
-  Reporting: "Structured analysis reports with actionable insights"
-  Integration: "CI/CD pipeline integration with automated PR generation"
+	Package: "@anthropic-ai/claude-code"
+	Frequency: "Daily monitoring with immediate alerts"
+	Analysis Depth: "Complete decompilation and feature extraction"
+	Validation: "Automated compatibility testing and feature parity verification"
+	Reporting: "Structured analysis reports with actionable insights"
+	Integration: "CI/CD pipeline integration with automated PR generation"
 ```
 
 ### **NPM Compatibility Matrix**
@@ -615,12 +635,12 @@ NPM Analysis Automation:
 
 ---
 
-**Document Version**: 2.0 (Enhanced Architecture)  
-**Last Updated**: 2025-07-23  
-**Status**: Active Development (Enhanced Phase 1: 26.7% Complete)  
-**Repository**: https://github.com/wangkanai/claude  
-**Current Phase**: Enhanced Phase 1 - Foundation with NPM Analysis Integration  
-**Next Review**: NPM Analysis Automation & Directory.Packages.props Setup  
-**Next Session Focus**: GitHub Actions setup, centralized package management, xUnit v3 integration  
-**NPM Analysis Status**: Automated monitoring pipeline design complete  
+**Document Version**: 2.0 (Enhanced Architecture)
+**Last Updated**: 2025-07-23
+**Status**: Active Development (Enhanced Phase 1: 26.7% Complete)
+**Repository**: https://github.com/wangkanai/claude
+**Current Phase**: Enhanced Phase 1 - Foundation with NPM Analysis Integration
+**Next Review**: NPM Analysis Automation & Directory.Packages.props Setup
+**Next Session Focus**: GitHub Actions setup, centralized package management, xUnit v3 integration
+**NPM Analysis Status**: Automated monitoring pipeline design complete
 **Testing Framework**: xUnit v3 integration planned with 80%+ coverage targets

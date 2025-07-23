@@ -6,10 +6,13 @@
 prompts/
 debug/
 release/
+mcp/
 
 package-lock.json
+packages.lock.json
 
 # User-specific files
+SESSION-STATE.md
 *.rsuser
 *.suo
 *.user
@@ -22,6 +25,7 @@ package-lock.json
 # AI local files
 CLAUDE.local.md
 mcp.local.json
+repomix-output.xml
 
 # IDE config files
 .vscode/

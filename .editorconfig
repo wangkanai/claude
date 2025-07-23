@@ -1,222 +1,175 @@
-# EditorConfig is awesome: https://EditorConfig.org
+root=true
 
-# top-most EditorConfig file
-root = true
-
-# All files
 [*]
-indent_style = space
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
+charset                                                               =utf-8
+indent_style                                                          =tab
+indent_size                                                           =4
+tab_width                                                             =4
+end_of_line                                                           =crlf
+trim_trailing_whitespace                                              =true
+insert_final_newline                                                  =true
 
-# Code files
-[*.{cs,csx,vb,vbx}]
-indent_size = 4
+# Microsoft .NET properties
+csharp_new_line_before_members_in_object_initializers                 =false
+csharp_preferred_modifier_order                                       =public, private, protected, internal, new, abstract, virtual, sealed, override, static, readonly, extern, unsafe, volatile, async:suggestion
+csharp_preserve_single_line_blocks                                    =true
+csharp_style_var_elsewhere                                            =true:suggestion
+csharp_style_var_for_built_in_types                                   =true:suggestion
+csharp_style_var_when_type_is_apparent                                =true:suggestion
+dotnet_style_parentheses_in_arithmetic_binary_operators               =never_if_unnecessary:none
+dotnet_style_parentheses_in_other_binary_operators                    =never_if_unnecessary:none
+dotnet_style_parentheses_in_relational_binary_operators               =never_if_unnecessary:none
+dotnet_style_predefined_type_for_locals_parameters_members            =true:suggestion
+dotnet_style_predefined_type_for_member_access                        =true:suggestion
+dotnet_style_qualification_for_event                                  =false:suggestion
+dotnet_style_qualification_for_field                                  =false:suggestion
+dotnet_style_qualification_for_method                                 =false:suggestion
+dotnet_style_qualification_for_property                               =false:suggestion
+dotnet_style_require_accessibility_modifiers                          =for_non_interface_members:suggestion
 
-# XML project files
-[*.{csproj,vbproj,vcxproj,vcxproj.filters,proj,projitems,shproj}]
-indent_size = 2
+# ReSharper properties
+resharper_csharp_empty_block_style                                    =together_same_line
+resharper_csharp_wrap_before_first_type_parameter_constraint          =true
+resharper_csharp_anonymous_method_declaration_braces                  =end_of_line
+resharper_csharp_brace_style                                          =next_line
+resharper_csharp_braces_for_ifelse                                    =required_for_multiline
+resharper_no_indent_inside_elements                                   =html, thead, tbody, tfoot
+resharper_autodetect_indent_settings                                  =true
+resharper_enforce_line_ending_style                                   =true
+resharper_int_align_assignments                                       =true
+resharper_int_align_comments                                          =true
+resharper_int_align_fields                                            =true
+resharper_int_align_methods                                           =true
+resharper_int_align_nested_ternary                                    =true
+resharper_int_align_parameters                                        =true
+resharper_int_align_properties                                        =true
+resharper_int_align_switch_expressions                                =true
+resharper_int_align_switch_sections                                   =true
+resharper_int_align_variables                                         =true
+resharper_keep_existing_attribute_arrangement                         =true
+resharper_keep_existing_embedded_block_arrangement                    =false
+resharper_keep_existing_enum_arrangement                              =true
+resharper_place_attribute_on_same_line                                =if_owner_is_single_line
+resharper_space_before_trailing_comment                               =true
+resharper_use_indent_from_vs                                          =false
+resharper_wrap_array_initializer_style                                =chop_if_long
+resharper_wrap_before_arrow_with_expressions                          =true
+resharper_wrap_chained_method_calls                                   =chop_if_long
+resharper_wrap_enum_declaration                                       =chop_if_long
+resharper_wrap_multiple_type_parameter_constraints_style              =wrap_if_long
+resharper_align_multiple_declaration                                  =true
+resharper_align_multiline_calls_chain                                 =true
+resharper_align_multiline_expression                                  =true
+resharper_align_multline_type_parameter_constrains                    =true
+resharper_align_multiline_array_and_object_initializer                =true
+resharper_enforce_line_ending_style                                   =true
+resharper_csharp_max_line_length                                      =500
 
-# XML config files
-[*.{props,targets,ruleset,config,nuspec,resx,vsixmanifest,vsct}]
-indent_size = 2
+resharper_xmldoc_linebreak_before_singleline_elements                 =false
+resharper_xmldoc_space_before_self_closing                            =false
+resharper_xmldoc_space_after_last_attribute                           =false
+resharper_xmldoc_alignment_tab_fill_style                             =optimal_fill
+resharper_xmldoc_attribute_indent                                     =align_by_first_attribute
+resharper_xmldoc_attribute_style                                      =on_single_line
+resharper_xmldoc_blank_line_after_pi                                  =false
+resharper_xmldoc_indent_text                                          =ZeroIndent
+resharper_xmldoc_pi_attribute_style                                   =on_single_line
 
-# JSON files
-[*.{json,json5,webmanifest}]
-indent_size = 2
+# ReSharper inspection severities
+resharper_arrange_redundant_parentheses_highlighting                  =hint
+resharper_arrange_this_qualifier_highlighting                         =hint
+resharper_arrange_type_member_modifiers_highlighting                  =hint
+resharper_arrange_type_modifiers_highlighting                         =hint
+resharper_built_in_type_reference_style_for_member_access_highlighting=hint
+resharper_built_in_type_reference_style_highlighting                  =hint
+resharper_check_namespace_highlighting                                =hint
+resharper_redundant_base_qualifier_highlighting                       =warning
+resharper_suggest_var_or_type_built_in_types_highlighting             =hint
+resharper_suggest_var_or_type_elsewhere_highlighting                  =hint
+resharper_suggest_var_or_type_simple_types_highlighting               =hint
+resharper_web_config_module_not_resolved_highlighting                 =warning
+resharper_web_config_type_not_resolved_highlighting                   =warning
+resharper_web_config_wrong_module_highlighting                        =warning
+resharper_convert_to_constant_local_highlighting                      =none
 
-# YAML files
-[*.{yml,yaml}]
-indent_size = 2
+# Code style settings
+[.editorconfig]
+ij_editorconfig_align_group_field_declarations    =true
+ij_editorconfig_spaces_around_assignment_operators=false
+ij_editorconfig_space_after_colon                 =false
+ij_editorconfig_space_after_comma                 =true
+ij_editorconfig_space_before_colon                =false
+ij_editorconfig_space_before_comma                =false
 
-# Markdown files
-[*.md]
-trim_trailing_whitespace = false
+# Ignore formatter for generated files
+[{**/node_modules/*,**/lib/*,**/Migrations/*}]
+generated_code      =true
+ij_formatter_enabled=false
 
-# Web Files
-[*.{htm,html,js,jsm,ts,tsx,css,sass,scss,less,svg,vue}]
-indent_size = 2
-
-# Batch files
-[*.{cmd,bat}]
-end_of_line = crlf
-
-# Bash files
-[*.sh]
-end_of_line = lf
-
-# Makefiles
-[{Makefile,makefile}]
-indent_style = tab
-
-# C# Code Style Rules
 [*.cs]
+dotnet_sort_system_directives_first                          =true
+dotnet_separate_import_directive_groups                      =true
+resharper_sort_system_directives_first                       =true
+ij_any_align_multiline_array_initializer_expression          =true
+resharper_csharp_space_before_trailing_comment               =true
+resharper_csharp_place_simple_property_pattern_on_single_line=true
+resharper_csharp_place_property_on_single_line               =always
+resharper_place_expr_property_on_single_line                 =always
 
-# Language rules
-# this. preferences
-dotnet_style_qualification_for_field = false:suggestion
-dotnet_style_qualification_for_property = false:suggestion
-dotnet_style_qualification_for_method = false:suggestion
-dotnet_style_qualification_for_event = false:suggestion
+[*.{cs, cpp, h}]
+file_header_template=Copyright (c) 2014-2025 Sarin Na Wangkanai, All Rights Reserved.
 
-# Language keywords vs BCL types preferences
-dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
-dotnet_style_predefined_type_for_member_access = true:suggestion
+[*.{html,cshtml,razor}]
+indent_size                                                           =3
+max_line_length                                                       =1000
+resharper_no_indent_inside_elements                                   =html, thead, tbody, tfoot
+resharper_no_indent_inside_if_element_longer_than                     =1000
+resharper_normalize_tag_names                                         =true
+resharper_html_allow_far_alignment                                    =true
+resharper_html_attribute_indent                                       =single_indent
+resharper_html_attribute_style                                        =on_single_line
+resharper_html_linebreak_before_elements                              =body, div, p, main, section, article, form, h1, h2, h3, svg, path
+resharper_html_linebreak_before_multiline_elements                    =false
+resharper_html_linebreaks_inside_tags_for_elements_with_child_elements=false
+resharper_html_linebreaks_inside_tags_for_multiline_elements          =false
+ij_html_do_not_align_children_of_min_lines                            =0
+ij_html_do_not_break_if_inline_tags                                   =title, h1, h2, h3, h4, h5, h6, p, li, span
+ij_html_do_not_indent_children_of_tags                                =form, ol, script, style, h1, h2, h3, h4, h5, h6, table, thead, tbody, tfoot
 
-# Parentheses preferences
-dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:silent
-dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
-dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
-dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
+[*.{csproj, slnx}]
+indent_size                  =2
+ij_xml_space_inside_empty_tag=true
 
-# Modifier preferences
-dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggestion
-dotnet_style_readonly_field = true:suggestion
+[*.{props, targets}]
+indent_size                  =2
+max_line_length              =200
+ij_xml_space_inside_empty_tag=true
 
-# Expression-level preferences
-dotnet_style_object_initializer = true:suggestion
-dotnet_style_collection_initializer = true:suggestion
-dotnet_style_explicit_tuple_names = true:suggestion
-dotnet_style_null_propagation = true:suggestion
-dotnet_style_coalesce_expression = true:suggestion
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
-dotnet_style_prefer_inferred_tuple_names = true:suggestion
-dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
-dotnet_style_prefer_auto_properties = true:suggestion
-dotnet_style_prefer_conditional_expression_over_assignment = true:silent
-dotnet_style_prefer_conditional_expression_over_return = true:silent
+[*.{ps1, psd1}]
+indent_size                                     =4
+case_style                                      =pascal_case
+ij_powershell_spaces_around_assignment_operators=false
+ij_powershell_space_after_type_cast             =false
+ij_powershell_align_multiline_binary_operation  =true
+ij_powershell_align_multiline_chained_methods   =true
 
-# C# preferences
-csharp_prefer_simple_using_statement = true:suggestion
-csharp_prefer_braces = true:silent
-csharp_style_namespace_declarations = file_scoped:suggestion
-csharp_style_prefer_method_group_conversion = true:silent
-csharp_style_prefer_top_level_statements = true:silent
-csharp_style_expression_bodied_methods = false:silent
-csharp_style_expression_bodied_constructors = false:silent
-csharp_style_expression_bodied_operators = false:silent
-csharp_style_expression_bodied_properties = true:silent
-csharp_style_expression_bodied_indexers = true:silent
-csharp_style_expression_bodied_accessors = true:silent
-csharp_style_expression_bodied_lambdas = true:silent
-csharp_style_expression_bodied_local_functions = false:silent
+[*.{cs, cpp, h, ps1, psd1}]
+indent_style=tab
 
-# Pattern matching preferences
-csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
-csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
-csharp_style_prefer_switch_expression = true:suggestion
-csharp_style_prefer_pattern_matching = true:silent
-csharp_style_prefer_not_pattern = true:suggestion
+[*.{css, scss, less, sass}]
+indent_size           =2
+ij_css_value_alignment=on_value
 
-# Null-checking preferences
-csharp_style_throw_expression = true:suggestion
-csharp_style_conditional_delegate_call = true:suggestion
+[*.{js, js.map}]
+indent_size=2
 
-# Modifier preferences
-csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:suggestion
+[*.xml]
+max_line_length=200
 
-# Code-block preferences
-csharp_prefer_simple_using_statement = true:suggestion
+[*.{yml, yaml}]
+indent_size=2
 
-# Expression-level preferences
-csharp_prefer_simple_default_expression = true:suggestion
-csharp_style_pattern_local_over_anonymous_function = true:suggestion
-csharp_style_inlined_variable_declaration = true:suggestion
+[*.{eslintrc, stylelintrc, jest.config, babelrc, bowerrc, jsb3, jsb2, json}]
+indent_size                   =4
+resharper_sort_members_by_kind=true
 
-# C# formatting rules
-csharp_new_line_before_open_brace = all
-csharp_new_line_before_else = true
-csharp_new_line_before_catch = true
-csharp_new_line_before_finally = true
-csharp_new_line_before_members_in_object_initializers = true
-csharp_new_line_before_members_in_anonymous_types = true
-csharp_new_line_between_query_expression_clauses = true
-
-# Indentation preferences
-csharp_indent_case_contents = true
-csharp_indent_switch_labels = true
-csharp_indent_labels = flush_left
-csharp_indent_block_contents = true
-csharp_indent_braces = false
-
-# Space preferences
-csharp_space_after_cast = false
-csharp_space_after_keywords_in_control_flow_statements = true
-csharp_space_between_method_call_parameter_list_parentheses = false
-csharp_space_between_method_declaration_parameter_list_parentheses = false
-csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
-csharp_space_between_method_call_name_and_opening_parenthesis = false
-csharp_space_after_comma = true
-csharp_space_after_dot = false
-csharp_space_after_semicolon_in_for_statement = true
-csharp_space_around_binary_operators = before_and_after
-csharp_space_around_declaration_statements = false
-csharp_space_before_open_square_brackets = false
-csharp_space_between_empty_square_brackets = false
-csharp_space_between_square_brackets = false
-
-# Wrapping preferences
-csharp_preserve_single_line_statements = true
-csharp_preserve_single_line_blocks = true
-
-# Naming conventions
-# Constants are PascalCase
-dotnet_naming_rule.constants_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.constants_should_be_pascal_case.symbols = constants
-dotnet_naming_rule.constants_should_be_pascal_case.style = pascal_case_style
-
-dotnet_naming_symbols.constants.applicable_kinds = field, local
-dotnet_naming_symbols.constants.required_modifiers = const
-
-dotnet_naming_style.pascal_case_style.capitalization = pascal_case
-
-# Static fields are PascalCase
-dotnet_naming_rule.static_fields_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.static_fields_should_be_pascal_case.symbols = static_fields
-dotnet_naming_rule.static_fields_should_be_pascal_case.style = pascal_case_style
-
-dotnet_naming_symbols.static_fields.applicable_kinds = field
-dotnet_naming_symbols.static_fields.required_modifiers = static
-
-# Instance fields are camelCase and start with _
-dotnet_naming_rule.instance_fields_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.instance_fields_should_be_camel_case.symbols = instance_fields
-dotnet_naming_rule.instance_fields_should_be_camel_case.style = instance_field_style
-
-dotnet_naming_symbols.instance_fields.applicable_kinds = field
-
-dotnet_naming_style.instance_field_style.capitalization = camel_case
-dotnet_naming_style.instance_field_style.required_prefix = _
-
-# Locals and parameters are camelCase
-dotnet_naming_rule.locals_should_be_camel_case.severity = suggestion
-dotnet_naming_rule.locals_should_be_camel_case.symbols = locals_and_parameters
-dotnet_naming_rule.locals_should_be_camel_case.style = camel_case_style
-
-dotnet_naming_symbols.locals_and_parameters.applicable_kinds = parameter, local
-
-dotnet_naming_style.camel_case_style.capitalization = camel_case
-
-# Local functions are PascalCase
-dotnet_naming_rule.local_functions_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.local_functions_should_be_pascal_case.symbols = local_functions
-dotnet_naming_rule.local_functions_should_be_pascal_case.style = pascal_case_style
-
-dotnet_naming_symbols.local_functions.applicable_kinds = local_function
-
-# By default, name items with PascalCase
-dotnet_naming_rule.members_should_be_pascal_case.severity = suggestion
-dotnet_naming_rule.members_should_be_pascal_case.symbols = all_members
-dotnet_naming_rule.members_should_be_pascal_case.style = pascal_case_style
-
-dotnet_naming_symbols.all_members.applicable_kinds = *
-
-# Suppression rules
-dotnet_remove_unnecessary_suppression_exclusions = none
-
-# Code analysis rules
-dotnet_analyzer_diagnostic.category-security.severity = error
-dotnet_analyzer_diagnostic.category-performance.severity = warning
-dotnet_analyzer_diagnostic.category-reliability.severity = warning
-dotnet_analyzer_diagnostic.category-maintainability.severity = suggestion

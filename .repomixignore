@@ -1,4 +1,147 @@
-# Add patterns to ignore here, one per line
-# Example:
-# *.log
-# tmp/
+# .repomixignore - Patterns to ignore for repomix analysis
+# This file complements .gitignore with repomix-specific exclusions
+
+# Build outputs and binaries
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Pp]ublish/
+[Bb]uild/
+[Oo]ut/
+*.dll
+*.exe
+*.pdb
+
+# Package outputs
+*.nupkg
+*.snupkg
+packages/
+.packages/
+
+# Test results and coverage
+[Tt]est[Rr]esults/
+[Cc]overage/
+*.coverage
+*.coveragexml
+coverage.opencover.xml
+coverage.json
+lcov.info
+*.trx
+*.xml
+
+# Benchmark results
+BenchmarkDotNet.Artifacts/
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.editorconfig
+
+# Temporary and cache files
+*.tmp
+*.temp
+*.cache
+*.log
+logs/
+temp/
+tmp/
+
+# Generated files
+*.generated.cs
+*.Designer.cs
+*.AssemblyInfo.cs
+GlobalUsings.g.cs
+**/Migrations/
+
+# Web assets
+wwwroot/lib/
+*.min.js
+*.min.css
+node_modules/
+bower_components/
+
+# Configuration files with sensitive data
+appsettings.*.json
+!appsettings.json
+!appsettings.Development.json.example
+launchSettings.json
+*.local.json
+*.local.md
+
+# Documentation build outputs
+_site/
+.docfx/
+api/
+docs/_build/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.directory
+
+# Repomix specific
+repomix-*.xml
+!repomix-output.xml
+repomix-github.xml
+SESSION-STATE.md
+
+# MCP and AI related
+mcp/
+prompts/
+.claude/
+.claude-dotnet/
+
+# NPM analysis outputs
+npm-analysis/
+decompiled/
+@anthropic-ai/
+
+# Installer and deployment
+installers/
+deploy/
+*.msi
+*.dmg
+*.deb
+*.rpm
+*.pkg
+
+# Large binary files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Database files
+*.mdf
+*.ldf
+*.db
+*.sqlite
+
+# Backup files
+*.bak
+*.backup
+*_backup
+
+# Lock files
+*.lock
+package-lock.json
+yarn.lock
+
+# Swagger/OpenAPI generated
+**/swagger.json
+**/swagger.yaml
