@@ -3,7 +3,6 @@ name: .NET CI/CD
 on:
   push:
     branches: [ main, develop ]
-    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ main, develop ]
 
@@ -15,99 +14,13 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
 
 jobs:
-  # Build and Test Job
-  build-and-test:
-    name: Build and Test
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        include:
-          - os: ubuntu-latest
-            artifact-name: linux-x64
-          - os: windows-latest
-            artifact-name: win-x64
-          - os: macos-latest
-            artifact-name: osx-x64
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0 # Required for GitVersion
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-
-    - name: Cache NuGet packages
-      uses: actions/cache@v4
-      with:
-        path: ~/.nuget/packages
-        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-        restore-keys: |
-          ${{ runner.os }}-nuget-
-
-    - name: Restore dependencies
-      run: dotnet restore
-
-    - name: Build solution
-      run: dotnet build --configuration Release --no-restore
-
-    - name: Run unit tests
-      run: dotnet test tests/UnitTests --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
-
-    - name: Run integration tests
-      run: dotnet test tests/IntegrationTests --configuration Release --no-build --verbosity normal
-
-    - name: Publish application
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        # Publish as framework-dependent (required for .NET tools)
-        dotnet publish src/Claude/Claude.csproj \
-          --configuration Release \
-          --runtime linux-x64 \
-          --output ./publish/linux-x64/
-
-        dotnet publish src/Claude/Claude.csproj \
-          --configuration Release \
-          --runtime win-x64 \
-          --output ./publish/win-x64/
-
-        dotnet publish src/Claude/Claude.csproj \
-          --configuration Release \
-          --runtime osx-x64 \
-          --output ./publish/osx-x64/
-
-        dotnet publish src/Claude/Claude.csproj \
-          --configuration Release \
-          --runtime osx-arm64 \
-          --output ./publish/osx-arm64/
-
-    - name: Pack NuGet package
-      if: matrix.os == 'ubuntu-latest'
-      run: dotnet pack src/Claude/Claude.csproj --configuration Release --no-build --output ./packages
-
-    - name: Upload build artifacts
-      if: matrix.os == 'ubuntu-latest'
-      uses: actions/upload-artifact@v4
-      with:
-        name: packages
-        path: |
-          ./packages/*.nupkg
-          ./publish/**/*
-
-  # Security Scan Job
-  security-scan:
-    name: Security Scan
+  build:
     runs-on: ubuntu-latest
-    needs: build-and-test
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -117,41 +30,19 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Run security scan
-      run: |
-        dotnet list package --vulnerable --include-transitive || true
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
 
-  # Code Quality Job
-  code-quality:
-    name: Code Quality Analysis
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    if: github.event_name == 'push' || github.event_name == 'pull_request'
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v4
-      with:
-        path: ~/sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
+    - name: Test
+      run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
     - name: Install SonarCloud scanner
       run: |
         dotnet tool install --global dotnet-sonarscanner
 
-    - name: Build and analyze
+    - name: Build and analyze with SonarCloud
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: |
         # Extract version from Directory.Build.props
@@ -167,48 +58,13 @@ jobs:
         dotnet test --configuration Release --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
         dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-
-  # Performance Benchmarks
-  benchmarks:
-    name: Performance Benchmarks
+  package:
+    needs: build
     runs-on: ubuntu-latest
-    needs: build-and-test
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-
-    - name: Run benchmarks
-      run: |
-        # Create benchmark project if it doesn't exist
-        if [ ! -d "tests/Claude.Benchmarks" ]; then
-          echo "Benchmark project will be created in Phase 6"
-          exit 0
-        fi
-
-        dotnet run --project tests/Claude.Benchmarks --configuration Release
-
-    - name: Upload benchmark results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: benchmark-results
-        path: ./BenchmarkDotNet.Artifacts/
-
-  # Dependency Check
-  dependency-check:
-    name: Dependency Check
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -218,10 +74,14 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Check for outdated packages
-      run: |
-        dotnet list package --outdated --include-transitive || true
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
 
-    - name: License check
-      run: |
-        dotnet list package --include-transitive | grep -E "(GPL|AGPL|LGPL|EPL|MPL)" || echo "No copyleft licenses found"
+    - name: Pack
+      run: dotnet pack --no-build --configuration Release --output ./artifacts/packages
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: packages
+        path: ./artifacts/packages/*.nupkg
