@@ -56,10 +56,10 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Run unit tests
-      run: dotnet test tests/Claude.UnitTests --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test tests/UnitTests --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
     - name: Run integration tests
-      run: dotnet test tests/Claude.IntegrationTests --configuration Release --no-build --verbosity normal
+      run: dotnet test tests/IntegrationTests --configuration Release --no-build --verbosity normal
 
     - name: Publish application
       if: matrix.os == 'ubuntu-latest'
