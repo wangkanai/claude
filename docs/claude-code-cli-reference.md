@@ -1,452 +1,455 @@
 # Claude Code CLI Reference Documentation
 
-**Source**: Research from Anthropic's Claude Code CLI tool  
-**Purpose**: Complete command reference for .NET reimplementation  
-**Version**: Based on @anthropic-ai/claude-code v1.0.58  
-**Date**: 2025-07-23  
+**Source**: Official Anthropic Claude Code CLI research via MCP servers  
+**Purpose**: Accurate command reference for .NET reimplementation  
+**Research Date**: 2025-07-24  
+**Research Method**: Multi-MCP analysis (fetch, context7, sequential-thinking, repomix)  
 
 ---
 
 ## 📋 Overview
 
-Claude Code is an AI-powered CLI tool that helps developers with coding tasks through natural language interaction. This document provides comprehensive reference for all CLI commands, arguments, flags, and options discovered from the official implementation.
+**Claude Code** is an agentic coding tool that lives in your terminal, designed for natural language interaction with your codebase. Based on comprehensive research of the official implementation, this document provides the **definitive** CLI command reference for .NET reimplementation.
+
+**Key Insight**: Claude Code is **conversational-first**, not command-hierarchy focused. The primary interface is natural language interaction through an interactive REPL with extensible slash commands.
 
 ---
 
-## 🚀 Core Commands
+## 🚀 Core CLI Commands (Official)
 
-### **Main Command Structure**
-
-```bash
-claude [options] [message]
-claude <command> [options] [arguments]
-claude --interactive
-```
-
-### **1. Default Behavior (Message Processing)**
+### **1. Primary Entry Points**
 
 ```bash
-claude "Help me analyze this code"
-claude "Implement user authentication"
-claude --file src/app.js "Explain this file"
+# Start interactive REPL
+claude
+
+# Start REPL with initial prompt
+claude "explain this project"
+
+# SDK mode - query and exit
+claude -p "explain this function"
+
+# Process piped content
+cat logs.txt | claude -p "explain"
+
+# Continue most recent conversation
+claude -c
+claude --continue
+claude --resume
+
+# Resume specific session by ID
+claude -r "abc123" "Finish this PR"
+
+# Update CLI to latest version
+claude update
 ```
 
-**Arguments**:
-- `message` - Natural language instruction for the AI
-
-**Options**:
-- `--file <path>` - Specify file to analyze or work with
-- `--directory <path>` - Set working directory context
-- `--model <model>` - Choose AI model (claude-3-5-sonnet, claude-3-haiku, etc.)
-- `--max-tokens <number>` - Set maximum tokens for response
-- `--temperature <number>` - Control response creativity (0.0-1.0)
-
-### **2. Interactive Mode**
+### **2. Advanced CLI Options**
 
 ```bash
-claude --interactive
-claude -i
+# MCP server configuration
+claude --mcp-config <path-to-file>
+
+# Enable MCP debug mode
+claude --mcp-debug
+
+# Stream JSON output in print mode
+claude -p --output-format=stream-json
+
+# Continue via SDK with specific task
+claude -c -p "Check for type errors"
+
+# SDK with custom permission tool and MCP config
+claude -p "..." \
+  --permission-prompt-tool mcp__test-server__approval_prompt \
+  --mcp-config my-config.json
 ```
 
-**Description**: Start an interactive session with persistent context
-
-**Features**:
-- Multi-turn conversations
-- File context preservation
-- Command history
-- Session state management
-
-### **3. Configuration Commands**
-
-```bash
-claude config <subcommand> [options]
-```
-
-**Subcommands**:
-- `get <key>` - Get configuration value
-- `set <key> <value>` - Set configuration value
-- `list` - List all configuration values
-- `reset` - Reset to default configuration
-
-**Common Configuration Keys**:
-- `api-key` - Anthropic API key
-- `model` - Default model to use
-- `max-tokens` - Default maximum tokens
-- `temperature` - Default temperature setting
-- `editor` - Preferred text editor
-
-### **4. File Operations**
-
-```bash
-claude read <file>
-claude write <file> [content]
-claude edit <file> [instructions]
-```
-
-**Read Command**:
-- `claude read src/app.js` - Read and display file contents
-- `claude read --lines 1-50 src/app.js` - Read specific lines
-
-**Write Command**:
-- `claude write new-file.js` - Create new file with AI assistance
-- `claude write --overwrite existing.js` - Overwrite existing file
-
-**Edit Command**:
-- `claude edit src/app.js "Add error handling"` - Edit file with instructions
-- `claude edit --backup src/app.js` - Create backup before editing
-
-### **5. Analysis Commands**
-
-```bash
-claude analyze <target> [options]
-claude explain <target> [options]
-claude review <target> [options]
-```
-
-**Analyze Command**:
-- `claude analyze .` - Analyze entire project
-- `claude analyze src/` - Analyze specific directory
-- `claude analyze --type security src/` - Security-focused analysis
-- `claude analyze --format json src/` - Output in JSON format
-
-**Explain Command**:
-- `claude explain function.js` - Explain code functionality
-- `claude explain --detail high complex-algorithm.js` - Detailed explanation
-
-**Review Command**:
-- `claude review pull-request.diff` - Review code changes
-- `claude review --checklist security src/` - Review with security checklist
-
-### **6. Generation Commands**
-
-```bash
-claude generate <type> [options]
-claude create <type> [options]
-claude scaffold <template> [options]
-```
-
-**Generate Types**:
-- `tests` - Generate test files
-- `docs` - Generate documentation
-- `types` - Generate TypeScript definitions
-- `config` - Generate configuration files
-
-**Examples**:
-- `claude generate tests src/auth.js` - Generate tests for auth module
-- `claude create component Button --framework react` - Create React component
-- `claude scaffold api --template express` - Scaffold Express API
-
-### **7. Git Integration**
-
-```bash
-claude git <subcommand> [options]
-```
-
-**Subcommands**:
-- `commit` - Generate commit messages
-- `branch` - Suggest branch names
-- `pr` - Generate PR descriptions
-- `release` - Generate release notes
-
-**Examples**:
-- `claude git commit --staged` - Generate commit message for staged changes
-- `claude git pr --title "Add authentication"` - Generate PR description
-
-### **8. Search and Discovery**
-
-```bash
-claude search <query> [options]
-claude find <pattern> [options]
-claude grep <pattern> [options]
-```
-
-**Search Command**:
-- `claude search "authentication logic"` - Semantic code search
-- `claude search --type function "validation"` - Search for functions
-
-**Find Command**:
-- `claude find "*.js" --contains "api"` - Find files containing pattern
-- `claude find --modified-since "2 days ago"` - Find recently modified files
+**Note**: The `--print` flag has updated JSON output structure with nested message objects for improved forwards-compatibility.
 
 ---
 
-## 🎛️ Global Options
+## 🎛️ Built-in Slash Commands (Interactive Mode)
 
-### **Authentication Options**
+These commands are available within the interactive REPL session:
 
-- `--api-key <key>` - Anthropic API key (overrides config)
-- `--auth-method <method>` - Authentication method (api-key, oauth)
-
-### **Model Options**
-
-- `--model <model>` - AI model selection
-  - `claude-3-5-sonnet` (default)
-  - `claude-3-haiku`
-  - `claude-3-opus`
-- `--max-tokens <number>` - Maximum response tokens (default: 4096)
-- `--temperature <number>` - Response creativity (0.0-1.0, default: 0.1)
-
-### **Output Options**
-
-- `--format <format>` - Output format (text, json, markdown)
-- `--output <file>` - Save output to file
-- `--quiet` - Suppress non-essential output
-- `--verbose` - Enable detailed logging
-- `--debug` - Enable debug mode
-
-### **Context Options**
-
-- `--file <path>` - Include file in context
-- `--directory <path>` - Set working directory
-- `--context <files>` - Include multiple files (comma-separated)
-- `--exclude <patterns>` - Exclude patterns from context
-
-### **Behavior Options**
-
-- `--interactive` - Start interactive mode
-- `--no-stream` - Disable streaming responses
-- `--confirm` - Require confirmation for destructive operations
-- `--dry-run` - Show what would be done without executing
-
----
-
-## 🛠️ Tool Integration
-
-### **Editor Integration**
-
+### **Core System Commands**
 ```bash
-claude --editor <editor> <file>
-claude --edit-in-place <file> "instructions"
+/help                    # Get usage help
+/clear                   # Clear conversation history
+/compact [instructions]  # Compact conversation with optional focus
+/cost                    # Show token usage statistics
+/status                  # View account and system statuses
+exit                     # Exit interactive mode
 ```
 
-**Supported Editors**:
-- `vscode` - Visual Studio Code
-- `vim` - Vim/Neovim
-- `nano` - Nano editor
-- `emacs` - Emacs editor
-
-### **IDE Extensions**
-
-- **VS Code Extension**: Claude Code for VS Code
-- **JetBrains Plugin**: Claude Code for IntelliJ/WebStorm
-- **Vim Plugin**: Claude Code for Vim/Neovim
-
-### **Shell Integration**
-
+### **Configuration & Setup**
 ```bash
-# Bash/Zsh completion
-eval "$(claude completion bash)"
-eval "$(claude completion zsh)"
+/config                  # View/modify configuration
+/init                    # Initialize project with CLAUDE.md guide
+/permissions             # View or update permissions
+/terminal-setup          # Install Shift+Enter key binding (iTerm2/VSCode)
+/vim                     # Enter vim mode for alternating insert/command modes
+/doctor                  # Check health of Claude Code installation
+```
 
-# Fish completion
-claude completion fish | source
+### **Account & Authentication**
+```bash
+/login                   # Switch Anthropic accounts
+/logout                  # Sign out from Anthropic account
+/model                   # Select or change the AI model
+```
+
+### **Project & Memory Management**
+```bash
+/memory                  # Edit CLAUDE.md memory files
+/approved-tools          # Manage tool permissions
+/release-notes          # View release notes
+```
+
+### **Development & Review**
+```bash
+/review                  # Request code review
+/pr_comments            # View pull request comments
+/bug                    # Report bugs (sends conversation to Anthropic)
+```
+
+### **MCP Integration**
+```bash
+/mcp                    # Manage MCP server connections and OAuth
+```
+
+### **Quick Actions**
+```bash
+# at start of line    # Memory shortcut - add to CLAUDE.md
+/ at start of line     # Slash command prefix
 ```
 
 ---
 
-## 🔧 Configuration System
+## ⚙️ Configuration Management
 
-### **Configuration File Locations**
-
-1. **Global Config**: `~/.claude/config.json`
-2. **Project Config**: `.claude/config.json`
-3. **Environment Variables**: `CLAUDE_*`
-4. **Command Line**: Highest priority
-
-### **Configuration Schema**
-
-```json
-{
-  "api-key": "your-api-key-here",
-  "model": "claude-3-5-sonnet",
-  "max-tokens": 4096,
-  "temperature": 0.1,
-  "editor": "vscode",
-  "auto-save": true,
-  "confirm-destructive": true,
-  "log-level": "info",
-  "output-format": "text"
-}
-```
-
-### **Environment Variables**
-
-- `CLAUDE_API_KEY` - API key
-- `CLAUDE_MODEL` - Default model
-- `CLAUDE_CONFIG_DIR` - Configuration directory
-- `CLAUDE_CACHE_DIR` - Cache directory
-- `CLAUDE_LOG_LEVEL` - Logging level
-
----
-
-## 📊 Usage Examples
-
-### **Basic Usage**
+### **Configuration Commands**
 
 ```bash
-# Simple question
-claude "How do I center a div in CSS?"
+# List all current settings
+claude config list
 
-# File analysis
-claude --file src/app.js "Find potential bugs in this code"
+# Retrieve specific setting value
+claude config get <key>
 
-# Project analysis
-claude analyze . --type performance
+# Change setting value
+claude config set <key> <value>
+
+# Add multiple values (comma or space separated)
+claude config add <key> <value1>,<value2>
+claude config add <key> <value1> <value2>
+
+# Remove multiple values
+claude config remove <key> <value1> <value2>
 ```
 
-### **Advanced Usage**
+**Global Flag**: Add `--global` to any config command to modify global instead of project configuration.
+
+---
+
+## 🔌 MCP (Model Context Protocol) Integration
+
+### **MCP Management Commands**
 
 ```bash
-# Multi-file context
-claude --context "src/auth.js,src/user.js" "Refactor authentication logic"
+# Interactive setup wizard for adding MCP servers
+claude mcp add
 
-# Interactive development
-claude --interactive --directory ./my-project
+# Import MCP servers from Claude Desktop
+claude mcp add-from-claude-desktop
 
-# Automated workflows
-claude generate tests src/ --output tests/ --format jest
+# Add MCP server directly as JSON string
+claude mcp add-json <n> <json>
 ```
 
-### **Integration Examples**
+### **MCP Slash Commands (Dynamic)**
+
+MCP servers provide dynamically discovered commands following this pattern:
 
 ```bash
-# Git workflow
-git add .
-claude git commit --staged
-git commit -m "$(claude git commit --staged --format text)"
+# General format
+/mcp__<server-name>__<prompt-name> [arguments]
 
-# CI/CD integration
-claude review --format json pull-request.diff > review-results.json
+# Examples
+/mcp__github__list_prs
+/mcp__github__pr_review 456
+/mcp__jira__create_issue "Bug title" high
+```
 
-# Documentation generation
-claude generate docs src/ --output docs/ --format markdown
+**Arguments**: Space-separated, with quotes for arguments containing spaces.
+
+---
+
+## 📝 Custom Slash Commands
+
+### **Project-Specific Commands**
+
+```bash
+# Create commands directory
+mkdir -p .claude/commands
+
+# Create command file
+echo "Analyze this code for performance issues and suggest optimizations:" > .claude/commands/optimize.md
+
+# Usage
+> /project:optimize
+```
+
+### **Personal Commands (Global)**
+
+```bash
+# Create personal commands directory
+mkdir -p ~/.claude/commands
+
+# Create personal command
+echo "Review this code for security vulnerabilities:" > ~/.claude/commands/security-review.md
+
+# Usage
+> /user:security-review
+```
+
+### **Commands with Arguments**
+
+```bash
+# Command with $ARGUMENTS placeholder
+echo "Fix issue #$ARGUMENTS following our coding standards" > .claude/commands/fix-issue.md
+
+# Usage
+> /project:fix-issue 123
+```
+
+**Command Syntax**: `/<prefix>:<command-name> [arguments]`
+- `<prefix>`: `project` (project-specific) or `user` (personal)
+- `<command-name>`: Derived from Markdown filename (without `.md`)
+- `[arguments]`: Optional arguments passed to command
+
+---
+
+## 🛠️ SDK Integration
+
+### **Print Mode (SDK)**
+
+```bash
+# Run single prompt and exit
+claude -p "Write a function to calculate Fibonacci numbers"
+
+# Using pipe for stdin
+echo "Explain this code" | claude -p
+
+# Output in JSON format with metadata
+claude -p "Generate a hello world function" --output-format json
+
+# Stream JSON output as it arrives
+claude -p "Build a React component" --output-format stream-json
+```
+
+### **Output Formats**
+- `text` (default) - Plain text output
+- `json` - JSON format with metadata
+- `stream-json` - Streaming JSON for real-time processing
+
+---
+
+## 📂 File Context & Memory
+
+### **CLAUDE.md Memory System**
+
+Claude Code uses `CLAUDE.md` files for project context and memory:
+
+```bash
+# Initialize project memory
+> /init
+
+# Edit memory files
+> /memory
+
+# Import other markdown files
+@path/to/file.md
+```
+
+### **File Context in Commands**
+
+Use `@` syntax to include files in context:
+
+```bash
+# In interactive mode
+> summarize this project @src/main.js @README.md
+
+# Multiple file context
+> analyze these authentication files @src/auth/ @config/auth.json
 ```
 
 ---
 
-## 🔐 Security & Privacy
+## 🔧 Installation & Updates
 
-### **API Key Management**
+### **Installation**
 
-- Store API keys securely using system keychain
-- Support for multiple authentication methods
-- Environment variable override support
+```bash
+# Install globally via npm
+npm install -g @anthropic-ai/claude-code
+```
 
-### **Data Privacy**
+### **SDK Installation**
 
-- Code context is sent to Anthropic APIs
-- No persistent storage of code on Anthropic servers
-- Local caching for performance optimization
+```bash
+# Python SDK
+pip install claude-code-sdk
 
-### **Permission System**
+# TypeScript/JavaScript SDK
+import @anthropic-ai/claude-code
+```
 
-- File access permissions
-- Destructive operation confirmations
-- Sandboxed execution for generated code
+### **Updates**
 
----
-
-## 🚀 Performance Considerations
-
-### **Response Streaming**
-
-- Real-time response streaming by default
-- Configurable streaming behavior
-- Progress indicators for long operations
-
-### **Caching**
-
-- Local response caching
-- Context caching for repeated operations
-- Intelligent cache invalidation
-
-### **Rate Limiting**
-
-- Built-in rate limit handling
-- Exponential backoff retry logic
-- Queue management for batch operations
+```bash
+# Update to latest version
+claude update
+```
 
 ---
 
-## 🔄 .NET Implementation Mapping
+## 🏗️ .NET Implementation Architecture
 
-### **Command Structure Mapping**
+Based on the official structure, the .NET implementation should focus on:
+
+### **1. Core CLI Structure**
 
 ```csharp
-// System.CommandLine mapping
 [Command("claude")]
-public class RootCommand : ICommand
+public class ClaudeCommand : ICommand
 {
-    [Argument(0, Description = "Natural language instruction")]
-    public string Message { get; set; }
+    [Argument(0, Description = "Initial message for REPL")]
+    public string? InitialMessage { get; set; }
     
-    [Option("--file", Description = "File to analyze")]
-    public string File { get; set; }
+    [Option("-p", "--print", Description = "SDK mode - query and exit")]
+    public bool PrintMode { get; set; }
     
-    [Option("--model", Description = "AI model to use")]
-    public string Model { get; set; } = "claude-3-5-sonnet";
-}
-
-[Command("analyze")]
-public class AnalyzeCommand : ICommand
-{
-    [Argument(0, Description = "Target to analyze")]
-    public string Target { get; set; }
+    [Option("-c", "--continue", Description = "Continue most recent conversation")]
+    public bool Continue { get; set; }
     
-    [Option("--type", Description = "Analysis type")]
-    public AnalysisType Type { get; set; }
+    [Option("-r", "--resume", Description = "Resume specific session")]
+    public string? ResumeSession { get; set; }
+    
+    [Option("--mcp-config", Description = "MCP configuration file")]
+    public string? McpConfig { get; set; }
+    
+    [Option("--output-format", Description = "Output format")]
+    public OutputFormat OutputFormat { get; set; } = OutputFormat.Text;
 }
 ```
 
-### **Tool Interface Mapping**
+### **2. Interactive Session Manager**
 
 ```csharp
-public interface ITool
+public class InteractiveSession
+{
+    private readonly ISlashCommandProcessor _slashCommands;
+    private readonly IMcpManager _mcpManager;
+    private readonly IConversationManager _conversations;
+    private readonly IMemoryManager _memory;
+    
+    public async Task StartAsync(string? initialMessage = null)
+    {
+        // Initialize REPL with slash command support
+        // Handle conversation continuity
+        // Manage MCP server connections
+    }
+}
+```
+
+### **3. Slash Command System**
+
+```csharp
+public interface ISlashCommand
 {
     string Name { get; }
     string Description { get; }
-    Task<ToolResult> ExecuteAsync(ToolRequest request, CancellationToken cancellationToken);
+    Task<CommandResult> ExecuteAsync(string[] args, ISessionContext context);
 }
 
-public abstract record ToolResult;
-public record SuccessResult(string Output) : ToolResult;
-public record ErrorResult(string Error, Exception Exception) : ToolResult;
+// Built-in commands
+public class HelpCommand : ISlashCommand { }
+public class ConfigCommand : ISlashCommand { }
+public class ClearCommand : ISlashCommand { }
+// ... etc
+
+// Dynamic MCP commands
+public class McpSlashCommand : ISlashCommand { }
 ```
 
-### **Configuration System Mapping**
+### **4. Configuration System**
 
 ```csharp
 public class ClaudeConfiguration
 {
-    public string ApiKey { get; set; }
+    public string? ApiKey { get; set; }
     public string Model { get; set; } = "claude-3-5-sonnet";
     public int MaxTokens { get; set; } = 4096;
     public float Temperature { get; set; } = 0.1f;
-    public string Editor { get; set; } = "vscode";
-    public bool AutoSave { get; set; } = true;
+    public OutputFormat DefaultOutputFormat { get; set; } = OutputFormat.Text;
+}
+
+public enum OutputFormat
+{
+    Text,
+    Json,
+    StreamJson
+}
+```
+
+### **5. MCP Integration**
+
+```csharp
+public interface IMcpManager
+{
+    Task<IEnumerable<IMcpServer>> DiscoverServersAsync();
+    Task<IMcpServer> AddServerAsync(McpServerConfig config);
+    Task<IEnumerable<ISlashCommand>> GetDynamicCommandsAsync();
 }
 ```
 
 ---
 
-## 📚 Additional Resources
+## 🎯 Key Implementation Priorities
 
-### **Official Documentation**
+Based on official research, focus on:
 
-- [Anthropic Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code/overview)
-- [Claude API Documentation](https://docs.anthropic.com/en/api/getting-started)
-- [Claude Code GitHub Repository](https://github.com/anthropics/claude-code)
-
-### **Community Resources**
-
-- [Claude Code Community Discord](https://discord.gg/anthropic)
-- [Reddit Community](https://reddit.com/r/ClaudeAI)
-- [Stack Overflow Tag](https://stackoverflow.com/questions/tagged/claude-code)
+1. **Interactive REPL** - Primary user interface
+2. **Slash Command System** - Extensible command architecture
+3. **MCP Protocol Support** - Dynamic tool/server integration
+4. **Configuration Management** - Multi-layer config system
+5. **Session Continuity** - Conversation state management
+6. **SDK Mode** - Scriptable interface with JSON output
+7. **Memory System** - CLAUDE.md file integration
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: 2025-07-23  
-**Source**: @anthropic-ai/claude-code v1.0.58 analysis  
-**Status**: Comprehensive reference for .NET implementation  
-**Next Update**: After NPM package decompilation analysis
+## 📚 Research Sources
+
+### **Official Documentation**
+- [Claude Code Overview](https://docs.anthropic.com/en/docs/claude-code/overview)
+- [Claude Code CLI Reference](https://docs.anthropic.com/en/docs/claude-code/cli-reference) 
+- [Slash Commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands)
+- [MCP Integration](https://docs.anthropic.com/en/docs/claude-code/mcp)
+
+### **Research Methods**
+- **MCP Fetch**: Retrieved official documentation
+- **MCP Context7**: Analyzed comprehensive command examples
+- **MCP Sequential**: Systematic analysis of command patterns
+- **MCP Repomix**: Existing documentation review
+
+---
+
+**Document Version**: 2.0 (Complete Rewrite)  
+**Research Date**: 2025-07-24  
+**Research Method**: Multi-MCP server analysis  
+**Status**: Official command structure documented  
+**Accuracy**: Based on official Anthropic sources  
+**Next Steps**: Implement core REPL and slash command system in .NET
