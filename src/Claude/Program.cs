@@ -305,11 +305,15 @@ public static class Program
     /// <returns>Configured API server command</returns>
     private static Command CreateApiServerCommand(Option<bool> verboseOption, Option<string> configOption)
     {
+        var portOption = new Option<int>("--port", () => 5000, "Port to listen on");
+        var hostOption = new Option<string>("--host", () => "localhost", "Host to bind to");
+        var swaggerOption = new Option<bool>("--swagger", "Enable Swagger UI");
+
         var apiCommand = new Command("serve", "Start HTTP API server for external application integration")
         {
-            new Option<int>("--port", () => 5000, "Port to listen on"),
-            new Option<string>("--host", () => "localhost", "Host to bind to"),
-            new Option<bool>("--swagger", "Enable Swagger UI")
+            portOption,
+            hostOption,
+            swaggerOption
         };
 
         apiCommand.SetHandler(async (int port, string host, bool swagger, bool verbose, string config) =>
@@ -387,9 +391,9 @@ public static class Program
             
             await app.RunAsync(url);
         }, 
-        new Option<int>("--port"), 
-        new Option<string>("--host"), 
-        new Option<bool>("--swagger"),
+        portOption, 
+        hostOption, 
+        swaggerOption,
         verboseOption,
         configOption);
 
