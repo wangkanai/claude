@@ -33,6 +33,11 @@
 		<PackageReference Include="Serilog.Sinks.File" />
 		<PackageReference Include="System.IO.Abstractions" />
 		<PackageReference Include="System.Text.Json" />
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 </Project>
