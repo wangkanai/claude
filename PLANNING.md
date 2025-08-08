@@ -226,6 +226,9 @@ claude/
 - **PRD**: [`PRD.md`](PRD.md) - Product requirements document
 - **Tasks**: [`TASKS.md`](TASKS.md) - Active task tracking
 - **Session State**: [`SESSION-STATE.md`](SESSION-STATE.md) - Contributor workflow
+- **Usage Modes Planning**: [`docs/USAGE-MODES-PLANNING.md`](docs/USAGE-MODES-PLANNING.md) - Comprehensive usage modes analysis
+- **Resource Allocation**: [`docs/RESOURCE-ALLOCATION.md`](docs/RESOURCE-ALLOCATION.md) - Detailed resource planning and timeline
+- **Implementation Architecture**: [`docs/IMPLEMENTATION-ARCHITECTURE.md`](docs/IMPLEMENTATION-ARCHITECTURE.md) - Technical implementation methods
 - **Repository**: https://github.com/wangkanai/claude
 
 ---

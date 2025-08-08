@@ -25,7 +25,7 @@
   <!-- Target Framework and Language Version -->
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <LangVersion>12</LangVersion>
+    <LangVersion>13</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
